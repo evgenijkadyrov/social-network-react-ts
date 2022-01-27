@@ -15,13 +15,13 @@ grid-area: h;
 }
 .header img {
   padding-left: 20px;
-width: 70px;
+width: 170px;
 
 
 }
 .nav {
   grid-area: n;
-  background-color: bisque;
+  background-color: #ffe4c4;
   padding-left: 10px;
 }
 .content {
