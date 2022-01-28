@@ -11,8 +11,8 @@ const MyPosts = (props: MyPostsPropsType) => {
         </div>
         <button>Add post</button>
         <div className={'Posts'}>
-            <Post/>
-            <Post/>
+            <Post message={'Hey, i\'m new post'} likes={5}/>
+            <Post message={'How are you?'} likes={15}/>
         </div>
     </div>
 

@@ -1,14 +1,17 @@
 import React from 'react';
 import s from './Post.module.css'
 
-type PostPropsType = {}
+type PostPropsType = {
+    message: string,
+    likes: number
+}
 const Post = (props: PostPropsType) => {
     return (
         <div className={s.item}><img
             src={'https://thumbs.dreamstime.com/z/businessman-avatar-image-beard-hairstyle-male-profile-vector-illustration-178545831.jpg'}/>
-            post1
+            {props.message}
             <div>
-                <span> Like</span>
+                <span> Likes- {props.likes}</span>
             </div>
         </div>
     )
