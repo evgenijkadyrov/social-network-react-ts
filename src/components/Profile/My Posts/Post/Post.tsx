@@ -3,7 +3,7 @@ import s from './Post.module.css'
 
 type PostPropsType = {
     message: string,
-    likes: number
+    likesCount: number
 }
 const Post = (props: PostPropsType) => {
     return (
@@ -11,7 +11,7 @@ const Post = (props: PostPropsType) => {
             src={'https://thumbs.dreamstime.com/z/businessman-avatar-image-beard-hairstyle-male-profile-vector-illustration-178545831.jpg'}/>
             {props.message}
             <div>
-                <span> Likes- {props.likes}</span>
+                <span> Likes- {props.likesCount}</span>
             </div>
         </div>
     )
