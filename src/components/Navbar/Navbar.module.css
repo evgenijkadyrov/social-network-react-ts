@@ -4,9 +4,12 @@
     background-color: #ffe4c4;
     padding-left: 10px;
 }
-.item {
-    color: white
+.nav a {
+    text-decoration:none;
 }
-.item.active {
-    color: gold;
+.item {
+    color: #070404
+}
+.active  {
+    color: #970416;
 }

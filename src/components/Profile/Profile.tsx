@@ -3,7 +3,10 @@ import s from './Profile.module.css'
 import MyPosts from "./My Posts/MyPosts";
 
 
-type ProfilePropsType = {}
+type ProfilePropsType = {
+
+}
+
 
 const Profile = (props: ProfilePropsType) => {
     return <div >
