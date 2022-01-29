@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import s from './Navbar.module.css'
 
 type NavbarPropsType={
@@ -6,10 +7,10 @@ type NavbarPropsType={
 }
  export const Navbar = (props: NavbarPropsType)=> {
     return    <nav className={s.nav}>
-        <div ><a className={s.item} href={'profile'}>Profile</a> </div>
-        <div ><a className={s.active} href={'dialogs'}>Message</a></div>
-        <div ><a className={s.item} href={'news'}>News</a></div>
-        <div ><a className={s.item} href={'music'}>Music</a></div>
-        <div ><a className={s.item} href={'settings'}>Settings</a></div>
+        <div className={s.item}><NavLink to= {'profile'} >Profile</NavLink> </div>
+        <div className={s.item}><NavLink to={'dialogs'}>Message</NavLink></div>
+        <div className={s.item}><NavLink  to={'news'}>News</NavLink></div>
+        <div className={s.item}><NavLink  to={'music'}>Music</NavLink></div>
+        <div className={s.item}><NavLink  to={'settings'}>Settings</NavLink></div>
     </nav>
 };
