@@ -5,11 +5,13 @@ import Post from "./Post/Post";
 type MyPostsPropsType = {}
 
 const MyPosts = (props: MyPostsPropsType) => {
-    return <div> My posts
+    return <div className={s.myPosts}><h3>My posts</h3>
         <div>
             <textarea>New Post</textarea>
         </div>
-        <button>Add post</button>
+        <div className={s.post}>
+            <button>Add post</button>
+        </div>
         <div className={'Posts'}>
             <Post message={'Hey, i\'m new post'} likesCount={5}/>
             <Post message={'How are you?'} likesCount={15}/>

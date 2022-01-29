@@ -10,7 +10,7 @@ const Post = (props: PostPropsType) => {
         <div className={s.item}><img
             src={'https://thumbs.dreamstime.com/z/businessman-avatar-image-beard-hairstyle-male-profile-vector-illustration-178545831.jpg'}/>
             {props.message}
-            <div>
+            <div className={s.likes}>
                 <span> Likes- {props.likesCount}</span>
             </div>
         </div>
