@@ -1,8 +1,10 @@
 
 .nav {
     grid-area: n;
-    background-color: #ffe4c4;
+    background: rgb(58,123,180);
+    background: linear-gradient(173deg, rgba(58,123,180,0.6599690880989181) 0%, rgba(57,253,29,0.6290571870170015) 48%, rgba(252,69,69,0.6306027820710973) 100%);
     padding: 10px;
+    border-radius: 10px;
 }
 
 

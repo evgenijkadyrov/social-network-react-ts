@@ -1,7 +1,9 @@
 
 .header {
     grid-area: h;
-    background-color: #e8f14b;
+    background-color: #f6d570;background: rgb(63,118,251);
+    background: linear-gradient(173deg, rgba(63,118,251,0.8361669242658424) 0%, rgba(215,130,28,0.839258114374034) 98%);
+    border-radius: 10px;
 }
 
 .header img {

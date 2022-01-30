@@ -2,5 +2,21 @@
     padding:10px;
 }
 .post {
-    padding-bottom: 10px;
+    padding: 10px 0px 10px 0px;
 }
+.textareaProperty {
+    display:block;
+    box-sizing: border-box;
+    width:30%;
+    align-content: center;
+    height: 20px;
+    resize: none;
+    overflow-y: hidden;
+    border: 0;
+    outline: 0;
+    background: white;
+    border-radius: 20px;
+    padding:20px;
+    font-weight: bold;
+    font-size: 1.4em;
+    color: #343434;}
