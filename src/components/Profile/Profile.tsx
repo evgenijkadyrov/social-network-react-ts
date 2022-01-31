@@ -5,14 +5,15 @@ import ProfileInfo from "./ProfileInfo/ProfileInfo";
 
 
 type ProfilePropsType = {
-
+posts:{id:number, message:string, likesCount:number}[]
 }
 
 
 const Profile = (props: ProfilePropsType) => {
+
     return <div >
         <ProfileInfo />
-        <MyPosts />
+        <MyPosts posts={props.posts}/>
 
     </div>
 }
