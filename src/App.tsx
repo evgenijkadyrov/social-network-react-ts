@@ -9,12 +9,12 @@ import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 import {MyPostsType} from "./components/Profile/My Posts/MyPosts";
+import {RootType} from "./redux/state";
+
 type AppPropsType={
-    posts:Array<MyPostsType>,
-    dialogs:Array<dialogsType>,
-    messages: Array<messagesType>
+    state:RootType
 }
-//test string
+
 const App = (props:AppPropsType) => {
 
     return (<BrowserRouter>
@@ -23,9 +23,9 @@ const App = (props:AppPropsType) => {
             <Navbar/>
             <div className={'app-wrapper-content'}>
                 <Routes>
-                    <Route path='/' element={<Profile posts={props.posts}/>}/>
-                    <Route path='/profile/*' element={<Profile posts={props.posts}/>}/>
-                    <Route path={'/dialogs/*'} element={<Dialogs dialogs={props.dialogs} messages={props.messages}/>}/>
+                    <Route path='/' element={<Profile posts={props.state.profilePage.posts}/>}/>
+                    <Route path='/profile/*' element={<Profile posts={props.state.profilePage.posts}/>}/>
+                    <Route path={'/dialogs/*'} element={<Dialogs dialogs={props.state.dialogsPage.dialogs} messages={props.state.dialogsPage.messages}/>}/>
                     <Route path={'/news/*'} element={<News/>}/>
                     <Route path={'/music/*'} element={<Music/>}/>
                     <Route path={'/settings/*'} element={<Settings/>}/>
