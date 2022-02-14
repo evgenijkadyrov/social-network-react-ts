@@ -14,7 +14,7 @@ type AppPropsType={
     dialogs:Array<dialogsType>,
     messages: Array<messagesType>
 }
-
+//test string
 const App = (props:AppPropsType) => {
 
     return (<BrowserRouter>
