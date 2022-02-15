@@ -1,5 +1,7 @@
 import React from "react";
-import {rerenderEntireTree} from "../render";
+let rerenderEntireTree=()=>{
+    console.log('dd')
+}
 
 export type PostType = {
     id: number, message: string, likesCount: number
@@ -42,7 +44,7 @@ export let state: RootType = {
             {id: 2, message: 'How long you study JS'},
             {id: 3, message: 'Doyou like it?'}
         ],
-        newMessageText:'yoyo',
+        newMessageText:'',
         dialogs: [
             {id: 1, name: 'Dimych'},
             {id: 2, name: 'Victor'},
@@ -58,19 +60,22 @@ export const addPost = () => {
     let newPost = {id: 5, message: state.profilePage.newTextPost, likesCount: 5}
     state.profilePage.posts.push(newPost)
     state.profilePage.newTextPost=''
-    rerenderEntireTree(state)
+    rerenderEntireTree()
 }
 export const addAnswer = () => {
     let newAnswer = {id: 4, message: state.dialogsPage.newMessageText}
     state.dialogsPage.messages.push(newAnswer)
     state.dialogsPage.newMessageText=''
-    rerenderEntireTree(state)
+    rerenderEntireTree()
 }
 export let updateNewPost = (newText: string) => {
     state.profilePage.newTextPost = newText
-    rerenderEntireTree(state)
+    rerenderEntireTree()
 }
 export const updateNewMessageText=(newMesText:string)=>{
     state.dialogsPage.newMessageText=newMesText;
-    rerenderEntireTree(state)
+    rerenderEntireTree()
+}
+export const subscribe=(observer:()=>void)=>{
+    rerenderEntireTree=observer
 }
