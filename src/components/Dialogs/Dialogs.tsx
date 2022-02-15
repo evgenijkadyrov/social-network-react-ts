@@ -12,9 +12,8 @@ export type messagesType = {
     message: string
 }
 type DialogsPropsType = {
-   dialogsPage:DialogsPageType
-    addAnswer: () => void
-    updateNewMessageText:(newMesText:string)=>void
+    dialogsPage: DialogsPageType
+    dispatch: any
 }
 type DialogItemPropsType = {
     name: string,
@@ -52,12 +51,13 @@ export const Dialogs = (props: DialogsPropsType) => {
     const onClickSentMessageHandler = () => {
         if (newAnswerMessage.current) {
 
-            props.addAnswer()
+            props.dispatch({type: 'ADD-ANSWER'})
         }
     }
-    const onChangeUpdateMessage=(e:ChangeEvent<HTMLTextAreaElement>)=>{
-        let newMesText=e.currentTarget.value
-        props.updateNewMessageText(newMesText)
+    const onChangeUpdateMessage = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        let newMesText = e.currentTarget.value
+        let action = {type: 'UPDATE-NEW-MESSAGE-TEXT', newMesText};
+        props.dispatch(action)
     }
 
     return (
@@ -67,7 +67,8 @@ export const Dialogs = (props: DialogsPropsType) => {
             </div>
             <div className={s.messages}>
                 {messagesElements}
-                <textarea value={props.dialogsPage.newMessageText} onChange={onChangeUpdateMessage} ref={newAnswerMessage}/>
+                <textarea value={props.dialogsPage.newMessageText} onChange={onChangeUpdateMessage}
+                          ref={newAnswerMessage}/>
                 <button onClick={onClickSentMessageHandler}>Sent</button>
             </div>
 

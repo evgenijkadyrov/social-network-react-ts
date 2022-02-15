@@ -6,16 +6,12 @@ import ReactDOM from "react-dom";
 import App from "./App";
 
 
-
-
- let rerenderEntireTree=()=>{
+let rerenderEntireTree = () => {
     ReactDOM.render(
         <React.StrictMode>
             <App state={store.getState()}
-                 addPost={store.addPost.bind(store)}
-                 addAnswer={store.addAnswer.bind(store)}
-                 updateNewPost={store.updateNewPost.bind(store)}
-                 updateNewMessageText={store.updateNewMessageText.bind(store)}/>
+                 dispatch={store.dispatch.bind(store)}
+            />
         </React.StrictMode>,
         document.getElementById('root')
     );

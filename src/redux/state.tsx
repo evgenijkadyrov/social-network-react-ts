@@ -33,7 +33,29 @@ import React from "react";
      getState () {
          return this._state
      },
-     addPost  ()  {
+     dispatch (action:any){
+         if(action.type==='ADD_POST'){
+             let newPost = {id: 5, message: this._state.profilePage.newTextPost, likesCount: 5}
+             this._state.profilePage.posts.push(newPost)
+             this._state.profilePage.newTextPost=''
+             this._rerenderEntireTree()
+         } else if(action.type==="ADD-ANSWER"){
+             let newAnswer = {id: 4, message: this._state.dialogsPage.newMessageText}
+             this._state.dialogsPage.messages.push(newAnswer)
+             this._state.dialogsPage.newMessageText=''
+             this._rerenderEntireTree()
+         } else if (action.type==='UPDATE-NEW-POST'){
+
+             this._state.profilePage.newTextPost = action.newText
+             this._rerenderEntireTree()
+         }else if(action.type==='UPDATE-NEW-MESSAGE-TEXT')
+             this._state.dialogsPage.newMessageText=action.newMesText;
+         this._rerenderEntireTree()
+     },
+     subscribe (observer:()=>void) {
+         this._rerenderEntireTree=observer
+     }
+     /*addPost  ()  {
          let newPost = {id: 5, message: this._state.profilePage.newTextPost, likesCount: 5}
          this._state.profilePage.posts.push(newPost)
          this._state.profilePage.newTextPost=''
@@ -52,10 +74,8 @@ import React from "react";
      updateNewMessageText(newMesText:string){
          this._state.dialogsPage.newMessageText=newMesText;
          this._rerenderEntireTree()
-     },
-      subscribe (observer:()=>void) {
-          this._rerenderEntireTree=observer
-     }
+     },*/
+
 
  }
 
