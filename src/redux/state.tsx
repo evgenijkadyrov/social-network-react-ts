@@ -1,4 +1,64 @@
 import React from "react";
+
+ export let store={
+     _state:  {
+         profilePage: {
+             posts: [
+                 {id: 1, message: 'Hey, i\'m new post', likesCount: 9},
+                 {id: 2, message: 'How are you?', likesCount: 15},
+                 {id: 3, message: 'You win lottery', likesCount: 55}
+             ],
+             newTextPost: 'newText'
+         },
+         dialogsPage: {
+             messages: [
+                 {id: 1, message: 'How are you?'},
+                 {id: 2, message: 'How long you study JS'},
+                 {id: 3, message: 'Doyou like it?'}
+             ],
+             newMessageText:'',
+             dialogs: [
+                 {id: 1, name: 'Dimych'},
+                 {id: 2, name: 'Victor'},
+                 {id: 3, name: 'Sveta'},
+                 {id: 4, name: 'Misha'},
+                 {id: 5, name: 'Maks'},
+             ]
+         },
+
+     },
+     _rerenderEntireTree (){
+         console.log('dd')
+     },
+     getState () {
+         return this._state
+     },
+     addPost  ()  {
+         let newPost = {id: 5, message: this._state.profilePage.newTextPost, likesCount: 5}
+         this._state.profilePage.posts.push(newPost)
+         this._state.profilePage.newTextPost=''
+         this._rerenderEntireTree()
+     },
+     addAnswer  ()  {
+         let newAnswer = {id: 4, message: this._state.dialogsPage.newMessageText}
+         this._state.dialogsPage.messages.push(newAnswer)
+         this._state.dialogsPage.newMessageText=''
+         this._rerenderEntireTree()
+     },
+     updateNewPost  (newText: string) {
+         this._state.profilePage.newTextPost = newText
+         this._rerenderEntireTree()
+     },
+     updateNewMessageText(newMesText:string){
+         this._state.dialogsPage.newMessageText=newMesText;
+         this._rerenderEntireTree()
+     },
+      subscribe (observer:()=>void) {
+          this._rerenderEntireTree=observer
+     }
+
+ }
+
 let rerenderEntireTree=()=>{
     console.log('dd')
 }
@@ -28,6 +88,7 @@ export type RootType = {
 
 }
 
+/*
 
 export let state: RootType = {
     profilePage: {
@@ -76,6 +137,8 @@ export const updateNewMessageText=(newMesText:string)=>{
     state.dialogsPage.newMessageText=newMesText;
     rerenderEntireTree()
 }
+*/
+/*
 export const subscribe=(observer:()=>void)=>{
     rerenderEntireTree=observer
-}
+}*/
