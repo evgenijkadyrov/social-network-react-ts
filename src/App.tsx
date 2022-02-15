@@ -13,8 +13,10 @@ import {RootType} from "./redux/state";
 
 type AppPropsType={
     state:RootType
-    addPost:(postMessage:string)=>void
-    addAnswer:(textMessage:string)=>void
+    addPost:()=>void
+    addAnswer:()=>void
+    updateNewPost:(newText:string)=>void
+    updateNewMessageText:(newMesText:string)=>void
 }
 
 const App = (props:AppPropsType) => {
@@ -25,9 +27,10 @@ const App = (props:AppPropsType) => {
             <Navbar/>
             <div className={'app-wrapper-content'}>
                 <Routes>
-                    <Route path='/' element={<Profile posts={props.state.profilePage.posts} addPost={props.addPost}/>}/>
-                    <Route path='/profile/*' element={<Profile posts={props.state.profilePage.posts} addPost={props.addPost}/>}/>
-                    <Route path={'/dialogs/*'} element={<Dialogs dialogs={props.state.dialogsPage.dialogs} messages={props.state.dialogsPage.messages} addAnswer={props.addAnswer}/>}/>
+                    <Route path='/' element={<Profile profilePage={props.state.profilePage} addPost={props.addPost} updateNewPost={props.updateNewPost}/>}/>
+                    <Route path='/profile/*' element={<Profile profilePage={props.state.profilePage} addPost={props.addPost} updateNewPost={props.updateNewPost}/>}/>
+                    <Route path={'/dialogs/*'} element={<Dialogs dialogsPage={props.state.dialogsPage}
+                                                                 addAnswer={props.addAnswer} updateNewMessageText={props.updateNewMessageText}/>}/>
                     <Route path={'/news/*'} element={<News/>}/>
                     <Route path={'/music/*'} element={<Music/>}/>
                     <Route path={'/settings/*'} element={<Settings/>}/>

@@ -3,13 +3,17 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {addPost, addAnswer, RootType} from "./redux/state";
+import {addPost, addAnswer, RootType, updateNewPost, updateNewMessageText} from "./redux/state";
 
 
 export let rerenderEntireTree=(state:RootType)=>{
     ReactDOM.render(
         <React.StrictMode>
-            <App state={state} addPost={addPost} addAnswer={addAnswer}/>
+            <App state={state}
+                 addPost={addPost}
+                 addAnswer={addAnswer}
+                 updateNewPost={updateNewPost}
+                 updateNewMessageText={updateNewMessageText}/>
         </React.StrictMode>,
         document.getElementById('root')
     );

@@ -1,6 +1,7 @@
-import React, {createRef} from "react";
+import React, {ChangeEvent, createRef} from "react";
 import s from './Dialogs.module.css';
 import {Link} from "react-router-dom";
+import {DialogsPageType} from "../../redux/state";
 
 export type dialogsType = {
     id: number,
@@ -11,9 +12,9 @@ export type messagesType = {
     message: string
 }
 type DialogsPropsType = {
-    dialogs: Array<dialogsType>
-    messages: Array<messagesType>
-    addAnswer:(textMessage:string)=>void
+   dialogsPage:DialogsPageType
+    addAnswer: () => void
+    updateNewMessageText:(newMesText:string)=>void
 }
 type DialogItemPropsType = {
     name: string,
@@ -43,17 +44,22 @@ const Message = (props: MessagePropsType) => {
 
 export const Dialogs = (props: DialogsPropsType) => {
 
-    let dialogsElements = props.dialogs.map(el => <DialogItem name={el.name} id={el.id}/>);
-    let messagesElements = props.messages.map(el => <Message message={el.message}/>);
+    let dialogsElements = props.dialogsPage.dialogs.map(el => <DialogItem name={el.name} id={el.id}/>);
+    let messagesElements = props.dialogsPage.messages.map(el => <Message message={el.message}/>);
 
     let newAnswerMessage = createRef<HTMLTextAreaElement>();
 
     const onClickSentMessageHandler = () => {
         if (newAnswerMessage.current) {
-            let textMessage = newAnswerMessage.current.value;
-            props.addAnswer(textMessage)
+
+            props.addAnswer()
         }
     }
+    const onChangeUpdateMessage=(e:ChangeEvent<HTMLTextAreaElement>)=>{
+        let newMesText=e.currentTarget.value
+        props.updateNewMessageText(newMesText)
+    }
+
     return (
         <div className={s.dialogs}>
             <div className={s.dialogs_items}>
@@ -61,7 +67,7 @@ export const Dialogs = (props: DialogsPropsType) => {
             </div>
             <div className={s.messages}>
                 {messagesElements}
-                <textarea ref={newAnswerMessage}/>
+                <textarea value={props.dialogsPage.newMessageText} onChange={onChangeUpdateMessage} ref={newAnswerMessage}/>
                 <button onClick={onClickSentMessageHandler}>Sent</button>
             </div>
 
