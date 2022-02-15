@@ -11,7 +11,7 @@ type ProfileInfoPropsType = {
 const ProfileInfo = (props: ProfileInfoPropsType) => {
     return <div >
         <div className={s.profile}>
-            <img src='https://cdn.pixabay.com/photo/2018/11/29/21/51/social-media-3846597_960_720.png'/>
+            <img src='https://imgix.lifehacker.com.au/content/uploads/sites/4/2019/08/23/iia0lwkxmp8dv2tse9at-scaled.jpg?ar=16%3A9&auto=format&fit=crop&q=65&w=832'/>
         </div>
         <div className={s.ava}>
             ava+desc
