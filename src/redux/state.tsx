@@ -46,3 +46,12 @@ export let state:RootType={
         ]}
 
 }
+export const addPost=(postMessage:string)=>{
+
+    let newPost={id: 5, message: postMessage, likesCount: 5}
+    state.profilePage.posts.push(newPost)
+}
+export const addAnswer=(textMessage:string)=>{
+    let newAnswer={id: 4, message:textMessage }
+    state.dialogsPage.messages.push(newAnswer)
+}

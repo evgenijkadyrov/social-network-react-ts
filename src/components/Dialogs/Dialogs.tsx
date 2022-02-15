@@ -1,17 +1,19 @@
-import React from "react";
+import React, {createRef} from "react";
 import s from './Dialogs.module.css';
 import {Link} from "react-router-dom";
-export type dialogsType={
+
+export type dialogsType = {
     id: number,
-    name:string
+    name: string
 }
-export type messagesType={
-    id:number,
-    message:string
+export type messagesType = {
+    id: number,
+    message: string
 }
- type DialogsPropsType = {
+type DialogsPropsType = {
     dialogs: Array<dialogsType>
     messages: Array<messagesType>
+    addAnswer:(textMessage:string)=>void
 }
 type DialogItemPropsType = {
     name: string,
@@ -30,8 +32,11 @@ type MessagePropsType = {
 }
 const Message = (props: MessagePropsType) => {
     return (
-        <div className={s.message}>
-            {props.message}
+        <div>
+            <div className={s.message}>
+                {props.message}
+            </div>
+
         </div>
     )
 }
@@ -39,8 +44,16 @@ const Message = (props: MessagePropsType) => {
 export const Dialogs = (props: DialogsPropsType) => {
 
     let dialogsElements = props.dialogs.map(el => <DialogItem name={el.name} id={el.id}/>);
-
     let messagesElements = props.messages.map(el => <Message message={el.message}/>);
+
+    let newAnswerMessage = createRef<HTMLTextAreaElement>();
+
+    const onClickSentMessageHandler = () => {
+        if (newAnswerMessage.current) {
+            let textMessage = newAnswerMessage.current.value;
+            props.addAnswer(textMessage)
+        }
+    }
     return (
         <div className={s.dialogs}>
             <div className={s.dialogs_items}>
@@ -48,7 +61,10 @@ export const Dialogs = (props: DialogsPropsType) => {
             </div>
             <div className={s.messages}>
                 {messagesElements}
+                <textarea ref={newAnswerMessage}/>
+                <button onClick={onClickSentMessageHandler}>Sent</button>
             </div>
+
         </div>
     )
 }
