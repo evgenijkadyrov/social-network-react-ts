@@ -1,4 +1,5 @@
 import React from "react";
+import {rerenderEntireTree} from "../render";
 
 export type PostType={
     id: number, message: string, likesCount: number
@@ -50,6 +51,7 @@ export const addPost=(postMessage:string)=>{
 
     let newPost={id: 5, message: postMessage, likesCount: 5}
     state.profilePage.posts.push(newPost)
+    rerenderEntireTree(state)
 }
 export const addAnswer=(textMessage:string)=>{
     let newAnswer={id: 4, message:textMessage }

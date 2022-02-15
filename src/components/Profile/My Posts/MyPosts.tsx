@@ -22,6 +22,7 @@ const MyPosts = (props: MyPostsPropsType) => {
             let postMessage = newPostMessage.current.value
             {
                 props.addPost(postMessage)
+                newPostMessage.current.value=''
             }
         }
     }
