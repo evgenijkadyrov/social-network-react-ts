@@ -14,7 +14,7 @@ import {RootType} from "./redux/state";
 type AppPropsType={
     state:RootType
 }
-
+//test
 const App = (props:AppPropsType) => {
 
     return (<BrowserRouter>
