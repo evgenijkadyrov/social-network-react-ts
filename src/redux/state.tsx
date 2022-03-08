@@ -1,6 +1,8 @@
 import React from "react";
 const ADD_POST = 'ADD_POST';
 const UPDATE_NEW_POST = 'UPDATE-NEW-POST';
+const ADD_ANSWER='ADD_ANSWER'
+const UPDATE_NEW_MESSAGE_TEXT='UPDATE-NEW-MESSAGE-TEXT'
  export let store={
      _state:  {
          profilePage: {
@@ -40,16 +42,15 @@ const UPDATE_NEW_POST = 'UPDATE-NEW-POST';
              this._state.profilePage.posts.push(newPost)
              this._state.profilePage.newTextPost=''
              this._rerenderEntireTree()
-         } else if(action.type==="ADD-ANSWER"){
+         } else if(action.type===ADD_ANSWER){
              let newAnswer = {id: 4, message: this._state.dialogsPage.newMessageText}
              this._state.dialogsPage.messages.push(newAnswer)
              this._state.dialogsPage.newMessageText=''
              this._rerenderEntireTree()
          } else if (action.type===UPDATE_NEW_POST){
-
              this._state.profilePage.newTextPost = action.newText
              this._rerenderEntireTree()
-         }else if(action.type==='UPDATE-NEW-MESSAGE-TEXT')
+         }else if(action.type===UPDATE_NEW_MESSAGE_TEXT)
              this._state.dialogsPage.newMessageText=action.newMesText;
          this._rerenderEntireTree()
      },
@@ -84,6 +85,9 @@ const UPDATE_NEW_POST = 'UPDATE-NEW-POST';
  }
 export const addPostActionCreator=()=> ({type: ADD_POST})
 export const UpdateNewPostActionCreator=(newText:string)=>({type: UPDATE_NEW_POST, newText})
+export const addAnswerActionCreator=()=>({type:ADD_ANSWER})
+export const updateNewMessageTextActionCreator=(newMesText:string)=>({type:UPDATE_NEW_MESSAGE_TEXT,newMesText})
+
 let rerenderEntireTree=()=>{
     console.log('dd')
 }

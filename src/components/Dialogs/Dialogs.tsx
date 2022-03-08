@@ -1,7 +1,7 @@
 import React, {ChangeEvent, createRef} from "react";
 import s from './Dialogs.module.css';
 import {Link} from "react-router-dom";
-import {DialogsPageType} from "../../redux/state";
+import {addAnswerActionCreator, DialogsPageType, updateNewMessageTextActionCreator} from "../../redux/state";
 
 export type dialogsType = {
     id: number,
@@ -50,15 +50,13 @@ export const Dialogs = (props: DialogsPropsType) => {
 
     const onClickSentMessageHandler = () => {
         if (newAnswerMessage.current) {
-
-            props.dispatch({type: 'ADD-ANSWER'})
+            props.dispatch(addAnswerActionCreator())
         }
     }
     const onChangeUpdateMessage = (e: ChangeEvent<HTMLTextAreaElement>) => {
 
         let newMesText = e.currentTarget.value
-        let action = {type: 'UPDATE-NEW-MESSAGE-TEXT', newMesText};
-        props.dispatch(action)
+               props.dispatch(updateNewMessageTextActionCreator(newMesText))
     }
 
     return (
