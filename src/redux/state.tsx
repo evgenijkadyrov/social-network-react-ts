@@ -1,94 +1,94 @@
 import React from "react";
-const ADD_POST = 'ADD_POST';
+
+/*const ADD_POST = 'ADD_POST';
 const UPDATE_NEW_POST = 'UPDATE-NEW-POST';
-const ADD_ANSWER='ADD_ANSWER'
-const UPDATE_NEW_MESSAGE_TEXT='UPDATE-NEW-MESSAGE-TEXT'
- export let store={
-     _state:  {
-         profilePage: {
-             posts: [
-                 {id: 1, message: 'Hey, i\'m new post', likesCount: 9},
-                 {id: 2, message: 'How are you?', likesCount: 15},
-                 {id: 3, message: 'You win lottery', likesCount: 55}
-             ],
-             newTextPost: 'newText'
-         },
-         dialogsPage: {
-             messages: [
-                 {id: 1, message: 'How are you?'},
-                 {id: 2, message: 'How long you study JS'},
-                 {id: 3, message: 'Doyou like it?'}
-             ],
-             newMessageText:'',
-             dialogs: [
-                 {id: 1, name: 'Dimych'},
-                 {id: 2, name: 'Victor'},
-                 {id: 3, name: 'Sveta'},
-                 {id: 4, name: 'Misha'},
-                 {id: 5, name: 'Maks'},
-             ]
-         },
+const ADD_ANSWER = 'ADD_ANSWER'
+const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT'*/
 
-     },
-     _rerenderEntireTree (){
-         console.log('dd')
-     },
-     getState () {
-         return this._state
-     },
-     dispatch (action:any){
-         if(action.type===ADD_POST){
-             let newPost = {id: 5, message: this._state.profilePage.newTextPost, likesCount: 5}
-             this._state.profilePage.posts.push(newPost)
-             this._state.profilePage.newTextPost=''
-             this._rerenderEntireTree()
-         } else if(action.type===ADD_ANSWER){
-             let newAnswer = {id: 4, message: this._state.dialogsPage.newMessageText}
-             this._state.dialogsPage.messages.push(newAnswer)
-             this._state.dialogsPage.newMessageText=''
-             this._rerenderEntireTree()
-         } else if (action.type===UPDATE_NEW_POST){
-             this._state.profilePage.newTextPost = action.newText
-             this._rerenderEntireTree()
-         }else if(action.type===UPDATE_NEW_MESSAGE_TEXT)
-             this._state.dialogsPage.newMessageText=action.newMesText;
-         this._rerenderEntireTree()
-     },
-     subscribe (observer:()=>void) {
-         this._rerenderEntireTree=observer
-     }
+export type StoreType = {
+    _state: RootType
+    _rerenderEntireTree: () => void
+    getState: () => RootType
+    subscribe: (observer: () => void) => void
+    dispatch: (action: ActionsType) => void
+}
+export type ActionsType = AddPostType | UpdateNewPostType | AddAnswerType | AddNewMessageTextType
+type AddPostType = {
+    type: 'ADD_POST'
+}
+//автоматическое опрделение типов через ReturnType, не забыть добавить as const в функции
+type UpdateNewPostType = ReturnType<typeof UpdateNewPostActionCreator>;
+
+type AddAnswerType = {
+    type: 'ADD_ANSWER'
+}
+type AddNewMessageTextType = ReturnType<typeof updateNewMessageTextActionCreator>
 
 
+export let store: StoreType = {
+    _state: {
+        profilePage: {
+            posts: [
+                {id: 1, message: 'Hey, i\'m new post', likesCount: 9},
+                {id: 2, message: 'How are you?', likesCount: 15},
+                {id: 3, message: 'You win lottery', likesCount: 55}
+            ],
+            newTextPost: 'newText'
+        },
+        dialogsPage: {
+            messages: [
+                {id: 1, message: 'How are you?'},
+                {id: 2, message: 'How long you study JS'},
+                {id: 3, message: 'Doyou like it?'}
+            ],
+            newMessageText: '',
+            dialogs: [
+                {id: 1, name: 'Dimych'},
+                {id: 2, name: 'Victor'},
+                {id: 3, name: 'Sveta'},
+                {id: 4, name: 'Misha'},
+                {id: 5, name: 'Maks'},
+            ]
+        },
 
-     /*addPost  ()  {
-         let newPost = {id: 5, message: this._state.profilePage.newTextPost, likesCount: 5}
-         this._state.profilePage.posts.push(newPost)
-         this._state.profilePage.newTextPost=''
-         this._rerenderEntireTree()
-     },
-     addAnswer  ()  {
-         let newAnswer = {id: 4, message: this._state.dialogsPage.newMessageText}
-         this._state.dialogsPage.messages.push(newAnswer)
-         this._state.dialogsPage.newMessageText=''
-         this._rerenderEntireTree()
-     },
-     updateNewPost  (newText: string) {
-         this._state.profilePage.newTextPost = newText
-         this._rerenderEntireTree()
-     },
-     updateNewMessageText(newMesText:string){
-         this._state.dialogsPage.newMessageText=newMesText;
-         this._rerenderEntireTree()
-     },*/
+    },
+    _rerenderEntireTree() {
+        console.log('dd')
+    },
+    getState() {
+        return this._state
+    },
+    dispatch(action) {
+        if (action.type === 'ADD_POST') {
+            let newPost = {id: 5, message: this._state.profilePage.newTextPost, likesCount: 5}
+            this._state.profilePage.posts.push(newPost)
+            this._state.profilePage.newTextPost = ''
+            this._rerenderEntireTree()
+        } else if (action.type === 'ADD_ANSWER') {
+            let newAnswer = {id: 4, message: this._state.dialogsPage.newMessageText}
+            this._state.dialogsPage.messages.push(newAnswer)
+            this._state.dialogsPage.newMessageText = ''
+            this._rerenderEntireTree()
+        } else if (action.type === 'UPDATE-NEW-POST') {
+            this._state.profilePage.newTextPost = action.newText
+            this._rerenderEntireTree()
+        } else if (action.type === 'UPDATE-NEW-MESSAGE-TEXT')
+            this._state.dialogsPage.newMessageText = action.newMesText;
+        this._rerenderEntireTree()
+    },
+    subscribe(observer: () => void) {
+        this._rerenderEntireTree = observer
+    }
+}
+export const addPostActionCreator = (): AddPostType => ({type: 'ADD_POST'})
+export const UpdateNewPostActionCreator = (newText: string) => ({type: 'UPDATE-NEW-POST', newText}) as const
+export const addAnswerActionCreator = (): AddAnswerType => ({type: 'ADD_ANSWER'})
+export const updateNewMessageTextActionCreator = (newMesText: string) => ({
+    type: 'UPDATE-NEW-MESSAGE-TEXT',
+    newMesText
+}) as const
 
-
- }
-export const addPostActionCreator=()=> ({type: ADD_POST})
-export const UpdateNewPostActionCreator=(newText:string)=>({type: UPDATE_NEW_POST, newText})
-export const addAnswerActionCreator=()=>({type:ADD_ANSWER})
-export const updateNewMessageTextActionCreator=(newMesText:string)=>({type:UPDATE_NEW_MESSAGE_TEXT,newMesText})
-
-let rerenderEntireTree=()=>{
+let rerenderEntireTree = () => {
     console.log('dd')
 }
 
@@ -109,65 +109,10 @@ export type MessageType = {
 export type DialogsPageType = {
     dialogs: Array<DialogType>
     messages: Array<MessageType>
-    newMessageText:string
+    newMessageText: string
 }
 export type RootType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
 
 }
-
-/*
-
-export let state: RootType = {
-    profilePage: {
-        posts: [
-            {id: 1, message: 'Hey, i\'m new post', likesCount: 9},
-            {id: 2, message: 'How are you?', likesCount: 15},
-            {id: 3, message: 'You win lottery', likesCount: 55}
-        ],
-        newTextPost: 'newText'
-    },
-    dialogsPage: {
-        messages: [
-            {id: 1, message: 'How are you?'},
-            {id: 2, message: 'How long you study JS'},
-            {id: 3, message: 'Doyou like it?'}
-        ],
-        newMessageText:'',
-        dialogs: [
-            {id: 1, name: 'Dimych'},
-            {id: 2, name: 'Victor'},
-            {id: 3, name: 'Sveta'},
-            {id: 4, name: 'Misha'},
-            {id: 5, name: 'Maks'},
-        ]
-    },
-
-}
-export const addPost = () => {
-
-    let newPost = {id: 5, message: state.profilePage.newTextPost, likesCount: 5}
-    state.profilePage.posts.push(newPost)
-    state.profilePage.newTextPost=''
-    rerenderEntireTree()
-}
-export const addAnswer = () => {
-    let newAnswer = {id: 4, message: state.dialogsPage.newMessageText}
-    state.dialogsPage.messages.push(newAnswer)
-    state.dialogsPage.newMessageText=''
-    rerenderEntireTree()
-}
-export let updateNewPost = (newText: string) => {
-    state.profilePage.newTextPost = newText
-    rerenderEntireTree()
-}
-export const updateNewMessageText=(newMesText:string)=>{
-    state.dialogsPage.newMessageText=newMesText;
-    rerenderEntireTree()
-}
-*/
-/*
-export const subscribe=(observer:()=>void)=>{
-    rerenderEntireTree=observer
-}*/

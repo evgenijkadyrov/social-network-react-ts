@@ -1,7 +1,7 @@
 import React, {ChangeEvent, createRef, DetailedHTMLProps, TextareaHTMLAttributes} from 'react';
 import s from './MyPosts.module.css'
 import Post from "./Post/Post";
-import {addPostActionCreator, ProfilePageType, UpdateNewPostActionCreator} from "../../../redux/state";
+import {ActionsType, addPostActionCreator, ProfilePageType, UpdateNewPostActionCreator} from "../../../redux/state";
 
 export type MyPostsType = {
     id: number,
@@ -10,7 +10,7 @@ export type MyPostsType = {
 }
 type MyPostsPropsType = {
     profilePage: ProfilePageType
-    dispatch: any
+    dispatch: (action:ActionsType)=>void
 }
 
 const MyPosts = (props: MyPostsPropsType) => {
