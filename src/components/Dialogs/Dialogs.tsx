@@ -55,6 +55,7 @@ export const Dialogs = (props: DialogsPropsType) => {
         }
     }
     const onChangeUpdateMessage = (e: ChangeEvent<HTMLTextAreaElement>) => {
+
         let newMesText = e.currentTarget.value
         let action = {type: 'UPDATE-NEW-MESSAGE-TEXT', newMesText};
         props.dispatch(action)

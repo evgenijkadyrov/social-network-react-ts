@@ -1,5 +1,6 @@
 import React from "react";
-
+const ADD_POST = 'ADD_POST';
+const UPDATE_NEW_POST = 'UPDATE-NEW-POST';
  export let store={
      _state:  {
          profilePage: {
@@ -34,7 +35,7 @@ import React from "react";
          return this._state
      },
      dispatch (action:any){
-         if(action.type==='ADD_POST'){
+         if(action.type===ADD_POST){
              let newPost = {id: 5, message: this._state.profilePage.newTextPost, likesCount: 5}
              this._state.profilePage.posts.push(newPost)
              this._state.profilePage.newTextPost=''
@@ -44,7 +45,7 @@ import React from "react";
              this._state.dialogsPage.messages.push(newAnswer)
              this._state.dialogsPage.newMessageText=''
              this._rerenderEntireTree()
-         } else if (action.type==='UPDATE-NEW-POST'){
+         } else if (action.type===UPDATE_NEW_POST){
 
              this._state.profilePage.newTextPost = action.newText
              this._rerenderEntireTree()
@@ -55,6 +56,9 @@ import React from "react";
      subscribe (observer:()=>void) {
          this._rerenderEntireTree=observer
      }
+
+
+
      /*addPost  ()  {
          let newPost = {id: 5, message: this._state.profilePage.newTextPost, likesCount: 5}
          this._state.profilePage.posts.push(newPost)
@@ -78,7 +82,8 @@ import React from "react";
 
 
  }
-
+export const addPostActionCreator=()=> ({type: ADD_POST})
+export const UpdateNewPostActionCreator=(newText:string)=>({type: UPDATE_NEW_POST, newText})
 let rerenderEntireTree=()=>{
     console.log('dd')
 }

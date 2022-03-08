@@ -1,7 +1,7 @@
 import React, {ChangeEvent, createRef, DetailedHTMLProps, TextareaHTMLAttributes} from 'react';
 import s from './MyPosts.module.css'
 import Post from "./Post/Post";
-import {ProfilePageType} from "../../../redux/state";
+import {addPostActionCreator, ProfilePageType, UpdateNewPostActionCreator} from "../../../redux/state";
 
 export type MyPostsType = {
     id: number,
@@ -13,20 +13,18 @@ type MyPostsPropsType = {
     dispatch: any
 }
 
-
 const MyPosts = (props: MyPostsPropsType) => {
     let newPostMessage = createRef<HTMLTextAreaElement>()
 
     const onClickAddPost = () => {
         if (newPostMessage.current) {
-            props.dispatch({type: 'ADD_POST'})
+            props.dispatch(addPostActionCreator())
         }
 
     }
     const onChangeUpdateText = (e: ChangeEvent<HTMLTextAreaElement>) => {
         let newText = e.currentTarget.value
-        let action = {type: 'UPDATE-NEW-POST', newText};
-        props.dispatch(action)
+                props.dispatch(UpdateNewPostActionCreator(newText))
     }
 
 
