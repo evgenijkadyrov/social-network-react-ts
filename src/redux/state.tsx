@@ -1,4 +1,6 @@
 import React from "react";
+import {profilePageReducer} from "./profilePage-reducer";
+import {dialogsReducer} from "./dialogs-reducer";
 
 /*const ADD_POST = 'ADD_POST';
 const UPDATE_NEW_POST = 'UPDATE-NEW-POST';
@@ -17,12 +19,17 @@ type AddPostType = {
     type: 'ADD_POST'
 }
 //автоматическое опрделение типов через ReturnType, не забыть добавить as const в функции
-type UpdateNewPostType = ReturnType<typeof UpdateNewPostActionCreator>;
+type UpdateNewPostType = {
+type: 'UPDATE-NEW-POST', newText:string
+};
 
 type AddAnswerType = {
     type: 'ADD_ANSWER'
 }
-type AddNewMessageTextType = ReturnType<typeof updateNewMessageTextActionCreator>
+type AddNewMessageTextType = {
+    type: 'UPDATE-NEW-MESSAGE-TEXT',
+    newMesText:string
+}
 
 
 export let store: StoreType = {
@@ -59,34 +66,21 @@ export let store: StoreType = {
         return this._state
     },
     dispatch(action) {
-        if (action.type === 'ADD_POST') {
-            let newPost = {id: 5, message: this._state.profilePage.newTextPost, likesCount: 5}
-            this._state.profilePage.posts.push(newPost)
-            this._state.profilePage.newTextPost = ''
-            this._rerenderEntireTree()
-        } else if (action.type === 'ADD_ANSWER') {
-            let newAnswer = {id: 4, message: this._state.dialogsPage.newMessageText}
-            this._state.dialogsPage.messages.push(newAnswer)
-            this._state.dialogsPage.newMessageText = ''
-            this._rerenderEntireTree()
-        } else if (action.type === 'UPDATE-NEW-POST') {
-            this._state.profilePage.newTextPost = action.newText
-            this._rerenderEntireTree()
-        } else if (action.type === 'UPDATE-NEW-MESSAGE-TEXT')
-            this._state.dialogsPage.newMessageText = action.newMesText;
+        this._state.profilePage= profilePageReducer(this._state.profilePage, action)
+        this._state.dialogsPage= dialogsReducer(this._state.dialogsPage, action)
         this._rerenderEntireTree()
     },
     subscribe(observer: () => void) {
         this._rerenderEntireTree = observer
     }
-}
+}/*
 export const addPostActionCreator = (): AddPostType => ({type: 'ADD_POST'})
 export const UpdateNewPostActionCreator = (newText: string) => ({type: 'UPDATE-NEW-POST', newText}) as const
 export const addAnswerActionCreator = (): AddAnswerType => ({type: 'ADD_ANSWER'})
 export const updateNewMessageTextActionCreator = (newMesText: string) => ({
     type: 'UPDATE-NEW-MESSAGE-TEXT',
     newMesText
-}) as const
+}) as const*/
 
 let rerenderEntireTree = () => {
     console.log('dd')
