@@ -1,20 +1,14 @@
 import React, {ChangeEvent, createRef} from "react";
 import s from './Dialogs.module.css';
 import {Link} from "react-router-dom";
-import {     addAnswerActionCreator,    updateNewMessageTextActionCreator} from "../../redux/dialogs-reducer";
-import {ActionsType, DialogsPageType} from "../../redux/store";
 
-export type dialogsType = {
-    id: number,
-    name: string
-}
-export type messagesType = {
-    id: number,
-    message: string
-}
+import {DialogsPageType} from "../../redux/store";
+
+
 type DialogsPropsType = {
     dialogsPage: DialogsPageType
-    dispatch: (action: ActionsType) => void
+    addAnswerActionCreator: () => void
+    updateNewMessageText: (newText: string) => void
 }
 type DialogItemPropsType = {
     name: string,
@@ -50,14 +44,11 @@ export const Dialogs = (props: DialogsPropsType) => {
     let newAnswerMessage = createRef<HTMLTextAreaElement>();
 
     const onClickSentMessageHandler = () => {
-        if (newAnswerMessage.current) {
-            props.dispatch(addAnswerActionCreator())
-        }
+        props.addAnswerActionCreator()
     }
     const onChangeUpdateMessage = (e: ChangeEvent<HTMLTextAreaElement>) => {
-
         let newMesText = e.currentTarget.value
-        props.dispatch(updateNewMessageTextActionCreator(newMesText))
+        props.updateNewMessageText(newMesText)
     }
 
     return (

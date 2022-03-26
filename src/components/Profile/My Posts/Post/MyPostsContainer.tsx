@@ -1,26 +1,23 @@
-import React, {ChangeEvent, createRef, DetailedHTMLProps, TextareaHTMLAttributes} from 'react';
-
-
+import React from 'react';
 import MyPosts from "../MyPosts";
 import {addPostActionCreator, UpdateNewPostActionCreator} from "../../../../redux/profilePage-reducer";
-import {ActionsType, ProfilePageType} from "../../../../redux/store";
+import {StoreType} from "../../../../redux/store";
 
 
 type MyPostsPropsContainerType = {
-    profilePage: ProfilePageType
-    dispatch: (action: ActionsType) => void
+    store: StoreType
 }
 
 const MyPostsContainer = (props: MyPostsPropsContainerType) => {
-
+    let state = props.store.getState()
     const onClickAddPost = () => {
-        props.dispatch(addPostActionCreator())
+        props.store.dispatch(addPostActionCreator())
     }
     const onChangeUpdateText = (text: string) => {
 
-        props.dispatch(UpdateNewPostActionCreator(text))
+        props.store.dispatch(UpdateNewPostActionCreator(text))
     }
-    return <MyPosts addPost={onClickAddPost} updateNewPostText={onChangeUpdateText} profilePage={props.profilePage}/>
+    return <MyPosts addPost={onClickAddPost} updateNewPostText={onChangeUpdateText} profilePage={state.profilePage}/>
 
 }
 export default MyPostsContainer;
