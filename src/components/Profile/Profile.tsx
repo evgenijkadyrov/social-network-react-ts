@@ -5,6 +5,7 @@ import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import {ActionsType, ProfilePageType} from "../../redux/state";
 
 
+
 type ProfilePropsType = {
     profilePage: ProfilePageType
     dispatch: (action:ActionsType)=>void

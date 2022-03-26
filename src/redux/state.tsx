@@ -1,11 +1,7 @@
 import React from "react";
-import {profilePageReducer} from "./profilePage-reducer";
-import {dialogsReducer} from "./dialogs-reducer";
+import {AddPostType,  profilePageReducer, UpdateNewPostType} from "./profilePage-reducer";
+import {AddAnswerType, AddNewMessageTextType,  dialogsReducer} from "./dialogs-reducer";
 
-/*const ADD_POST = 'ADD_POST';
-const UPDATE_NEW_POST = 'UPDATE-NEW-POST';
-const ADD_ANSWER = 'ADD_ANSWER'
-const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT'*/
 
 export type StoreType = {
     _state: RootType
@@ -14,22 +10,9 @@ export type StoreType = {
     subscribe: (observer: () => void) => void
     dispatch: (action: ActionsType) => void
 }
-export type ActionsType = AddPostType | UpdateNewPostType | AddAnswerType | AddNewMessageTextType
-type AddPostType = {
-    type: 'ADD_POST'
-}
-//автоматическое опрделение типов через ReturnType, не забыть добавить as const в функции
-type UpdateNewPostType = {
-type: 'UPDATE-NEW-POST', newText:string
-};
+export type ActionsType = AddPostType | UpdateNewPostType |AddAnswerType | AddNewMessageTextType
 
-type AddAnswerType = {
-    type: 'ADD_ANSWER'
-}
-type AddNewMessageTextType = {
-    type: 'UPDATE-NEW-MESSAGE-TEXT',
-    newMesText:string
-}
+//автоматическое опрделение типов через ReturnType, не забыть добавить as const в функции
 
 
 export let store: StoreType = {
@@ -66,25 +49,19 @@ export let store: StoreType = {
         return this._state
     },
     dispatch(action) {
-        this._state.profilePage= profilePageReducer(this._state.profilePage, action)
-        this._state.dialogsPage= dialogsReducer(this._state.dialogsPage, action)
+        debugger
+        this._state.profilePage = profilePageReducer(this._state.profilePage, action)
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
         this._rerenderEntireTree()
     },
     subscribe(observer: () => void) {
         this._rerenderEntireTree = observer
     }
-}/*
-export const addPostActionCreator = (): AddPostType => ({type: 'ADD_POST'})
-export const UpdateNewPostActionCreator = (newText: string) => ({type: 'UPDATE-NEW-POST', newText}) as const
-export const addAnswerActionCreator = (): AddAnswerType => ({type: 'ADD_ANSWER'})
-export const updateNewMessageTextActionCreator = (newMesText: string) => ({
-    type: 'UPDATE-NEW-MESSAGE-TEXT',
-    newMesText
-}) as const*/
-
-let rerenderEntireTree = () => {
-    console.log('dd')
 }
+
+/*let rerenderEntireTree = () => {
+    console.log('dd')*/
+/*}*/
 
 export type PostType = {
     id: number, message: string, likesCount: number

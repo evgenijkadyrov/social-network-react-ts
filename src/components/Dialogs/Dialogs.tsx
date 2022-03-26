@@ -1,12 +1,8 @@
 import React, {ChangeEvent, createRef} from "react";
 import s from './Dialogs.module.css';
 import {Link} from "react-router-dom";
-import {
-    ActionsType,
-    addAnswerActionCreator,
-    DialogsPageType,
-    updateNewMessageTextActionCreator
-} from "../../redux/state";
+import {     addAnswerActionCreator,    updateNewMessageTextActionCreator} from "../../redux/dialogs-reducer";
+import {ActionsType, DialogsPageType} from "../../redux/state";
 
 export type dialogsType = {
     id: number,

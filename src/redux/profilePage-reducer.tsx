@@ -1,29 +1,32 @@
 import React from "react";
-import {ProfilePageType, RootType} from "./state";
-type AddPostType = {
+import {ActionsType, ProfilePageType} from "./state";
+
+
+export type AddPostType = {
     type: 'ADD_POST'
 }
-type UpdateNewPostType = ReturnType<typeof UpdateNewPostActionCreator>;
+export type UpdateNewPostType = {
+    type: 'UPDATE-NEW-POST',
+    newText: string
+}
 
-/*type profilePageReducerType={
-    state:RootType
-    action:any
-}*/
 
-export type ActionsType = AddPostType | UpdateNewPostType
-export const profilePageReducer=(state:ProfilePageType, action:ActionsType)=>{
+
+export const profilePageReducer = (state: ProfilePageType, action:ActionsType ): ProfilePageType => {
+    debugger
     switch (action.type) {
         case 'ADD_POST':
             let newPost = {id: 5, message: state.newTextPost, likesCount: 5}
             state.posts.push(newPost)
             state.newTextPost = ''
-            break;
+            return state
         case 'UPDATE-NEW-POST':
             state.newTextPost = action.newText
-            break;
-        default:return state
+            return state
+        default:
+            return state
     }
 
 }
 export const addPostActionCreator = (): AddPostType => ({type: 'ADD_POST'})
-export const UpdateNewPostActionCreator = (newText: string) => ({type: 'UPDATE-NEW-POST', newText}) as const
+export const UpdateNewPostActionCreator = (newText: string): UpdateNewPostType => ({type: 'UPDATE-NEW-POST', newText})
