@@ -2,7 +2,7 @@ import React, {ChangeEvent, createRef} from "react";
 import s from './Dialogs.module.css';
 import {Link} from "react-router-dom";
 import {     addAnswerActionCreator,    updateNewMessageTextActionCreator} from "../../redux/dialogs-reducer";
-import {ActionsType, DialogsPageType} from "../../redux/state";
+import {ActionsType, DialogsPageType} from "../../redux/store";
 
 export type dialogsType = {
     id: number,

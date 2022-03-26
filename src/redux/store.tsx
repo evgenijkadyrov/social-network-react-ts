@@ -5,7 +5,7 @@ import {AddAnswerType, AddNewMessageTextType,  dialogsReducer} from "./dialogs-r
 
 export type StoreType = {
     _state: RootType
-    _rerenderEntireTree: () => void
+    _rerenderEntireTree: (state:RootType) => void
     getState: () => RootType
     subscribe: (observer: () => void) => void
     dispatch: (action: ActionsType) => void
@@ -49,10 +49,10 @@ export let store: StoreType = {
         return this._state
     },
     dispatch(action) {
-        debugger
+
         this._state.profilePage = profilePageReducer(this._state.profilePage, action)
         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
-        this._rerenderEntireTree()
+        this._rerenderEntireTree(this._state)
     },
     subscribe(observer: () => void) {
         this._rerenderEntireTree = observer

@@ -1,5 +1,5 @@
 import React from "react";
-import {ActionsType, DialogsPageType} from "./state";
+import {ActionsType, DialogsPageType} from "./store";
 
 
 export type AddAnswerType = {
@@ -11,10 +11,24 @@ export type AddNewMessageTextType = {
     newMesText: string
 }
 
+let initialState= {
+    messages: [
+        {id: 1, message: 'How are you?'},
+        {id: 2, message: 'How long you study JS'},
+        {id: 3, message: 'Doyou like it?'}
+    ],
+        newMessageText: '',
+        dialogs: [
+        {id: 1, name: 'Dimych'},
+        {id: 2, name: 'Victor'},
+        {id: 3, name: 'Sveta'},
+        {id: 4, name: 'Misha'},
+        {id: 5, name: 'Maks'},
+    ]
+}
 
+export const dialogsReducer = (state: DialogsPageType=initialState, action: ActionsType): DialogsPageType => {
 
-export const dialogsReducer = (state: DialogsPageType, action: ActionsType): DialogsPageType => {
-    debugger
     switch (action.type) {
         case 'ADD_ANSWER':
             let newAnswer = {id: 4, message: state.newMessageText}

@@ -9,7 +9,7 @@ import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 import {MyPostsType} from "./components/Profile/My Posts/MyPosts";
-import {RootType} from "./redux/state";
+import {RootType} from "./redux/store";
 
 type AppPropsType = {
     state: RootType
