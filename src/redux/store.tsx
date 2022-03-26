@@ -63,21 +63,21 @@ export let store: StoreType = {
     console.log('dd')*/
 /*}*/
 
-export type PostType = {
+ type PostType = {
     id: number, message: string, likesCount: number
 }
-export type DialogType = {
-    id: number, name: string
-}
-export type ProfilePageType = {
+
+ type ProfilePageType = {
     posts: Array<PostType>
     newTextPost: string
 }
-
-export type MessageType = {
+type DialogType = {
+    id: number, name: string
+}
+ type MessageType = {
     id: number, message: string
 }
-export type DialogsPageType = {
+ type DialogsPageType = {
     dialogs: Array<DialogType>
     messages: Array<MessageType>
     newMessageText: string

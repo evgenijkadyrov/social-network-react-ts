@@ -1,12 +1,11 @@
 import React, {ChangeEvent, createRef} from "react";
 import s from './Dialogs.module.css';
 import {Link} from "react-router-dom";
-
-import {DialogsPageType} from "../../redux/store";
+import {InitialStateType} from "../../redux/dialogs-reducer";
 
 
 type DialogsPropsType = {
-    dialogsPage: DialogsPageType
+    dialogsPage: InitialStateType
     addAnswerActionCreator: () => void
     updateNewMessageText: (newText: string) => void
 }

@@ -1,7 +1,9 @@
 import React from "react";
-import {ActionsType, ProfilePageType} from "./store";
+import {ActionsType} from "./store";
 
-
+type PostType = {
+    id: number, message: string, likesCount: number
+}
 export type AddPostType = {
     type: 'ADD_POST'
 }
@@ -15,11 +17,11 @@ let initialState={
             {id: 1, message: 'Hey, i\'m new post', likesCount: 9},
             {id: 2, message: 'How are you?', likesCount: 15},
             {id: 3, message: 'You win lottery', likesCount: 55}
-        ],
+        ] as Array<PostType>,
         newTextPost: 'newText'
     }
-
-export const profilePageReducer = (state: ProfilePageType=initialState, action:ActionsType ): ProfilePageType => {
+export type initialStateType=typeof initialState
+export const profilePageReducer = (state: initialStateType=initialState, action:ActionsType ): initialStateType => {
 
     switch (action.type) {
         case 'ADD_POST':
