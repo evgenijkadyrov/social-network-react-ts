@@ -1,6 +1,7 @@
 import React from "react";
 import {AddPostType,  profilePageReducer, UpdateNewPostType} from "./profilePage-reducer";
 import {AddAnswerType, AddNewMessageTextType,  dialogsReducer} from "./dialogs-reducer";
+import {ActionType} from "./users-reducer";
 
 
 export type StoreType = {
@@ -10,7 +11,7 @@ export type StoreType = {
     subscribe: (observer: () => void) => void
     dispatch: (action: ActionsType) => void
 }
-export type ActionsType = AddPostType | UpdateNewPostType |AddAnswerType | AddNewMessageTextType
+export type ActionsType = AddPostType | UpdateNewPostType |AddAnswerType | AddNewMessageTextType|ActionType
 
 //автоматическое опрделение типов через ReturnType, не забыть добавить as const в функции
 
