@@ -1,9 +1,13 @@
 import {ActionsType} from "./store";
 
 export type UserType={
-    id:number, photoUrl:string,
-    folloved:boolean, fullName:string,
+    id:number, photos:PhotosType,
+    followed:boolean, name:string,
     status: string, location:LocationType
+}
+export type PhotosType={
+    small:string
+    large:string
 }
 type LocationType={
     city:string, country:string
@@ -32,13 +36,13 @@ export const usersReducer = (state: InitialStateType = initialState, action:Acti
         case 'FOLLOW':
             return {
                 ...state,
-                users: state.users.map(el => el.id === action.userID ? {...el, folloved: true} : el)
+                users: state.users.map(el => el.id === action.userID ? {...el, followed: true} : el)
             }
 
         case 'UNFOLLOW':
             return {
                 ...state,
-                users: state.users.map(el => el.id === action.userID ? {...el, folloved: false} : el)
+                users: state.users.map(el => el.id === action.userID ? {...el, followed: false} : el)
             }
         case 'SET_USERS':
             return {...state, users: [...state.users, ...action.users ]}
