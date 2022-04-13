@@ -11,7 +11,16 @@ export class Users extends React.Component<UsersPropsType, AppStateType> {
     }
 
     componentDidMount() {
-        axios.get('https://social-network.samuraijs.com/api/1.0/users')
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?pages=${this.props.currentPage}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.setUsers(response.data.items)
+                this.props.setTotalUsersCount(response.data.totalCount)
+            })
+    }
+
+    onPageChanged = (pageNum: number) => {
+        this.props.setCurrentPage(pageNum)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNum}&count=${this.props.pageSize}`)
             .then(response => {
                 this.props.setUsers(response.data.items)
             })
@@ -19,8 +28,27 @@ export class Users extends React.Component<UsersPropsType, AppStateType> {
 
     avatar = require('../../common/avatars/user.png')
 
-    render() {
+       render() {
+        let pages = [];
+        let numberPages = Math.ceil(this.props.totalUsersCount / this.props.pageSize)
+        for (let i = 1; i <= numberPages; i++) {
+            pages.push(i)
+        }
+        //numeration pages
+        const pagesToDisplay = 10;
+        let startPage = this.props.currentPage
+        let visiablePages = pages.slice(startPage-1, startPage + pagesToDisplay)
+
         return <div>
+            <div>
+
+                {visiablePages.map(p => {
+                    return <span onClick={() => {
+                        this.onPageChanged(p)
+                    }} className={this.props.usersPage.currentPage === p ? styles.selected : ''}>{p}</span>
+                })}
+
+            </div>
             {
                 this.props.usersPage.users.map(ul => <div key={ul.id}>
                     <span>
