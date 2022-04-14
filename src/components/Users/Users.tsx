@@ -24,8 +24,8 @@ export const Users = (props: UsersType) => {
     }
     //numeration pages
     const pagesToDisplay = 10;
-    let startPage = props.currentPage
-    let visiablePages = pages.slice(startPage - 1, startPage + pagesToDisplay)
+    let startPage = 1
+    let visiablePages = pages.slice(startPage-1 , startPage + pagesToDisplay)
     return (
         <div>
             <div>
