@@ -1,68 +1,56 @@
 import React from "react";
 import styles from './Users.module.css'
-import {UsersPropsType} from "./UsersContainer";
-import axios from "axios";
-import {AppStateType} from "../../redux/redux-store";
+import avatarIcon from '../../common/avatars/user.png'
+
+import {UserType} from "../../redux/users-reducer";
+
+type UsersType = {
+    onPageChanged: (p: number) => void
+    currentPage: number
+    totalUsersCount: number
+    pageSize: number
+    unfollow: (userId: number) => void
+    follow: (userId: number) => void
+    users: Array<UserType>
+}
 
 
-export class Users extends React.Component<UsersPropsType, AppStateType> {
-    constructor(props: UsersPropsType) {
-        super(props);
+export const Users = (props: UsersType) => {
+
+    let pages = [];
+    let numberPages = Math.ceil(props.totalUsersCount / props.pageSize)
+    for (let i = 1; i <= numberPages; i++) {
+        pages.push(i)
     }
-
-    componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?pages=${this.props.currentPage}&count=${this.props.pageSize}`)
-            .then(response => {
-                this.props.setUsers(response.data.items)
-                this.props.setTotalUsersCount(response.data.totalCount)
-            })
-    }
-
-    onPageChanged = (pageNum: number) => {
-        this.props.setCurrentPage(pageNum)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNum}&count=${this.props.pageSize}`)
-            .then(response => {
-                this.props.setUsers(response.data.items)
-            })
-    }
-
-    avatar = require('../../common/avatars/user.png')
-
-       render() {
-        let pages = [];
-        let numberPages = Math.ceil(this.props.totalUsersCount / this.props.pageSize)
-        for (let i = 1; i <= numberPages; i++) {
-            pages.push(i)
-        }
-        //numeration pages
-        const pagesToDisplay = 10;
-        let startPage = this.props.currentPage
-        let visiablePages = pages.slice(startPage-1, startPage + pagesToDisplay)
-
-        return <div>
+    //numeration pages
+    const pagesToDisplay = 10;
+    let startPage = props.currentPage
+    let visiablePages = pages.slice(startPage - 1, startPage + pagesToDisplay)
+    return (
+        <div>
             <div>
 
                 {visiablePages.map(p => {
                     return <span onClick={() => {
-                        this.onPageChanged(p)
-                    }} className={this.props.usersPage.currentPage === p ? styles.selected : ''}>{p}</span>
+                        props.onPageChanged(p)
+                    }} className={props.currentPage === p ? styles.selected : ''}>{p}</span>
                 })}
 
             </div>
             {
-                this.props.usersPage.users.map(ul => <div key={ul.id}>
+                props.users.map(ul => <div key={ul.id}>
                     <span>
                         <div>
-                            <img src={ul.photos.small !== null ? ul.photos.small : String(this.avatar)}
+                            <img src={ul.photos.small !== null ? ul.photos.small : String(avatarIcon)}
                                  className={styles.userPhoto}/>
                         </div>
                         <div>
                             {ul.followed
                                 ? <button onClick={() => {
-                                    this.props.unfollow(ul.id)
+                                    props.unfollow(ul.id)
                                 }}>UnFollow</button>
                                 : <button onClick={() => {
-                                    this.props.follow(ul.id)
+                                    props.follow(ul.id)
                                 }}>Follow</button>}
 
                         </div>
@@ -76,7 +64,11 @@ export class Users extends React.Component<UsersPropsType, AppStateType> {
                 </div>)
             }
         </div>
-    }
-}
+    );
+};
+
+
+
+
 
 
