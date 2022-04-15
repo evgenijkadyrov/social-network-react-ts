@@ -3,6 +3,7 @@ import styles from './Users.module.css'
 import avatarIcon from '../../common/avatars/user.png'
 
 import {UserType} from "../../redux/users-reducer";
+import {Link} from "react-router-dom";
 
 type UsersType = {
     onPageChanged: (p: number) => void
@@ -40,10 +41,10 @@ export const Users = (props: UsersType) => {
             {
                 props.users.map(ul => <div key={ul.id}>
                     <span>
-                        <div>
+                        <Link to ={'/profile/'+ul.id} ><div>
                             <img src={ul.photos.small !== null ? ul.photos.small : String(avatarIcon)}
                                  className={styles.userPhoto}/>
-                        </div>
+                        </div></Link>
                         <div>
                             {ul.followed
                                 ? <button onClick={() => {

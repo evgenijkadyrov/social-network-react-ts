@@ -1,5 +1,5 @@
 import React from "react";
-import {AddPostType,  profilePageReducer, UpdateNewPostType} from "./profilePage-reducer";
+import {AddPostType, profilePageReducer, UpdateNewPostType, UserProfileType} from "./profilePage-reducer";
 import {AddAnswerType, AddNewMessageTextType,  dialogsReducer} from "./dialogs-reducer";
 import {ActionType} from "./users-reducer";
 
@@ -11,12 +11,12 @@ export type StoreType = {
     subscribe: (observer: () => void) => void
     dispatch: (action: ActionsType) => void
 }
-export type ActionsType = AddPostType | UpdateNewPostType |AddAnswerType | AddNewMessageTextType|ActionType
+export type ActionsType = AddPostType | UpdateNewPostType |AddAnswerType | AddNewMessageTextType|ActionType|UserProfileType
 
 //автоматическое опрделение типов через ReturnType, не забыть добавить as const в функции
 
 
-export let store: StoreType = {
+/*export let store: StoreType = {
     _state: {
         profilePage: {
             posts: [
@@ -58,7 +58,7 @@ export let store: StoreType = {
     subscribe(observer: () => void) {
         this._rerenderEntireTree = observer
     }
-}
+}*/
 
 /*let rerenderEntireTree = () => {
     console.log('dd')*/

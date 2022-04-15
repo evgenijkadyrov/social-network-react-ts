@@ -9,7 +9,6 @@ import {
     unfollow,
     UserType
 } from "../../redux/users-reducer";
-import {Dispatch} from "redux";
 import {AppStateType} from "../../redux/redux-store";
 import React from "react";
 import axios from "axios";
