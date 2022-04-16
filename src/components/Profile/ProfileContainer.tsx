@@ -44,13 +44,16 @@ type PropsType = mapStateToPropsType & mapDispatchToPropsType
 export class ProfileContainer extends React.Component<PropsType> {
 
     componentDidMount() {
-        console.log(this.props)
+
 //@ts-ignore
         let userID = this.props.router.params.userID;
+        console.log(userID)
+        if (!userID) {
+            userID=2
+        }
         axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userID)
             .then(response => {
                 this.props.setUserProfile(response.data)
-
             })
     }
 
@@ -77,7 +80,7 @@ export const withRouter = (Component: JSXElementConstructor<any>): JSXElementCon
         return (
             <Component
                 {...props}
-                router={{params,location,navigate}}
+                router={{params, location, navigate}}
             />
         );
     }
