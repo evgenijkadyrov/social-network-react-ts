@@ -1,6 +1,5 @@
-import React from 'react';
-import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import MyPostsContainer from "./My Posts/Post/MyPostsContainer";
+import React, {JSXElementConstructor} from 'react';
+import {useLocation, useNavigate, useParams} from 'react-router-dom'
 import Profile from "./Profile";
 import axios from "axios";
 import {connect} from "react-redux";
@@ -32,19 +31,23 @@ export type UserProfileType = {
 }
 
 type mapStateToPropsType = {
-
     profile: UserProfileType | null
 }
 type mapDispatchToPropsType = {
     setUserProfile: (profile: UserProfileType) => void
 }
+
+
 type PropsType = mapStateToPropsType & mapDispatchToPropsType
+
 
 export class ProfileContainer extends React.Component<PropsType> {
 
     componentDidMount() {
-
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/2`)
+        console.log(this.props)
+//@ts-ignore
+        let userID = this.props.router.params.userID;
+        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userID)
             .then(response => {
                 this.props.setUserProfile(response.data)
 
@@ -59,8 +62,31 @@ export class ProfileContainer extends React.Component<PropsType> {
     }
 }
 
+/*type withRouterType = {
+    params:(userID:number)=>void
+    navigate:()=>void
+    location:()=>void
+
+}*/
+
+export const withRouter = (Component: JSXElementConstructor<any>): JSXElementConstructor<any> => {
+    function ComponentWithRouterProp(props: any) {
+        let location = useLocation();
+        let navigate = useNavigate();
+        let params = useParams();
+        return (
+            <Component
+                {...props}
+                router={{params,location,navigate}}
+            />
+        );
+    }
+
+    return ComponentWithRouterProp;
+}
 let mapStateToProps = (state: AppStateType): mapStateToPropsType => ({
     profile: state.profilePage.profile
 })
 
-export default connect(mapStateToProps, {setUserProfile})(ProfileContainer);
+
+export default connect(mapStateToProps, {setUserProfile})(withRouter(ProfileContainer))

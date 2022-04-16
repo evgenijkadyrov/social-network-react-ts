@@ -23,7 +23,7 @@ const App = (props: AppPropsType) => {
                 <Routes>
                     <Route path='/'
                            element={<ProfileContainer/>}/>
-                    <Route path='/profile/*'
+                    <Route path='/profile/:userID'
                            element={<ProfileContainer/>}/>
                     <Route path='/users/*'
                            element={<UsersContainer/>}/>
