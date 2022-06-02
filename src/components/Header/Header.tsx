@@ -12,7 +12,7 @@ const Header = (props: HeaderPropsType) => {
         <div>
             <img src='http://www.logobook.com/wp-content/uploads/2019/02/u_Bear_logo-1.svg'/>
             <div className={s.loginBlock}>
-                {props.isAuth ? <Link to={'/login'}>Login</Link> : props.login}
+                {props.isAuth ?props.login: <Link to={'/login'}>Login</Link>  }
 
             </div>
         </div>

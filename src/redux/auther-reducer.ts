@@ -28,11 +28,12 @@ export const autherReducer = (state: InitialStateType = initialState, action: Ac
 
     switch (action.type) {
         case 'SET_USER_DATA':
+
             return {...state, ...action.data,isAuth:true}
         default:
             return state
     }
 }
 
-export const setUserData = (id:number,login:string,email:string,isAuth:boolean) => ({type: 'SET_USER_DATA', id,login,email,isAuth})
+export const setUserData = (id:number,login:string,email:string,isAuth:boolean):SetUserDataType => ({type: 'SET_USER_DATA', data:{id,login,email,isAuth} })
 
