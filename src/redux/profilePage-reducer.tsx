@@ -49,4 +49,4 @@ export const profilePageReducer = (state: initialStateType = initialState, actio
 }
 export const addPostActionCreator = (): AddPostType => ({type: 'ADD_POST'})
 export const UpdateNewPostActionCreator = (newText: string): UpdateNewPostType => ({type: 'UPDATE-NEW-POST', newText})
-export const setUserProfile = (profile:any): UserProfileType => ({type: 'SET_USER_PROFILE', profile})
+export const setUserProfile = (profile:UserProfileType): UserProfileType => ({type: 'SET_USER_PROFILE', profile})

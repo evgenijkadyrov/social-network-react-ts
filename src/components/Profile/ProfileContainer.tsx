@@ -3,7 +3,7 @@ import {useLocation, useNavigate, useParams} from 'react-router-dom'
 import Profile from "./Profile";
 import axios from "axios";
 import {connect} from "react-redux";
-import {setUserProfile} from "../../redux/profilePage-reducer";
+import {initialStateType, setUserProfile} from "../../redux/profilePage-reducer";
 import {AppStateType} from "../../redux/redux-store";
 
 export type UserProfileContactType = {
@@ -41,19 +41,20 @@ type mapDispatchToPropsType = {
 type PropsType = mapStateToPropsType & mapDispatchToPropsType
 
 
-export class ProfileContainer extends React.Component<PropsType> {
+export class ProfileContainer extends React.Component<PropsType,initialStateType> {
 
     componentDidMount() {
 
 //@ts-ignore
-        let userID = this.props.router.params.userID;
-        console.log(userID)
+        let userID = this.props.params.userID;
         if (!userID) {
-            userID=2
+            userID = 13216
         }
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userID)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userID}` )
             .then(response => {
+
                 this.props.setUserProfile(response.data)
+
             })
     }
 
@@ -65,28 +66,24 @@ export class ProfileContainer extends React.Component<PropsType> {
     }
 }
 
-/*type withRouterType = {
-    params:(userID:number)=>void
-    navigate:()=>void
-    location:()=>void
 
-}*/
+export const withRouter = (Component: JSXElementConstructor<any>): JSXElementConstructor<any> => props => {
 
-export const withRouter = (Component: JSXElementConstructor<any>): JSXElementConstructor<any> => {
-    function ComponentWithRouterProp(props: any) {
-        let location = useLocation();
-        let navigate = useNavigate();
-        let params = useParams();
-        return (
-            <Component
-                {...props}
-                router={{params, location, navigate}}
-            />
-        );
-    }
+    const location = useLocation();
+    const navigate = useNavigate();
+    const params = useParams();
+    return (
+        <Component
+            {...props}
+            params={params}
+            location={location}
+            navigate={navigate}
 
-    return ComponentWithRouterProp;
+        />
+    );
 }
+
+
 let mapStateToProps = (state: AppStateType): mapStateToPropsType => ({
     profile: state.profilePage.profile
 })
