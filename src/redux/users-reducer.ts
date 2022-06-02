@@ -17,7 +17,8 @@ const initialState: InitialStateType = {
     pageSize: 5,
     totalUsersCount: 50,
     currentPage: 1,
-    isFetching:false
+    isFetching:true,
+    followInProgress:[]
 }
 type isFetchingType={
     type:'TOGGLE_IS_FETCHING',
@@ -48,9 +49,10 @@ export type InitialStateType = {
     pageSize: number,
     totalUsersCount: number,
     currentPage: number,
-    isFetching:boolean
+    isFetching:boolean,
+    followInProgress:number[]
 }
-export type ActionType = SetUsersType | UnFollowType | FollowType|SetCurrentPage|SetTotalUsersCount|isFetchingType
+export type ActionType = SetUsersType | UnFollowType | FollowType|SetCurrentPage|SetTotalUsersCount|isFetchingType|toogleFollowProgressType
 
 export const usersReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
@@ -73,6 +75,12 @@ export const usersReducer = (state: InitialStateType = initialState, action: Act
             return {...state, totalUsersCount: action.totalUsersCount}
         case 'TOGGLE_IS_FETCHING':
             return {...state,isFetching:action.isFetching}
+        case "TOOGLE_IN_PROGRESS":
+            return {...state,
+                followInProgress:action.followInProgress
+                ? [...state.followInProgress,action.userId]
+                    :state.followInProgress.filter(id=>id!==action.userId)
+            }
         default:
             return state
     }
@@ -85,4 +93,12 @@ export const setCurrentPage = (currentPage: number) => ({type: 'SET_CURRENT_PAGE
 export const setTotalUsersCount = (totalUsersCount: number) => ({type: 'SET_TOTAL_USERS_COUNT', totalUsersCount})
 export const setToogleIsFetching=(isFetching:boolean)=>{
     return {type:'TOGGLE_IS_FETCHING', isFetching}
+}
+export const toogleFollowProgress=(followInProgress:number[],userId:number):toogleFollowProgressType=>{
+    return {type:'TOOGLE_IN_PROGRESS', followInProgress,userId}
+}
+type toogleFollowProgressType={
+    type:'TOOGLE_IN_PROGRESS',
+    followInProgress:number[],
+    userId:number
 }

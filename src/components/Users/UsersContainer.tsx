@@ -5,7 +5,7 @@ import {
     setCurrentPage,
     setToogleIsFetching,
     setTotalUsersCount,
-    setUsers,
+    setUsers, toogleFollowProgress,
     unfollow,
     UserType
 } from "../../redux/users-reducer";
@@ -21,6 +21,7 @@ type mapStateToProps = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
+    followInProgress: number[]
 }
 type mapDispatchToPropsType = {
     follow: (userId: number) => void
@@ -29,6 +30,7 @@ type mapDispatchToPropsType = {
     setCurrentPage: (currentPage: number) => void
     setTotalUsersCount: (totalUsersCount: number) => void
     setToogleIsFetching: (isFetching: boolean) => void
+    toogleFollowProgress: any
 }
 export type UsersPropsType = mapStateToProps & mapDispatchToPropsType
 
@@ -39,9 +41,11 @@ const mapStateToProps = (state: AppStateType): mapStateToProps => {
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching
+        isFetching: state.usersPage.isFetching,
+        followInProgress: state.usersPage.followInProgress
     }
 }
+
 /*const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
     return {
         follow: (userId: number) => {
@@ -73,7 +77,7 @@ export class UsersAPI extends React.Component<UsersPropsType, AppStateType> {
 
     componentDidMount() {
         this.props.setToogleIsFetching(true)
-        usersAPI.getUsers(this.props.currentPage,this.props.pageSize)
+        usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
             .then(data => {
                 this.props.setToogleIsFetching(false)
                 this.props.setUsers(data.items)
@@ -84,7 +88,7 @@ export class UsersAPI extends React.Component<UsersPropsType, AppStateType> {
     onPageChanged = (pageNum: number) => {
         this.props.setToogleIsFetching(true)
         this.props.setCurrentPage(pageNum)
-        usersAPI.getUsers(pageNum,this.props.pageSize)
+        usersAPI.getUsers(pageNum, this.props.pageSize)
 
             .then(data => {
                 this.props.setToogleIsFetching(false)
@@ -106,6 +110,8 @@ export class UsersAPI extends React.Component<UsersPropsType, AppStateType> {
                    follow={this.props.follow}
                    unfollow={this.props.unfollow}
                    users={this.props.usersPage.users}
+                   toogleFollowProgress={this.props.toogleFollowProgress }
+                   followInProgress={this.props.followInProgress}
 
             /></>
     }
@@ -118,6 +124,6 @@ export const UsersContainer = connect(mapStateToProps, {
     setUsers,
     setCurrentPage,
     setTotalUsersCount,
-    setToogleIsFetching
+    setToogleIsFetching, toogleFollowProgress
 
 })(UsersAPI)
