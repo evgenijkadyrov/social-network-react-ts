@@ -35,7 +35,7 @@ type mapStateToPropsType = {
     profile: UserProfileType | null
 }
 type mapDispatchToPropsType = {
-    setUserProfile: (profile: UserProfileType) => void
+
     getProfile: (userId: number) => void
 }
 
@@ -86,4 +86,4 @@ let mapStateToProps = (state: AppStateType): mapStateToPropsType => ({
 })
 
 
-export default connect(mapStateToProps, {setUserProfile, getProfile})(withRouter(ProfileContainer))
+export default connect(mapStateToProps, { getProfile})(withRouter(ProfileContainer))
