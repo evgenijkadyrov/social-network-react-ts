@@ -16,7 +16,7 @@ export type SetUserDataType = {
         id: number | null,
         login: string | null,
         email: string | null,
-        isAuth?: boolean
+        isAuth: boolean
     }
 
 }
@@ -24,7 +24,7 @@ export type InitialStateType = {
     id: number | null,
     login: string | null,
     email: string | null,
-    isAuth?: boolean
+    isAuth: boolean
 
 }
 
@@ -39,21 +39,21 @@ export const autherReducer = (state: InitialStateType = initialState, action: Ac
     }
 }
 
-export const setUserData = (id: number, login: string, email: string): SetUserDataType => ({
+export const setUserData = (id: number, login: string, email: string, isAuth:boolean): SetUserDataType => ({
     type: 'SET_USER_DATA',
-    data: {id, login, email}
+    data: {id, login, email,isAuth}
 })
 
 //thunk
 
-export const getAuthUserData = () => {
+export const getAuthUserData = (isAuth:boolean) => {
     return (dispatch: Dispatch) => {
         usersAPI.authMe()
             .then(response => {
 
                 if (response.data.resultCode === 0) {
                     let {id, login, email} = response.data.data
-                    dispatch(setUserData(id, login, email))
+                    dispatch(setUserData(id, login, email,isAuth))
 
                 }
             })

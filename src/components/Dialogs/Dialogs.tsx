@@ -1,6 +1,6 @@
 import React, {ChangeEvent, createRef} from "react";
 import s from './Dialogs.module.css';
-import {Link} from "react-router-dom";
+import {Link, Navigate} from "react-router-dom";
 import {InitialStateType} from "../../redux/dialogs-reducer";
 
 
@@ -8,6 +8,7 @@ type DialogsPropsType = {
     dialogsPage: InitialStateType
     addAnswerActionCreator: () => void
     updateNewMessageText: (newText: string) => void
+    isAuth:boolean
 }
 type DialogItemPropsType = {
     name: string,
@@ -49,7 +50,7 @@ export const Dialogs = (props: DialogsPropsType) => {
         let newMesText = e.currentTarget.value
         props.updateNewMessageText(newMesText)
     }
-
+if (!props.isAuth) return <Navigate to={'/login'}/>
     return (
         <div className={s.dialogs}>
             <div className={s.dialogs_items}>

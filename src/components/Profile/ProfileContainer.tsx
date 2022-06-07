@@ -1,5 +1,5 @@
 import React, {JSXElementConstructor} from 'react';
-import {useLocation, useNavigate, useParams} from 'react-router-dom'
+import {useLocation, useNavigate, useParams,Navigate} from 'react-router-dom'
 import Profile from "./Profile";
 import axios from "axios";
 import {connect} from "react-redux";
@@ -33,6 +33,7 @@ export type UserProfileType = {
 
 type mapStateToPropsType = {
     profile: UserProfileType | null
+    isAuth:boolean
 }
 type mapDispatchToPropsType = {
 
@@ -56,6 +57,7 @@ export class ProfileContainer extends React.Component<PropsType, initialStateTyp
     }
 
     render() {
+        if(!this.props.isAuth) return <Navigate to ='/login'/>
         return <div>
             <Profile {...this.props} profile={this.props.profile}/>
 
@@ -82,7 +84,8 @@ export const withRouter = (Component: JSXElementConstructor<any>): JSXElementCon
 
 
 let mapStateToProps = (state: AppStateType): mapStateToPropsType => ({
-    profile: state.profilePage.profile
+    profile: state.profilePage.profile,
+    isAuth:state.auther.isAuth
 })
 
 
