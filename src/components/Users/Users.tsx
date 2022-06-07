@@ -2,9 +2,10 @@ import React from "react";
 import styles from './Users.module.css'
 import avatarIcon from '../../common/avatars/user.png'
 
-import {toogleFollowProgress, UserType} from "../../redux/users-reducer";
+import {getUsers, toogleFollowProgress, UserType} from "../../redux/users-reducer";
 import {Link} from "react-router-dom";
 import axios from "axios";
+import {usersAPI} from "../../api/api";
 
 type UsersType = {
     onPageChanged: (p: number) => void
@@ -14,8 +15,8 @@ type UsersType = {
     unfollow: (userId: number) => void
     follow: (userId: number) => void
     users: Array<UserType>
-    toogleFollowProgress:any
-    followInProgress:number[]
+
+    followInProgress: number[]
 
 }
 
@@ -37,6 +38,7 @@ export const Users = (props: UsersType) => {
 
                 {visiablePages.map(p => {
                     return <span onClick={() => {
+
                         props.onPageChanged(p)
                     }} className={props.currentPage === p ? styles.selected : ''}>{p}</span>
                 })}
@@ -53,33 +55,14 @@ export const Users = (props: UsersType) => {
                         </Link>
                         <div>
                             {ul.followed
-                                ? <button disabled={props.followInProgress.some(id=>id===ul.id)} onClick={() => {
+                                ? <button disabled={props.followInProgress.some(id => id === ul.id)} onClick={() => {
 
-                                    props.toogleFollowProgress(true, ul.id)
-                                    axios.delete('https://social-network.samuraijs.com/api/1.0/follow/' + ul.id, {
-                                        withCredentials: true,
-                                        headers: {'API-KEY': 'fae13881-e951-4f04-94b2-31eb83e53019'}
-                                    })
-                                        .then(response => {
-                                            if (response.data.resultCode == 0) {
-                                                props.unfollow(ul.id)
-                                            }
-                                            props.toogleFollowProgress(false, ul.id)
-                                        })
+                                    props.unfollow(ul.id)
 
                                 }}>UnFollow</button>
-                                : <button disabled={props.followInProgress.some(id=>id===ul.id)} onClick={() => {
-                                    props.toogleFollowProgress(true, ul.id)
-                                    axios.post('https://social-network.samuraijs.com/api/1.0/follow/' + ul.id, {}, {
-                                        withCredentials: true,
-                                        headers: {'API-KEY': 'fae13881-e951-4f04-94b2-31eb83e53019'}
-                                    })
-                                        .then(response => {
-                                            if (response.data.resultCode == 0) {
-                                                props.follow(ul.id)
-                                            }
-                                            props.toogleFollowProgress(false, ul.id)
-                                        })
+                                : <button disabled={props.followInProgress.some(id => id === ul.id)} onClick={() => {
+                                    props.follow(ul.id)
+
                                 }}>Follow</button>}
 
                         </div>
