@@ -1,5 +1,7 @@
 import React from "react";
 import {ActionsType} from "./store";
+import {Dispatch} from "redux";
+import {usersAPI} from "../api/api";
 
 type PostType = {
     id: number, message: string, likesCount: number
@@ -50,3 +52,14 @@ export const profilePageReducer = (state: initialStateType = initialState, actio
 export const addPostActionCreator = (): AddPostType => ({type: 'ADD_POST'})
 export const UpdateNewPostActionCreator = (newText: string): UpdateNewPostType => ({type: 'UPDATE-NEW-POST', newText})
 export const setUserProfile = (profile:UserProfileType): UserProfileType => ({type: 'SET_USER_PROFILE', profile})
+
+//thunk
+export const getProfile=(userId:number)=>{
+    return (dispatch:Dispatch)=>{
+        usersAPI.getProfile(userId)
+    .then(response => {
+            dispatch(setUserProfile(response.data))
+
+        })
+    }
+}
