@@ -12,7 +12,7 @@ const instance = axios.create({
 export const usersAPI= {
     getUsers (currentPage: number, pageSize: number)
 {
-    return instance.get<getUsersType>(`users?pages=${currentPage}&count=${pageSize}`)
+    return instance.get<getUsersType>(`users?page=${currentPage}&count=${pageSize}`)
         .then(response => {
                 return response.data
             }
@@ -21,15 +21,6 @@ export const usersAPI= {
 }
 
 
-
-/*export const followUsers = (id:number) => {
-    return instance.delete('follow/'+id  )
-
-        .then(response => {
-                return response.data
-            }
-        )
-}*/
 
 type getUsersType = {
     items: UserType[],

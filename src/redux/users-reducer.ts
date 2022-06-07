@@ -1,4 +1,6 @@
 import {ActionsType} from "./store";
+import {Dispatch} from "redux";
+import {usersAPI} from "../api/api";
 
 export type UserType = {
     id: number, photos: PhotosType,
@@ -102,3 +104,16 @@ type toogleFollowProgressType={
     followInProgress:number[],
     userId:number
 }
+
+export const getUsers=(currentPage:number, pageSize:number)=>{
+   return (dispatch:Dispatch)=>{
+
+   dispatch( setToogleIsFetching(true))
+    usersAPI.getUsers(currentPage, pageSize)
+        .then(data => {
+
+            dispatch(setToogleIsFetching(false))
+            dispatch(setUsers(data.items))
+           dispatch(setTotalUsersCount(data.totalCount))
+        })
+}}

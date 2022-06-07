@@ -1,6 +1,6 @@
 import {connect} from "react-redux";
 import {
-    follow,
+    follow, getUsers,
     InitialStateType,
     setCurrentPage,
     setToogleIsFetching,
@@ -31,6 +31,7 @@ type mapDispatchToPropsType = {
     setTotalUsersCount: (totalUsersCount: number) => void
     setToogleIsFetching: (isFetching: boolean) => void
     toogleFollowProgress: any
+    getUsers:any
 }
 export type UsersPropsType = mapStateToProps & mapDispatchToPropsType
 
@@ -76,24 +77,28 @@ export class UsersAPI extends React.Component<UsersPropsType, AppStateType> {
     }
 
     componentDidMount() {
-        this.props.setToogleIsFetching(true)
+        this.props.getUsers(this.props.currentPage, this.props.pageSize)
+       /* this.props.setToogleIsFetching(true)
         usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
             .then(data => {
+
                 this.props.setToogleIsFetching(false)
                 this.props.setUsers(data.items)
                 this.props.setTotalUsersCount(data.totalCount)
-            })
+            })*/
     }
 
     onPageChanged = (pageNum: number) => {
-        this.props.setToogleIsFetching(true)
+        this.props.getUsers(pageNum, this.props.pageSize)
+       /* this.props.setToogleIsFetching(true)
         this.props.setCurrentPage(pageNum)
         usersAPI.getUsers(pageNum, this.props.pageSize)
 
             .then(data => {
+
                 this.props.setToogleIsFetching(false)
                 this.props.setUsers(data.items)
-            })
+            })*/
     }
 
 
@@ -124,6 +129,7 @@ export const UsersContainer = connect(mapStateToProps, {
     setUsers,
     setCurrentPage,
     setTotalUsersCount,
-    setToogleIsFetching, toogleFollowProgress
+    setToogleIsFetching, toogleFollowProgress,
+    getUsers
 
 })(UsersAPI)
