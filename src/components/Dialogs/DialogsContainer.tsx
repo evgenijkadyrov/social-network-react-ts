@@ -4,11 +4,14 @@ import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
 import { Dispatch } from "redux";
 import {AppStateType} from "../../redux/redux-store";
+import {Navigate} from "react-router-dom";
+import {ProfileContainer} from "../Profile/ProfileContainer";
+import {withAuthRedirect} from "../../HOC/withAuthRedirect";
 
 const mapStateToProps=(state:AppStateType)=>{
     return {
         dialogsPage: state.dialogsPage,
-        isAuth: state.auther.isAuth
+
     }
 }
 const mapDispatchToProps=(dispatch:Dispatch) =>{
@@ -17,4 +20,6 @@ const mapDispatchToProps=(dispatch:Dispatch) =>{
         addAnswerActionCreator:()=>{dispatch(addAnswerActionCreator())}
     }
 }
-export const DialogsContainer=connect(mapStateToProps, mapDispatchToProps)(Dialogs)
+
+let AuthRedirectComponent=withAuthRedirect(Dialogs)
+export const DialogsContainer=connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent)

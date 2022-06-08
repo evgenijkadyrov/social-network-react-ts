@@ -1,11 +1,11 @@
 import React, {JSXElementConstructor} from 'react';
 import {useLocation, useNavigate, useParams,Navigate} from 'react-router-dom'
 import Profile from "./Profile";
-import axios from "axios";
 import {connect} from "react-redux";
 import {getProfile, initialStateType, setUserProfile} from "../../redux/profilePage-reducer";
 import {AppStateType} from "../../redux/redux-store";
-import {usersAPI} from "../../api/api";
+import {withAuthRedirect} from "../../HOC/withAuthRedirect";
+
 
 export type UserProfileContactType = {
     facebook: string
@@ -33,7 +33,7 @@ export type UserProfileType = {
 
 type mapStateToPropsType = {
     profile: UserProfileType | null
-    isAuth:boolean
+
 }
 type mapDispatchToPropsType = {
 
@@ -57,13 +57,14 @@ export class ProfileContainer extends React.Component<PropsType, initialStateTyp
     }
 
     render() {
-        if(!this.props.isAuth) return <Navigate to ='/login'/>
+
         return <div>
             <Profile {...this.props} profile={this.props.profile}/>
 
         </div>
     }
 }
+
 
 
 export const withRouter = (Component: JSXElementConstructor<any>): JSXElementConstructor<any> => props => {
@@ -83,10 +84,11 @@ export const withRouter = (Component: JSXElementConstructor<any>): JSXElementCon
 }
 
 
+
 let mapStateToProps = (state: AppStateType): mapStateToPropsType => ({
     profile: state.profilePage.profile,
-    isAuth:state.auther.isAuth
+
 })
 
 
-export default connect(mapStateToProps, { getProfile})(withRouter(ProfileContainer))
+export default withAuthRedirect( connect(mapStateToProps, { getProfile})(withRouter(ProfileContainer)))
