@@ -4,6 +4,7 @@ import {Preloader} from "../../../common/preloader/Preloader";
 import {UserProfileType} from "../ProfileContainer";
 import looking_job from '../../../common/image/man.png'
 import noimages from '../../../common/avatars/user.png'
+import ProfileStatus from "./ProfileStatus";
 
 type ProfileInfoPropsType = {
     profile: UserProfileType | null
@@ -22,6 +23,8 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
         <div className={s.ava}>
             {props.profile.photos.large ?<img src={props.profile.photos.large}/>:<img src={noimages}/>}
             <h3>{props.profile.fullName}</h3>
+            <ProfileStatus status={'Hello'}/>
+
             <div className={s.text_title}>About me:</div>
             <div>{props.profile.aboutMe}</div>
             {props.profile.lookingForAJob && <div className={s.text_title}>Looking job:
