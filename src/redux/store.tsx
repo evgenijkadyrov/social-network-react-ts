@@ -1,6 +1,6 @@
 import React from "react";
-import {AddPostType, profilePageReducer, UpdateNewPostType, UserProfileType} from "./profilePage-reducer";
-import {AddAnswerType, AddNewMessageTextType,  dialogsReducer} from "./dialogs-reducer";
+import {AddPostType, SetUserStatusType, UpdateNewPostType, UserProfileType} from "./profilePage-reducer";
+import {AddAnswerType, AddNewMessageTextType} from "./dialogs-reducer";
 import {ActionType} from "./users-reducer";
 import {SetUserDataType} from "./auther-reducer";
 
@@ -13,7 +13,7 @@ export type StoreType = {
     dispatch: (action: ActionsType) => void
 }
 export type ActionsType = AddPostType | UpdateNewPostType |AddAnswerType |
-    AddNewMessageTextType|ActionType|UserProfileType|SetUserDataType
+    AddNewMessageTextType|ActionType|UserProfileType|SetUserDataType|SetUserStatusType
 
 //автоматическое опрделение типов через ReturnType, не забыть добавить as const в функции
 

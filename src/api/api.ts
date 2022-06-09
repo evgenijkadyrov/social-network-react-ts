@@ -9,30 +9,42 @@ const instance = axios.create({
     }
 })
 
-export const usersAPI= {
-    getUsers (currentPage: number, pageSize: number)
-{
-    return instance.get<getUsersType>(`users?page=${currentPage}&count=${pageSize}`)
-        .then(response => {
-                return response.data
-            }
-        )
-},
-    follow(userId:number){
-        return instance.post(`follow/${userId}` )
+export const usersAPI = {
+    getUsers(currentPage: number, pageSize: number) {
+        return instance.get<getUsersType>(`users?page=${currentPage}&count=${pageSize}`)
+            .then(response => {
+                    return response.data
+                }
+            )
     },
-    unfollow(userId:number){
+    follow(userId: number) {
+        return instance.post(`follow/${userId}`)
+    },
+    unfollow(userId: number) {
         return instance.delete(`follow/${userId}`)
 
     },
-    getProfile(userId:number){
-        return instance.get(`profile/${userId}` )
-    },
-    authMe(){
-       return instance.get(`auth/me`)
+  /*  getProfile(userId: number) {
+        console.warn('Obsolete method. Please use profileAPI')
+        return profileAPI.getProfile(userId)
+    },*/
+    authMe() {
+        return instance.get(`auth/me`)
     }
 }
+export const profileAPI = {
 
+    getProfile(userId: number) {
+        return instance.get(`profile/${userId}`)
+    },
+    getStatus(userId: number) {
+
+        return instance.get(`profile/status/${userId}`)
+    },
+    updateStatus( status: string) {
+        return instance.put(`profile/status`, {status})
+    }
+}
 
 
 type getUsersType = {

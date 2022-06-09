@@ -1,7 +1,7 @@
 import React from "react";
 import {ActionsType} from "./store";
 import {Dispatch} from "redux";
-import {usersAPI} from "../api/api";
+import {profileAPI, usersAPI} from "../api/api";
 
 type PostType = {
     id: number, message: string, likesCount: number
@@ -12,7 +12,8 @@ export type AddPostType = {
 }
 export type UserProfileType = {
     type: 'SET_USER_PROFILE'
-    profile:any
+    profile: any
+
 }
 export type UpdateNewPostType = {
     type: 'UPDATE-NEW-POST',
@@ -26,7 +27,8 @@ let initialState = {
         {id: 3, message: 'You win lottery', likesCount: 55}
     ] as Array<PostType>,
     newTextPost: 'newText',
-    profile: null
+    profile: null,
+    status: ''
 }
 export type initialStateType = typeof initialState
 export const profilePageReducer = (state: initialStateType = initialState, action: ActionsType): initialStateType => {
@@ -40,10 +42,12 @@ export const profilePageReducer = (state: initialStateType = initialState, actio
                 newTextPost: ''
             }
         case 'UPDATE-NEW-POST':
-            /*state.newTextPost = action.newText*/
+
             return {...state, newTextPost: action.newText}
         case "SET_USER_PROFILE":
             return {...state, profile: action.profile}
+        case "SET_STATUS":
+            return {...state, status: action.status}
         default:
             return state
     }
@@ -51,15 +55,40 @@ export const profilePageReducer = (state: initialStateType = initialState, actio
 }
 export const addPostActionCreator = (): AddPostType => ({type: 'ADD_POST'})
 export const UpdateNewPostActionCreator = (newText: string): UpdateNewPostType => ({type: 'UPDATE-NEW-POST', newText})
-export const setUserProfile = (profile:UserProfileType): UserProfileType => ({type: 'SET_USER_PROFILE', profile})
+export const setUserProfile = (profile: UserProfileType): UserProfileType => ({type: 'SET_USER_PROFILE', profile})
+export const setUserStatus = (status: string) => ({type: 'SET_STATUS', status} as const)
+
+export type SetUserStatusType = ReturnType<typeof setUserStatus>
 
 //thunk
-export const getProfile=(userId:number)=>{
-    return (dispatch:Dispatch)=>{
-        usersAPI.getProfile(userId)
-    .then(response => {
-            dispatch(setUserProfile(response.data))
+export const getProfile = (userId: number) => {
+    return (dispatch: Dispatch) => {
+        profileAPI.getProfile(userId)
+            .then(response => {
+                dispatch(setUserProfile(response.data))
 
-        })
+            })
+    }
+}
+export const getStatus = (userId: number) => {
+
+    return (dispatch: Dispatch) => {
+        profileAPI.getStatus(userId)
+            .then(response => {
+                dispatch(setUserStatus(response.data))
+
+            })
+    }
+}
+export const updateStatus = (status: string) => {
+    return (dispatch: Dispatch) => {
+        profileAPI.updateStatus(status)
+            .then(response => {
+                if (response.data.resultCode === 0) {
+                    dispatch(setUserStatus(status))
+                }
+
+
+            })
     }
 }
