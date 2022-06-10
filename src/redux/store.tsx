@@ -1,19 +1,19 @@
 import React from "react";
 import {AddPostType, SetUserStatusType, UpdateNewPostType, UserProfileType} from "./profilePage-reducer";
 import {AddAnswerType, AddNewMessageTextType} from "./dialogs-reducer";
-import {ActionType} from "./users-reducer";
+
 import {SetUserDataType} from "./auther-reducer";
 
 
-export type StoreType = {
+/*export type StoreType = {
     _state: RootType
     _rerenderEntireTree: (state:RootType) => void
     getState: () => RootType
     subscribe: (observer: () => void) => void
     dispatch: (action: ActionsType) => void
-}
-export type ActionsType = AddPostType | UpdateNewPostType |AddAnswerType |
-    AddNewMessageTextType|ActionType|UserProfileType|SetUserDataType|SetUserStatusType
+}*/
+/*export type ActionsType = AddPostType | UpdateNewPostType |AddAnswerType |
+    AddNewMessageTextType|ActionsType|UserProfileType|SetUserDataType|SetUserStatusType*/
 
 //автоматическое опрделение типов через ReturnType, не забыть добавить as const в функции
 

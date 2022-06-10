@@ -1,5 +1,4 @@
 import React from "react";
-import {ActionsType} from "./store";
 
 export type DialogType = {
     id: number,
@@ -8,15 +7,6 @@ export type DialogType = {
 export type MessageType = {
     id: number,
     message: string
-}
-
-export type AddAnswerType = {
-    type: 'ADD_ANSWER'
-}
-
-export type AddNewMessageTextType = {
-    type: 'UPDATE-NEW-MESSAGE-TEXT',
-    newMesText: string
 }
 
 let initialState = {
@@ -34,9 +24,8 @@ let initialState = {
         {id: 5, name: 'Maks'},
     ] as Array<DialogType>
 }
-
+type ActionsType=AddAnswerType|AddNewMessageTextType
 export type InitialStateType = typeof initialState
-
 
 export const dialogsReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
 
@@ -52,8 +41,11 @@ export const dialogsReducer = (state: InitialStateType = initialState, action: A
     }
 
 }
-export const addAnswerActionCreator = (): AddAnswerType => ({type: 'ADD_ANSWER'})
-export const updateNewMessageTextActionCreator = (newMesText: string): AddNewMessageTextType => ({
-    type: 'UPDATE-NEW-MESSAGE-TEXT',
-    newMesText
-})
+//actions
+export const addAnswer = () => ({type: 'ADD_ANSWER'} as const)
+export const updateNewMessageText = (newMesText: string) => ({
+    type: 'UPDATE-NEW-MESSAGE-TEXT',newMesText}as const)
+
+//types
+export type AddAnswerType = ReturnType<typeof addAnswer >
+export type AddNewMessageTextType = ReturnType<typeof updateNewMessageText>
