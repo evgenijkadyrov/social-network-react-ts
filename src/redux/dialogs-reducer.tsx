@@ -15,7 +15,7 @@ let initialState = {
         {id: 2, message: 'How long you study JS'},
         {id: 3, message: 'Doyou like it?'}
     ] as Array<MessageType>,
-    newMessageText: '',
+
     dialogs: [
         {id: 1, name: 'Dimych'},
         {id: 2, name: 'Victor'},
@@ -24,7 +24,7 @@ let initialState = {
         {id: 5, name: 'Maks'},
     ] as Array<DialogType>
 }
-type ActionsType=AddAnswerType|AddNewMessageTextType
+type ActionsType=AddAnswerType
 export type InitialStateType = typeof initialState
 
 export const dialogsReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
@@ -32,20 +32,16 @@ export const dialogsReducer = (state: InitialStateType = initialState, action: A
     switch (action.type) {
         case 'ADD_ANSWER':
 
-            return {...state, messages: [...state.messages, {id: 4, message: state.newMessageText}], newMessageText: ''}
-        case 'UPDATE-NEW-MESSAGE-TEXT':
+            return {...state, messages: [...state.messages, {id: 4, message: action.newMessageBody}]}
 
-            return {...state, newMessageText: action.newMesText}
         default:
             return state
     }
 
 }
 //actions
-export const addAnswer = () => ({type: 'ADD_ANSWER'} as const)
-export const updateNewMessageText = (newMesText: string) => ({
-    type: 'UPDATE-NEW-MESSAGE-TEXT',newMesText}as const)
+export const addAnswer = (newMessageBody:any) => ({type: 'ADD_ANSWER', newMessageBody} as const)
+
 
 //types
 export type AddAnswerType = ReturnType<typeof addAnswer >
-export type AddNewMessageTextType = ReturnType<typeof updateNewMessageText>

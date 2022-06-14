@@ -1,11 +1,9 @@
 import React from "react";
-import {addAnswer,  updateNewMessageText} from "../../redux/dialogs-reducer";
+import {addAnswer} from "../../redux/dialogs-reducer";
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
 import {compose, Dispatch} from "redux";
 import {AppStateType} from "../../redux/redux-store";
-import {Navigate} from "react-router-dom";
-import {ProfileContainer} from "../Profile/ProfileContainer";
 import {withAuthRedirect} from "../../HOC/withAuthRedirect";
 
 const mapStateToProps=(state:AppStateType)=>{
@@ -16,8 +14,8 @@ const mapStateToProps=(state:AppStateType)=>{
 }
 const mapDispatchToProps=(dispatch:Dispatch) =>{
     return {
-        updateNewMessageText:(newText:string)=>{dispatch(updateNewMessageText(newText))},
-        addAnswerActionCreator:()=>{dispatch(addAnswer())}
+
+        addAnswer:(newMessageBody:any)=>{dispatch(addAnswer(newMessageBody))}
     }
 }
 
