@@ -10,11 +10,11 @@ let initialState = {
         {id: 2, message: 'How are you?', likesCount: 15},
         {id: 3, message: 'You win lottery', likesCount: 55}
     ] as Array<PostType>,
-    newTextPost: 'newText',
+
     profile: null,
     status: ''
 }
-type ActionsType=SetUserStatusType| AddPostType|UserProfileType|UpdateNewPostType
+type ActionsType=SetUserStatusType| AddPostType|UserProfileType
 export type initialStateType = typeof initialState
 export const profilePageReducer = (state: initialStateType = initialState, action: ActionsType): initialStateType => {
 
@@ -22,12 +22,10 @@ export const profilePageReducer = (state: initialStateType = initialState, actio
         case 'ADD_POST':
             return {
                 ...state,
-                posts: [...state.posts, {id: 5, message: state.newTextPost, likesCount: 5}],
-                newTextPost: ''
-            }
-        case 'UPDATE-NEW-POST':
+                posts: [...state.posts, {id: 5, message: action.newPostBody, likesCount: 5}],
 
-            return {...state, newTextPost: action.newText}
+            }
+
         case "SET_USER_PROFILE":
             return {...state, profile: action.profile}
         case "SET_STATUS":
@@ -39,8 +37,8 @@ export const profilePageReducer = (state: initialStateType = initialState, actio
 }
 
 //actions
-export const addPost = () => ({type: 'ADD_POST'} as const)
-export const UpdateNewPost = (newText: string) => ({type: 'UPDATE-NEW-POST', newText} as const)
+export const addPost = (newPostBody:any) => ({type: 'ADD_POST', newPostBody} as const)
+
 export const setUserProfile = (profile: any) => ({type: 'SET_USER_PROFILE', profile} as const)
 export const setUserStatus = (status: string) => ({type: 'SET_STATUS', status} as const)
 
@@ -51,7 +49,7 @@ type PostType = {
 }
 export type AddPostType = ReturnType<typeof addPost>
 export type UserProfileType = ReturnType<typeof setUserProfile>
-export type UpdateNewPostType = ReturnType<typeof UpdateNewPost>
+
 
 //thunks
 export const getProfile = (userId: number) => {

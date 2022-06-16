@@ -1,5 +1,5 @@
 import React from "react";
-import {AddPostType, SetUserStatusType, UpdateNewPostType, UserProfileType} from "./profilePage-reducer";
+import {AddPostType, SetUserStatusType,  UserProfileType} from "./profilePage-reducer";
 import {AddAnswerType, } from "./dialogs-reducer";
 
 import {SetUserDataType} from "./auther-reducer";
