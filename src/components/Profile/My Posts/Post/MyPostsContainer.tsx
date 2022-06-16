@@ -13,7 +13,7 @@ const mapStateToProps = (state: AppStateType) => {
 }
 const mapDispatchToProps = (dispatch:Dispatch) => {
     return {
-        addPost: (newPostBody:any) => {
+        addPost: (newPostBody:string) => {
             dispatch(addPost(newPostBody))
         },
 

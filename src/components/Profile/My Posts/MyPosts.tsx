@@ -7,7 +7,7 @@ import {AddNewPostReduxForm} from "./AddNewPost";
 
 type MyPostsPropsType = {
     profilePage: initialStateType
-    addPost: (newPostBody: any) => void
+    addPost: (newPostBody: string) => void
 
 }
 

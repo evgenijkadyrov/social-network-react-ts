@@ -37,7 +37,7 @@ export const profilePageReducer = (state: initialStateType = initialState, actio
 }
 
 //actions
-export const addPost = (newPostBody:any) => ({type: 'ADD_POST', newPostBody} as const)
+export const addPost = (newPostBody:string) => ({type: 'ADD_POST', newPostBody} as const)
 
 export const setUserProfile = (profile: any) => ({type: 'SET_USER_PROFILE', profile} as const)
 export const setUserStatus = (status: string) => ({type: 'SET_STATUS', status} as const)
