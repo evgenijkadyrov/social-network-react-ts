@@ -5,6 +5,7 @@ import {Link} from "react-router-dom";
 type HeaderPropsType = {
     login: string
     isAuth: boolean
+    logout:()=>void
 }
 const Header = (props: HeaderPropsType) => {
     console.log((props.login))
@@ -12,7 +13,9 @@ const Header = (props: HeaderPropsType) => {
         <div>
             <img src='http://www.logobook.com/wp-content/uploads/2019/02/u_Bear_logo-1.svg'/>
             <div className={s.loginBlock}>
-                {props.isAuth ?props.login: <Link to={'/login'}>Login</Link>   }
+                {props.isAuth
+                    ? <div>{props.login}  <button onClick={props.logout}>Log out</button></div>
+                    : <Link to={'/login'}>Login</Link>   }
 
             </div>
         </div>
