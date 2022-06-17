@@ -28,8 +28,18 @@ export const usersAPI = {
         console.warn('Obsolete method. Please use profileAPI')
         return profileAPI.getProfile(userId)
     },*/
+
+}
+
+export const authAPI={
     authMe() {
         return instance.get(`auth/me`)
+    },
+    login(email:string, password:string, rememberMe:boolean=false){
+        return instance.post('auth/login', {email, password, rememberMe})
+    },
+    logout(){
+        return instance.delete('auth/login' )
     }
 }
 export const profileAPI = {

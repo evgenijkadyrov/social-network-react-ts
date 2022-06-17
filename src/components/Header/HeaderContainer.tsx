@@ -37,5 +37,5 @@ type mapDispatchToPropsType = {
 
     getAuthUserData: () => void
 }
-//@ts-ignore
+
 export default connect(mapStateToProps, {getAuthUserData})(HeaderContainer);

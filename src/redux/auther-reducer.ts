@@ -1,5 +1,5 @@
-import {Dispatch} from "redux";
-import {usersAPI} from "../api/api";
+import {authAPI} from "../api/api";
+import {AppDispatch, AppThunk} from "./redux-store";
 
 const initialState: InitialStateType = {
     id: null,
@@ -27,24 +27,41 @@ export const autherReducer = (state: InitialStateType = initialState, action: Ac
     }
 }
 
-export const setUserData = (id: number, login: string, email: string, isAuth: boolean) => ({
+export const setUserData = (id: number|null, login: string|null, email: string|null, isAuth: boolean) => ({
     type: 'SET_USER_DATA',
     data: {id, login, email, isAuth}
 } as const)
 
 //thunk
 
-export const getAuthUserData = (isAuth: boolean) => {
-    return (dispatch: Dispatch) => {
-        usersAPI.authMe()
+export const getAuthUserData = ():AppThunk => {
+    return (dispatch:AppDispatch) => {
+        authAPI.authMe()
             .then(response => {
 
                 if (response.data.resultCode === 0) {
                     let {id, login, email} = response.data.data
-                    dispatch(setUserData(id, login, email, isAuth))
+                    dispatch(setUserData(id, login, email, true))
 
                 }
             })
     }
+}
+export const login=(email:string,password:string,rememberMe:boolean):AppThunk=>(dispatch)=>{
+    authAPI.login(email,password,rememberMe)
+        .then(response=>{
+            if (response.data.resultCode===0){
+
+                dispatch(getAuthUserData())
+            }
+        })
+}
+export const logout=():AppThunk=>(dispatch)=>{
+    authAPI.logout()
+        .then(response=>{
+            if(response.data.resultCode===0){
+                dispatch(setUserData(null,null,null,false))
+            }
+        })
 }
 
