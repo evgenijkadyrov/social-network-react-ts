@@ -6,11 +6,12 @@ import {connect} from "react-redux";
 import {login, logout} from "../../redux/auther-reducer";
 import {Navigate} from "react-router-dom";
 import {AppStateType} from "../../redux/redux-store";
+import style from '../../common/FormsControls/FormsControls.module.css'
 
 type FormDataType = {
     email: string
     password: string
-    rememberMe: boolean
+    rememberMe?: boolean
 }
 
 export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props: any) => {
@@ -28,6 +29,9 @@ export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props: any)
             <div>
                 <Field type={'checkbox'} name={'rememberMe'} component={Input} validate={[requiredField]}/> Remember me
             </div>
+
+                {props.error&&<div className={style.formLoginError}>{props.error} </div>}
+
             <div>
                 <button type="submit">Login</button>
             </div>

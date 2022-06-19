@@ -8,3 +8,7 @@
 .formControl.error span{
     color:red
 }
+.formLoginError{
+    color:red;
+    border:red solid 1px
+}
