@@ -1,8 +1,8 @@
 import React, {JSXElementConstructor} from 'react';
-import {useLocation, useNavigate, useParams,Navigate} from 'react-router-dom'
+import {useLocation, useNavigate, useParams} from 'react-router-dom'
 import Profile from "./Profile";
 import {connect} from "react-redux";
-import {getProfile, getStatus, initialStateType, setUserProfile, updateStatus} from "../../redux/profilePage-reducer";
+import {getProfile, getStatus, initialStateType, updateStatus} from "../../redux/profilePage-reducer";
 import {AppStateType} from "../../redux/redux-store";
 import {withAuthRedirect} from "../../HOC/withAuthRedirect";
 import {compose} from "redux";
@@ -35,6 +35,8 @@ export type UserProfileType = {
 type mapStateToPropsType = {
     profile: UserProfileType | null
     status:string
+    authorizedUserId:number|null,
+    isAuth:boolean
 
 
 }
@@ -56,7 +58,7 @@ export class ProfileContainer extends React.Component<PropsType, initialStateTyp
 //@ts-ignore
         let userID = this.props.params.userID;
         if (!userID) {
-            userID = 13216
+            userID = this.props.authorizedUserId
         }
         this.props.getProfile(userID)
         this.props.getStatus(userID)
@@ -95,6 +97,8 @@ export const withRouter = (Component: JSXElementConstructor<any>): JSXElementCon
 let mapStateToProps = (state: AppStateType): mapStateToPropsType => ({
     profile: state.profilePage.profile,
     status:state.profilePage.status,
+    authorizedUserId:state.auther.id,
+    isAuth:state.auther.isAuth
 
 
 })
