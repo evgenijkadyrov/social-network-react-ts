@@ -130,4 +130,6 @@ export const UsersContainer =compose<React.ComponentType>(connect(mapStateToProp
     toogleFollowProgress,
     getUsers
 
-}),withAuthRedirect)(UsersAPI)
+}),
+   /* withAuthRedirect*/
+)(UsersAPI)

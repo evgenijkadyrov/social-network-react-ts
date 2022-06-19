@@ -5,6 +5,7 @@ import {usersReducer} from "./users-reducer";
 import {autherReducer} from "./auther-reducer";
 import thunk,{ThunkAction,ThunkDispatch} from 'redux-thunk'
 import { reducer as formReducer } from 'redux-form'
+import {appReducer} from "./app-reducer";
 
 let rootReducer=combineReducers({
 
@@ -12,7 +13,8 @@ let rootReducer=combineReducers({
     dialogsPage:dialogsReducer,
     usersPage:usersReducer,
     auther:autherReducer,
-    form: formReducer
+    form: formReducer,
+    app:appReducer
 })
 
 export type AppStateType=ReturnType<typeof rootReducer>

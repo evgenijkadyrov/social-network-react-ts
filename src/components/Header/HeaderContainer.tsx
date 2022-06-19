@@ -9,10 +9,7 @@ import {usersAPI} from "../../api/api";
 type HeaderContainerPropsType = mapStateToPropsType & mapDispatchToPropsType
 
 class HeaderContainer extends React.Component<HeaderContainerPropsType, InitialStateType> {
-    componentDidMount() {
-        this.props.getAuthUserData()
 
-    }
 
     render() {
 
@@ -35,8 +32,8 @@ let mapStateToProps = (state: AppStateType): mapStateToPropsType => {
 }
 type mapDispatchToPropsType = {
 
-    getAuthUserData: () => void
+
     logout:()=>void
 }
 
-export default connect(mapStateToProps, {getAuthUserData,logout})(HeaderContainer);
+export default connect(mapStateToProps, {logout})(HeaderContainer);
