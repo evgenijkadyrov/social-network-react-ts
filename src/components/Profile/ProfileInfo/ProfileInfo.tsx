@@ -8,8 +8,8 @@ import ProfileStatus from "./ProfileStatus";
 
 type ProfileInfoPropsType = {
     profile: UserProfileType | null
-    status:string
-    updateStatus:(status:string|null)=>void
+    status: string
+    updateStatus: (status: string | null) => void
 }
 
 
@@ -23,7 +23,7 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
                 src='https://imgix.lifehacker.com.au/content/uploads/sites/4/2019/08/23/iia0lwkxmp8dv2tse9at-scaled.jpg?ar=16%3A9&auto=format&fit=crop&q=65&w=832'/>
         </div>
         <div className={s.ava}>
-            {props.profile.photos.large ?<img src={props.profile.photos.large}/>:<img src={noimages}/>}
+            {props.profile.photos.large ? <img src={props.profile.photos.large}/> : <img src={noimages}/>}
             <h3>{props.profile.fullName}</h3>
 
             <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>

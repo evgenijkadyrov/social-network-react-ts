@@ -2,7 +2,7 @@ import React from "react";
 import styles from './Users.module.css'
 import avatarIcon from '../../common/avatars/user.png'
 
-import {getUsers, toogleFollowProgress, UserType} from "../../redux/users-reducer";
+import {requistUsers, toogleFollowProgress, UserType} from "../../redux/users-reducer";
 import {Link} from "react-router-dom";
 import axios from "axios";
 import {usersAPI} from "../../api/api";

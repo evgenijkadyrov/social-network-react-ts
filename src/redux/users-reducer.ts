@@ -84,11 +84,12 @@ type isFetchingType=ReturnType<typeof setToogleIsFetching>
 type toogleFollowProgressType=ReturnType<typeof toogleFollowProgress>
 
 //thunks
-export const getUsers=(currentPage:number, pageSize:number)=>{
+export const requistUsers=(page:number, pageSize:number)=>{
    return (dispatch:Dispatch)=>{
 
    dispatch( setToogleIsFetching(true))
-    usersAPI.getUsers(currentPage, pageSize)
+       dispatch(setCurrentPage(page))
+    usersAPI.getUsers(page, pageSize)
         .then(data => {
 
             dispatch(setToogleIsFetching(false))

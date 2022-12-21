@@ -1,5 +1,5 @@
 import React, {ChangeEvent, createRef} from "react";
-import s from './Dialogs.module.css';
+import s from "../Dialogs/Dialogs.module.css";
 import {Link} from "react-router-dom";
 import {InitialStateType} from "../../redux/dialogs-reducer";
 import {AddMessageReduxForm, FormDataType} from "./Message/Message";
