@@ -14,7 +14,7 @@ let initialState = {
     profile: null,
     status: ''
 }
-type ActionsType=SetUserStatusType| AddPostType|UserProfileType
+type ActionsType=SetUserStatusType| AddPostType|UserProfileType|DeletePostType
 export type initialStateType = typeof initialState
 export const profilePageReducer = (state: initialStateType = initialState, action: ActionsType): initialStateType => {
 
@@ -30,6 +30,8 @@ export const profilePageReducer = (state: initialStateType = initialState, actio
             return {...state, profile: action.profile}
         case "SET_STATUS":
             return {...state, status: action.status}
+        case "DELETE_POST":
+            return{...state, posts: state.posts.filter(post=>post.id!==action.postId)}
         default:
             return state
     }
@@ -41,10 +43,12 @@ export const addPost = (newPostBody:string) => ({type: 'ADD_POST', newPostBody} 
 
 export const setUserProfile = (profile: any) => ({type: 'SET_USER_PROFILE', profile} as const)
 export const setUserStatus = (status: string) => ({type: 'SET_STATUS', status} as const)
+export const deletePost = (postId: number) => ({type: 'DELETE_POST', postId} as const)
 
 //types
 export type SetUserStatusType = ReturnType<typeof setUserStatus>
-type PostType = {
+export type DeletePostType = ReturnType<typeof deletePost>
+export type PostType = {
     id: number, message: string, likesCount: number
 }
 export type AddPostType = ReturnType<typeof addPost>

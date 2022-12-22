@@ -8,7 +8,7 @@ import {Dispatch} from "redux";
 
 const mapStateToProps = (state: AppStateType) => {
     return {
-        profilePage: state.profilePage
+        posts: state.profilePage.posts
     }
 }
 const mapDispatchToProps = (dispatch:Dispatch) => {
