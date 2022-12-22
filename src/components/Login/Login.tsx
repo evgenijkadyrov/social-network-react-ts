@@ -1,9 +1,9 @@
 import React from 'react';
-import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {Input} from "../../common/FormsControls/FormsControls";
+import {InjectedFormProps, reduxForm} from "redux-form";
+import {fieldCreator, Input} from "../../common/FormsControls/FormsControls";
 import {requiredField} from "../../utiles/validation/validators";
 import {connect} from "react-redux";
-import {login, logout} from "../../redux/auther-reducer";
+import {login} from "../../redux/auther-reducer";
 import {Navigate} from "react-router-dom";
 import {AppStateType} from "../../redux/redux-store";
 import style from '../../common/FormsControls/FormsControls.module.css'
@@ -14,23 +14,19 @@ type FormDataType = {
     rememberMe?: boolean
 }
 
-export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props: any) => {
+export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({
+                                                                         handleSubmit,
+                                                                         error
+                                                                     }) => {
 
     return (
 
-        <form onSubmit={props.handleSubmit}>
-            <div>
-                <Field placeholder={'Login'} name={'email'} component={Input} validate={[requiredField]}/>
-            </div>
-            <div>
-                <Field placeholder={'Password'} type={'password'} name={'password'} component={Input}
-                       validate={[requiredField]}/>
-            </div>
-            <div>
-                <Field type={'checkbox'} name={'rememberMe'} component={Input} validate={[requiredField]}/> Remember me
-            </div>
+        <form onSubmit={handleSubmit}>
+            {fieldCreator('Login', 'email',  {Input},  [requiredField])}
+            {fieldCreator('Password', 'password',  {Input},  [requiredField], {type: 'password'})}
+            {fieldCreator('', 'rememberMe',  {Input}, [], {type: 'checkbox'}, 'Remember me')}
 
-                {props.error&&<div className={style.formLoginError}>{props.error} </div>}
+            {error && <div className={style.formLoginError}>{error} </div>}
 
             <div>
                 <button type="submit">Login</button>
@@ -50,6 +46,7 @@ const Login = (props: any) => {
     }
 
     if (props.isAuth) {
+
         return <Navigate to='/profile'/>
     }
     return (

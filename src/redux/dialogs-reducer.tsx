@@ -30,7 +30,7 @@ export type InitialStateType = typeof initialState
 export const dialogsReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
 
     switch (action.type) {
-        case 'ADD_ANSWER':
+        case 'dialogs/ADD_ANSWER':
 
             return {...state, messages: [...state.messages, {id: 4, message: action.newMessageBody}]}
 
@@ -40,7 +40,7 @@ export const dialogsReducer = (state: InitialStateType = initialState, action: A
 
 }
 //actions
-export const addAnswer = (newMessageBody:any) => ({type: 'ADD_ANSWER', newMessageBody} as const)
+export const addAnswer = (newMessageBody:any) => ({type: 'dialogs/ADD_ANSWER', newMessageBody} as const)
 
 
 //types

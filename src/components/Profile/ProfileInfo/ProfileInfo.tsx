@@ -1,5 +1,5 @@
 import React from 'react';
-import s from './ProfileInfo.module.css'
+import s from '../Profile.module.css'
 import {Preloader} from "../../../common/preloader/Preloader";
 import {UserProfileType} from "../ProfileContainer";
 import looking_job from '../../../common/image/man.png'
@@ -14,7 +14,8 @@ type ProfileInfoPropsType = {
 
 
 const ProfileInfo = (props: ProfileInfoPropsType) => {
-    if (!props.profile) {
+    const {profile, status, updateStatus} = props
+    if (!profile) {
         return <Preloader/>
     }
     return <div>
@@ -23,23 +24,28 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
                 src='https://imgix.lifehacker.com.au/content/uploads/sites/4/2019/08/23/iia0lwkxmp8dv2tse9at-scaled.jpg?ar=16%3A9&auto=format&fit=crop&q=65&w=832'/>
         </div>
         <div className={s.ava}>
-            {props.profile.photos.large ? <img src={props.profile.photos.large}/> : <img src={noimages}/>}
-            <h3>{props.profile.fullName}</h3>
+            {profile.photos.large ? <img src={profile.photos.large}/> :
+                <img src={noimages}/>}
+            <h3>{profile.fullName}</h3>
 
-            <ProfileStatusWithHook status={props.status} updateStatus={props.updateStatus}/>
+            <ProfileStatusWithHook status={status} updateStatus={updateStatus}/>
 
             <div className={s.text_title}>About me:</div>
-            <div>{props.profile.aboutMe}</div>
-            {props.profile.lookingForAJob && <div className={s.text_title}>Looking job:
-                <div>{props.profile.lookingForAJobDescription}</div>
+            <div>{profile.aboutMe}</div>
+            {profile.lookingForAJob && <div className={s.text_title}>Looking job:
+                <div>{profile.lookingForAJobDescription}</div>
                 <div><img src={looking_job}/></div>
             </div>}
             <div className={s.text_title}>Contacts:
                 <ul>
-                    {props.profile.contacts.facebook && <li><a href={'#'}>{props.profile.contacts.facebook}</a></li>}
-                    {props.profile.contacts.github && <li><a href={'#'}>{props.profile.contacts.github}</a></li>}
-                    {props.profile.contacts.website && <li><a href={'#'}>{props.profile.contacts.website}</a></li>}
-                    {props.profile.contacts.instagram && <li><a href={'#'}>{props.profile.contacts.instagram}</a></li>}
+                    {profile.contacts.facebook &&
+                        <li><a href={'#'}>{profile.contacts.facebook}</a></li>}
+                    {profile.contacts.github &&
+                        <li><a href={'#'}>{profile.contacts.github}</a></li>}
+                    {profile.contacts.website &&
+                        <li><a href={'#'}>{profile.contacts.website}</a></li>}
+                    {profile.contacts.instagram &&
+                        <li><a href={'#'}>{profile.contacts.instagram}</a></li>}
 
 
                 </ul></div>

@@ -11,12 +11,9 @@ import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
 import {connect} from "react-redux";
-
 import {AppStateType} from "./redux/redux-store";
 import {Preloader} from "./common/preloader/Preloader";
 import {initializedApp} from "./redux/app-reducer";
-
-
 
 class App extends React.Component<any> {
     componentDidMount() {
