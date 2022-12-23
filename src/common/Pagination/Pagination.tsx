@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import styles from './Pagination.module.css'
 
 type PaginationType = {
@@ -6,31 +6,45 @@ type PaginationType = {
     currentPage: number
     totalUsersCount: number
     pageSize: number
-  }
+    pagesToDisplay: number
+}
 
 
 export const Pagination = (props: PaginationType) => {
-  const  {onPageChanged,currentPage,totalUsersCount,pageSize}=props
+    const {onPageChanged, currentPage, totalUsersCount, pageSize, pagesToDisplay} = props
     let pages = [];
+    const stepPagination=5
     let numberPages = Math.ceil(totalUsersCount / pageSize)
     for (let i = 1; i <= numberPages; i++) {
         pages.push(i)
     }
     //numeration pages
-    const pagesToDisplay = 10;
-    let startPage = 1
-    let visiablePages = pages.slice(startPage - 1, startPage + pagesToDisplay)
+    //const pagesToDisplay = 10;
+    const [page, setPage] = useState(currentPage)
+    //let startPage = 1
+
+    let visiablePages =page<5? pages.slice(0 , page + pagesToDisplay):pages.slice(page -stepPagination, page + pagesToDisplay/2)
+    const nextPage = (p: number) => {
+
+        onPageChanged(p)
+        setPage(p)
+    }
     return (
         <div>
             <div>
-
+                { page>stepPagination && <button onClick={() => {
+                    setPage(page - 5)
+                }}>previos
+                </button>}
                 {visiablePages.map(p => {
-                    return <span onClick={() => {
-                        onPageChanged(p)
-                    }}
+                    // return <span onClick={() => { onPageChanged(p)}}
+                    return <span onClick={() => nextPage(p)}
                                  className={currentPage === p ? styles.selected : ''}>{p}</span>
                 })}
-
+                {page<numberPages-10 && <button onClick={() => {
+                    setPage(page + stepPagination)
+                }}>next
+                </button>}
             </div>
 
         </div>

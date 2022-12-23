@@ -31,7 +31,7 @@ export const Users = (props: UsersType) => {
     return (
         <div>
             <Pagination onPageChanged={onPageChanged} currentPage={currentPage}
-                        totalUsersCount={totalUsersCount} pageSize={pageSize}/>
+                        totalUsersCount={totalUsersCount} pageSize={pageSize} pagesToDisplay={10}/>
             <div>
                 {
                     users.map(ul => <User key={ul.id} user={ul} follow={follow}

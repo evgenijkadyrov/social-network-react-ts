@@ -79,7 +79,10 @@ export class UsersAPI extends React.Component<UsersPropsType, AppStateType> {
     render() {
 
         return <>
-            {this.props.isFetching ? <Preloader/> : null}
+
+                {this.props.isFetching ? <Preloader/> : null}
+
+
 
             <Users onPageChanged={this.onPageChanged}
                    currentPage={this.props.currentPage}
