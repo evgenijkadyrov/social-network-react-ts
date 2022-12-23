@@ -99,7 +99,7 @@ export class UsersAPI extends React.Component<UsersPropsType, AppStateType> {
 }
 
 
-export const UsersContainer = compose<React.ComponentType>(connect(mapStateToProps, {
+ const UsersContainer = compose<React.ComponentType>(connect(mapStateToProps, {
         follow,
         unfollow,
         setCurrentPage,
@@ -108,3 +108,4 @@ export const UsersContainer = compose<React.ComponentType>(connect(mapStateToPro
 
     }),
 )(UsersAPI)
+export default UsersContainer

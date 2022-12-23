@@ -20,6 +20,8 @@ const mapDispatchToProps=(dispatch:Dispatch) =>{
 }
 
 
-export const DialogsContainer=compose<React.ComponentType>(connect(mapStateToProps, mapDispatchToProps),
+ const DialogsContainer=compose<React.ComponentType>(connect(mapStateToProps, mapDispatchToProps),
     withAuthRedirect
 )(Dialogs)
+
+export default DialogsContainer
