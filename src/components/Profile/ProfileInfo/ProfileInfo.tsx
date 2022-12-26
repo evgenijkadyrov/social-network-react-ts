@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import s from '../Profile.module.css'
 import {Preloader} from "../../../common/preloader/Preloader";
 import {UserProfileType} from "../ProfileContainer";
@@ -10,18 +10,29 @@ type ProfileInfoPropsType = {
     profile: UserProfileType | null
     status: string
     updateStatus: (status: string | null) => void
+    isOwner:number
+    savePhoto:(file:File)=>void
 }
 
 
 const ProfileInfo = (props: ProfileInfoPropsType) => {
-    const {profile, status, updateStatus} = props
+    const {profile, status, updateStatus,isOwner} = props
     if (!profile) {
         return <Preloader/>
+    }
+    const savePhoto=(event:ChangeEvent<HTMLInputElement>)=>{
+        if(event.target.files){
+            props.savePhoto(event.target.files[0])
+        }
+
     }
     return <div>
         <div className={s.profile}>
             <img
                 src='https://imgix.lifehacker.com.au/content/uploads/sites/4/2019/08/23/iia0lwkxmp8dv2tse9at-scaled.jpg?ar=16%3A9&auto=format&fit=crop&q=65&w=832'/>
+        </div>
+        <div>
+            {!isOwner && <input type='file' onChange={savePhoto}/>}
         </div>
         <div className={s.ava}>
             {profile.photos.large ? <img src={profile.photos.large}/> :

@@ -11,10 +11,10 @@ let initialState = {
         {id: 3, message: 'You win lottery', likesCount: 55}
     ] as Array<PostType>,
 
-    profile: null,
+    profile: null as UserProfileType|null,
     status: ''
 }
-type ActionsType = SetUserStatusType | AddPostType | UserProfileType | DeletePostType
+type ActionsType = SetUserStatusType | AddPostType | UserProfileType | DeletePostType|SavePhotoType
 export type initialStateType = typeof initialState
 export const profilePageReducer = (state: initialStateType = initialState, action: ActionsType): initialStateType => {
 
@@ -38,6 +38,12 @@ export const profilePageReducer = (state: initialStateType = initialState, actio
             return {
                 ...state,
                 posts: state.posts.filter(post => post.id !== action.postId)
+            }
+        case "profilePage/SAVE_PHOTO":
+            return {
+                //@ts-ignore
+                ...state, profile: {...state.profile,photos:action.file}
+
             }
         default:
             return state
@@ -63,6 +69,11 @@ export const deletePost = (postId: number) => ({
     type: 'profilePage/DELETE_POST',
     postId
 } as const)
+export const savePhotoAC = (file:File) => ({
+    type: 'profilePage/SAVE_PHOTO',
+    file
+} as const)
+
 
 //types
 export type SetUserStatusType = ReturnType<typeof setUserStatus>
@@ -72,6 +83,7 @@ export type PostType = {
 }
 export type AddPostType = ReturnType<typeof addPost>
 export type UserProfileType = ReturnType<typeof setUserProfile>
+export type SavePhotoType = ReturnType<typeof savePhotoAC>
 
 
 //thunks
@@ -93,6 +105,14 @@ export const updateStatus = (status: string) => {
         let response = await profileAPI.updateStatus(status)
         if (response.data.resultCode === 0) {
             dispatch(setUserStatus(status))
+        }
+    }
+}
+export const savePhoto = (file: File) => {
+    return async (dispatch: Dispatch) => {
+        let response = await profileAPI.savePhoto(file)
+        if (response.data.resultCode === 0) {
+            dispatch(savePhotoAC(response.data.data.photos))
         }
     }
 }
