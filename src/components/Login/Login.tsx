@@ -1,65 +1,55 @@
 import React from 'react';
-import {InjectedFormProps, reduxForm} from "redux-form";
-import {FieldCreator, Input} from "../../common/FormsControls/FormsControls";
-import {requiredField} from "../../utiles/validation/validators";
-import {connect} from "react-redux";
-import {login} from "../../redux/auther-reducer";
+import {useFormik} from "formik";
 import {Navigate} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
-import style from '../../common/FormsControls/FormsControls.module.css'
+import {login} from "../../redux/auther-reducer";
 
-type FormDataType = {
-    email: string
-    password: string
-    rememberMe?: boolean
-}
+const Login = () => {
+    const isAuth = useSelector<AppStateType, boolean>(state => state.auther.isAuth)
+    const captchaUrl = useSelector<AppStateType, string | null>(state => state.auther.captchaUrl)
+    const dispatch = useDispatch()
 
-export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({
-                                                                         handleSubmit,
-                                                                         error
-                                                                     }) => {
+    const formik = useFormik({
+        validate: (values) => {
+            if (!values.email) {
+                return {email: 'Email required'}
+            }
+            if (!values.password) {
+                return {password: 'Password required'}
+            }
+        },
+        initialValues: {
+            email: '',
+            password: '',
+            rememberMe: false,
+            captcha: null
+        },
+        onSubmit: values => {
+            dispatch(login(values.email, values.password, values.rememberMe, values.captcha))
+        }
+    })
 
-    return (
-
-        <form onSubmit={handleSubmit}>
-            {FieldCreator('Login', 'email',  {Input},  [requiredField])}
-            {FieldCreator('Password', 'password',  {Input},  [requiredField], {type: 'password'})}
-            {FieldCreator('', 'rememberMe',  {Input}, [], {type: 'checkbox'}, 'Remember me')}
-
-            {error && <div className={style.formLoginError}>{error} </div>}
-
-            <div>
-                <button type="submit">Login</button>
-            </div>
-        </form>
-
-    );
-};
-export const LoginReduxForm = reduxForm<FormDataType>({
-    form: 'login'
-})(LoginForm)
-
-
-const Login = (props: any) => {
-    const onSubmit = (formData: FormDataType) => {
-        props.login(formData.email, formData.password, formData.rememberMe)
-    }
-
-    if (props.isAuth) {
+    if (isAuth) {
 
         return <Navigate to='/profile'/>
     }
-    return (
-        <div>
-            <h1>Login</h1>
-            <LoginReduxForm onSubmit={onSubmit}/>
-        </div>
-    );
-};
-type mapStateToPropsType = {
-    isAuth: boolean
+
+    return <>
+        <form onSubmit={formik.handleSubmit}>
+
+            <input   {...formik.getFieldProps('email')}/>
+            {formik.errors.email ? <div>{formik.errors.email}</div> : null}
+            <input type="password" {...formik.getFieldProps('password')}/>
+            {formik.errors.password ? <div>{formik.errors.password}</div> : null}
+            <input type={'checkbox'} {...formik.getFieldProps('rememberMe')}/>
+            <button type={'submit'} color={'primary'}>
+                Login
+            </button>
+            {captchaUrl && <img src={captchaUrl}/>}
+            {captchaUrl && <input {...formik.getFieldProps('captcha')} type={'text'}/>}
+
+        </form>
+    </>
 }
-const mapStateToProps = (state: AppStateType): mapStateToPropsType => ({
-    isAuth: state.auther.isAuth
-})
-export default connect(mapStateToProps, {login})(Login)
+export default Login
