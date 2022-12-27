@@ -1,6 +1,6 @@
 import React from 'react';
 import {InjectedFormProps, reduxForm} from "redux-form";
-import {fieldCreator, Input} from "../../common/FormsControls/FormsControls";
+import {FieldCreator, Input} from "../../common/FormsControls/FormsControls";
 import {requiredField} from "../../utiles/validation/validators";
 import {connect} from "react-redux";
 import {login} from "../../redux/auther-reducer";
@@ -22,9 +22,9 @@ export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({
     return (
 
         <form onSubmit={handleSubmit}>
-            {fieldCreator('Login', 'email',  {Input},  [requiredField])}
-            {fieldCreator('Password', 'password',  {Input},  [requiredField], {type: 'password'})}
-            {fieldCreator('', 'rememberMe',  {Input}, [], {type: 'checkbox'}, 'Remember me')}
+            {FieldCreator('Login', 'email',  {Input},  [requiredField])}
+            {FieldCreator('Password', 'password',  {Input},  [requiredField], {type: 'password'})}
+            {FieldCreator('', 'rememberMe',  {Input}, [], {type: 'checkbox'}, 'Remember me')}
 
             {error && <div className={style.formLoginError}>{error} </div>}
 

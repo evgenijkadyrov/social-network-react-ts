@@ -24,10 +24,6 @@ export const usersAPI = {
         return instance.delete(`follow/${userId}`)
 
     },
-  /*  getProfile(userId: number) {
-        console.warn('Obsolete method. Please use profileAPI')
-        return profileAPI.getProfile(userId)
-    },*/
 
 }
 
@@ -63,7 +59,10 @@ export const profileAPI = {
             }
 
         })
-    }
+    },
+    saveProfile( profile: any) {
+        return instance.put(`profile`, profile)
+    },
 }
 
 

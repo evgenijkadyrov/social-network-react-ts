@@ -2,6 +2,7 @@ import React from "react";
 
 import {Dispatch} from "redux";
 import {profileAPI} from "../api/api";
+import {UserProfileType} from "../components/Profile/ProfileContainer";
 
 
 let initialState = {
@@ -14,7 +15,7 @@ let initialState = {
     profile: null as UserProfileType|null,
     status: ''
 }
-type ActionsType = SetUserStatusType | AddPostType | UserProfileType | DeletePostType|SavePhotoType
+type ActionsType = SetUserStatusType | AddPostType | UserProfileTypeAC | DeletePostType|SavePhotoType
 export type initialStateType = typeof initialState
 export const profilePageReducer = (state: initialStateType = initialState, action: ActionsType): initialStateType => {
 
@@ -57,7 +58,7 @@ export const addPost = (newPostBody: string) => ({
     newPostBody
 } as const)
 
-export const setUserProfile = (profile: any) => ({
+export const setUserProfile = (profile:UserProfileType) => ({
     type: 'profilePage/SET_USER_PROFILE',
     profile
 } as const)
@@ -82,7 +83,7 @@ export type PostType = {
     id: number, message: string, likesCount: number
 }
 export type AddPostType = ReturnType<typeof addPost>
-export type UserProfileType = ReturnType<typeof setUserProfile>
+export type UserProfileTypeAC = ReturnType<typeof setUserProfile>
 export type SavePhotoType = ReturnType<typeof savePhotoAC>
 
 
@@ -113,6 +114,16 @@ export const savePhoto = (file: File) => {
         let response = await profileAPI.savePhoto(file)
         if (response.data.resultCode === 0) {
             dispatch(savePhotoAC(response.data.data.photos))
+        }
+    }
+}
+export const saveProfile = (profile: any) => {
+    return async (dispatch: Dispatch,getState:any) => {
+        const userId=getState().auther.id
+        let response = await profileAPI.saveProfile(profile)
+        if (response.data.resultCode === 0) {
+                       // @ts-ignore
+            dispatch(getProfile(userId))
         }
     }
 }

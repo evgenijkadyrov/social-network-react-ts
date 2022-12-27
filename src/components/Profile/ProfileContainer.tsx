@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 import {
     getProfile,
     getStatus,
-    initialStateType, savePhoto,
+    initialStateType, savePhoto, saveProfile,
     updateStatus
 } from "../../redux/profilePage-reducer";
 import {AppStateType} from "../../redux/redux-store";
@@ -14,27 +14,31 @@ import {compose} from "redux";
 
 
 export type UserProfileContactType = {
-    facebook: string
-    website: string,
-    vk: string
-    twitter: string
-    instagram: string
-    youtube: string
-    github: string
-    mainLink: string
+    "facebook": string
+    "website": string,
+    "vk": string
+    "twitter": string
+    "instagram": string
+    "youtube": string
+    "github": string
+    "mainLink": string
 }
 export type UserProfilePhotos = {
     small: string
     large: string
 }
-export type UserProfileType = {
+export type UserProfileType = EditUserProfileType&{
+
+    userId: number
+    photos: UserProfilePhotos
+}
+export type EditUserProfileType = {
     aboutMe: string
-    contacts: UserProfileContactType
+    contacts: {[key:string]:string}
     lookingForAJob: boolean
     lookingForAJobDescription: boolean
     fullName: string
-    userId: number
-    photos: UserProfilePhotos
+
 }
 
 type mapStateToPropsType = {
@@ -52,6 +56,7 @@ type mapDispatchToPropsType = {
     getStatus: (userId: number) => void
     updateStatus: (status: string | null) => void
     savePhoto:(file:File)=>void
+    saveProfile:(profile:any)=>void
 }
 
 
@@ -91,7 +96,7 @@ export class ProfileContainer extends React.Component<PropsType, initialStateTyp
                      status={this.props.status} updateStatus={this.props.updateStatus}
                      savePhoto={this.props.savePhoto}
                 // @ts-ignore
-            isOwner={this.props.params.userID}/>
+            isOwner={this.props.params.userID} saveProfile={this.props.saveProfile}/>
 
         </div>
     }
@@ -130,7 +135,8 @@ export default compose<React.ComponentType>(connect(mapStateToProps, {
         getProfile,
         getStatus,
         updateStatus,
-    savePhoto
+    savePhoto,
+    saveProfile
     }),
     withRouter,
     withAuthRedirect

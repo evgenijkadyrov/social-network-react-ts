@@ -1,31 +1,31 @@
-import React, {ChangeEvent} from 'react';
-import s from '../Profile.module.css'
+import React, {ChangeEvent, useState} from 'react';
+import s from './ProfileInfo.module.css'
 import {Preloader} from "../../../common/preloader/Preloader";
-import {UserProfileType} from "../ProfileContainer";
-import looking_job from '../../../common/image/man.png'
 import noimages from '../../../common/avatars/user.png'
+import {ProfilePropsType} from "../Profile";
+import {ProfileData} from "./ProfileData";
 import ProfileStatusWithHook from "./ProfileStatusWithHook";
-
-type ProfileInfoPropsType = {
-    profile: UserProfileType | null
-    status: string
-    updateStatus: (status: string | null) => void
-    isOwner:number
-    savePhoto:(file:File)=>void
-}
+import {ProfileDataForm} from "./ProfileDataForm";
 
 
-const ProfileInfo = (props: ProfileInfoPropsType) => {
-    const {profile, status, updateStatus,isOwner} = props
+const ProfileInfo = (props: ProfilePropsType) => {
+    const {profile, status, updateStatus, isOwner,saveProfile} = props
+    const [editMode,setEditMode]=useState(false)
     if (!profile) {
         return <Preloader/>
     }
-    const savePhoto=(event:ChangeEvent<HTMLInputElement>)=>{
-        if(event.target.files){
+    const savePhoto = (event: ChangeEvent<HTMLInputElement>) => {
+        if (event.target.files) {
             props.savePhoto(event.target.files[0])
         }
 
     }
+    const handleEditMode=()=>{
+        setEditMode(true)
+    }
+const changeEditMode=(value:boolean)=>{
+        setEditMode(value)
+}
     return <div>
         <div className={s.profile}>
             <img
@@ -37,30 +37,14 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
         <div className={s.ava}>
             {profile.photos.large ? <img src={profile.photos.large}/> :
                 <img src={noimages}/>}
-            <h3>{profile.fullName}</h3>
+        </div>
+        {!isOwner && <button onClick={handleEditMode}>Edit profile</button>}
+        <div><b>Status:</b>
 
             <ProfileStatusWithHook status={status} updateStatus={updateStatus}/>
-
-            <div className={s.text_title}>About me:</div>
-            <div>{profile.aboutMe}</div>
-            {profile.lookingForAJob && <div className={s.text_title}>Looking job:
-                <div>{profile.lookingForAJobDescription}</div>
-                <div><img src={looking_job}/></div>
-            </div>}
-            <div className={s.text_title}>Contacts:
-                <ul>
-                    {profile.contacts.facebook &&
-                        <li><a href={'#'}>{profile.contacts.facebook}</a></li>}
-                    {profile.contacts.github &&
-                        <li><a href={'#'}>{profile.contacts.github}</a></li>}
-                    {profile.contacts.website &&
-                        <li><a href={'#'}>{profile.contacts.website}</a></li>}
-                    {profile.contacts.instagram &&
-                        <li><a href={'#'}>{profile.contacts.instagram}</a></li>}
-
-
-                </ul></div>
         </div>
+        {editMode ? <ProfileDataForm changeEditMode={changeEditMode} profile={profile} saveProfile={saveProfile}/>: <ProfileData profile={profile} />}
+
 
 
     </div>
