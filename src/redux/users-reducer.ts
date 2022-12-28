@@ -14,23 +14,16 @@ export type PhotosType = {
 type LocationType = {
     city: string, country: string
 }
-const initialState: InitialStateType = {
-    users: [],
+const initialState = {
+    users: [] as Array<UserType>,
     pageSize: 5,
     totalUsersCount: 50,
     currentPage: 1,
     isFetching: true,
-    followInProgress: []
+    followInProgress: [] as Array<number>
 }
 
-export type InitialStateType = {
-    users: Array<UserType>
-    pageSize: number,
-    totalUsersCount: number,
-    currentPage: number,
-    isFetching: boolean,
-    followInProgress: number[]
-}
+export type InitialStateType = typeof initialState
 export type ActionsType =
     SetUsersType
     | UnFollowType
@@ -40,18 +33,17 @@ export type ActionsType =
     | isFetchingType
     | toogleFollowProgressType
 
-export const usersReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
+export const usersReducer = (state = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case 'users/FOLLOW':
             return {
                 ...state,
-                users: updateObjectInArray(state.users,action.userID,'id',{followed:true})
+                users: updateObjectInArray(state.users, action.userID, 'id', {followed: true})
             }
-
         case 'users/UNFOLLOW':
             return {
                 ...state,
-                users:  updateObjectInArray(state.users,action.userID,'id',{followed:false})
+                users: updateObjectInArray(state.users, action.userID, 'id', {followed: false})
             }
         case 'users/SET_USERS':
             return {...state, users: action.users}

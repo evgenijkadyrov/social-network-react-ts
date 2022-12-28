@@ -1,7 +1,7 @@
-import React, {useState} from "react";
+import React, {FC, useState} from "react";
 import styles from './Pagination.module.css'
 
-type PaginationType = {
+type PaginationPropsType = {
     onPageChanged: (p: number) => void
     currentPage: number
     totalUsersCount: number
@@ -10,7 +10,7 @@ type PaginationType = {
 }
 
 
-export const Pagination = (props: PaginationType) => {
+export const Pagination:FC<PaginationPropsType> = (props) => {
     const {onPageChanged, currentPage, totalUsersCount, pageSize, pagesToDisplay} = props
     let pages = [];
     const stepPagination=5

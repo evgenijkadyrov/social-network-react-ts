@@ -1,23 +1,9 @@
-import React from "react";
-
+import React, {FC} from "react";
 import {UserType} from "../../redux/users-reducer";
 import {Pagination} from "../../common/Pagination/Pagination";
 import {User} from "./User";
 
-type UsersType = {
-    onPageChanged: (p: number) => void
-    currentPage: number
-    totalUsersCount: number
-    pageSize: number
-    unfollow: (userId: number) => void
-    follow: (userId: number) => void
-    users: Array<UserType>
-    followInProgress: number[]
-
-}
-
-
-export const Users = (props: UsersType) => {
+export const Users: FC<UsersType>= (props) => {
     const {
         onPageChanged,
         currentPage,
@@ -43,6 +29,18 @@ export const Users = (props: UsersType) => {
         </div>
     );
 };
+
+type UsersType = {
+    onPageChanged: (p: number) => void
+    currentPage: number
+    totalUsersCount: number
+    pageSize: number
+    unfollow: (userId: number) => void
+    follow: (userId: number) => void
+    users: Array<UserType>
+    followInProgress: number[]
+
+}
 
 
 

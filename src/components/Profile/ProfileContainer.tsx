@@ -24,8 +24,8 @@ export type UserProfileContactType = {
     "mainLink": string
 }
 export type UserProfilePhotos = {
-    small: string
-    large: string
+    small: string|null
+    large: string|null
 }
 export type UserProfileType = EditUserProfileType&{
 
@@ -36,7 +36,7 @@ export type EditUserProfileType = {
     aboutMe: string
     contacts: {[key:string]:string}
     lookingForAJob: boolean
-    lookingForAJobDescription: boolean
+    lookingForAJobDescription: string
     fullName: string
 
 }
@@ -46,8 +46,6 @@ type mapStateToPropsType = {
     status: string
     authorizedUserId: number | null,
     isAuth: boolean
-
-
 
 }
 type mapDispatchToPropsType = {
@@ -89,8 +87,6 @@ export class ProfileContainer extends React.Component<PropsType, initialStateTyp
     }
 
     render() {
-
-
         return <div>
             <Profile {...this.props} profile={this.props.profile}
                      status={this.props.status} updateStatus={this.props.updateStatus}
@@ -101,7 +97,6 @@ export class ProfileContainer extends React.Component<PropsType, initialStateTyp
         </div>
     }
 }
-
 
 export const withRouter = (Component: JSXElementConstructor<any>): JSXElementConstructor<any> => props => {
 

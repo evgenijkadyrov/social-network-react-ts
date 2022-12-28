@@ -1,9 +1,7 @@
 import React from "react";
-
 import {Dispatch} from "redux";
 import {profileAPI} from "../api/api";
-import {UserProfileType} from "../components/Profile/ProfileContainer";
-
+import {UserProfilePhotos, UserProfileType} from "../components/Profile/ProfileContainer";
 
 let initialState = {
     posts: [
@@ -15,9 +13,8 @@ let initialState = {
     profile: null as UserProfileType|null,
     status: ''
 }
-type ActionsType = SetUserStatusType | AddPostType | UserProfileTypeAC | DeletePostType|SavePhotoType
-export type initialStateType = typeof initialState
-export const profilePageReducer = (state: initialStateType = initialState, action: ActionsType): initialStateType => {
+
+export const profilePageReducer = (state = initialState, action: ActionsType): initialStateType => {
 
     switch (action.type) {
         case 'profilePage/ADD_POST':
@@ -28,7 +25,6 @@ export const profilePageReducer = (state: initialStateType = initialState, actio
                     message: action.newPostBody,
                     likesCount: 5
                 }],
-
             }
 
         case "profilePage/SET_USER_PROFILE":
@@ -42,8 +38,8 @@ export const profilePageReducer = (state: initialStateType = initialState, actio
             }
         case "profilePage/SAVE_PHOTO":
             return {
-                //@ts-ignore
-                ...state, profile: {...state.profile,photos:action.file}
+
+                ...state, profile: {...state.profile,photos:action.file}as UserProfileType
 
             }
         default:
@@ -70,7 +66,7 @@ export const deletePost = (postId: number) => ({
     type: 'profilePage/DELETE_POST',
     postId
 } as const)
-export const savePhotoAC = (file:File) => ({
+export const savePhotoAC = (file:UserProfilePhotos) => ({
     type: 'profilePage/SAVE_PHOTO',
     file
 } as const)
@@ -79,9 +75,7 @@ export const savePhotoAC = (file:File) => ({
 //types
 export type SetUserStatusType = ReturnType<typeof setUserStatus>
 export type DeletePostType = ReturnType<typeof deletePost>
-export type PostType = {
-    id: number, message: string, likesCount: number
-}
+export type PostType = { id: number, message: string, likesCount: number}
 export type AddPostType = ReturnType<typeof addPost>
 export type UserProfileTypeAC = ReturnType<typeof setUserProfile>
 export type SavePhotoType = ReturnType<typeof savePhotoAC>
@@ -117,7 +111,7 @@ export const savePhoto = (file: File) => {
         }
     }
 }
-export const saveProfile = (profile: any) => {
+export const saveProfile = (profile: UserProfileType) => {
     return async (dispatch: Dispatch,getState:any) => {
         const userId=getState().auther.id
         let response = await profileAPI.saveProfile(profile)
@@ -127,3 +121,7 @@ export const saveProfile = (profile: any) => {
         }
     }
 }
+
+//types
+type ActionsType = SetUserStatusType | AddPostType | UserProfileTypeAC | DeletePostType|SavePhotoType
+export type initialStateType = typeof initialState

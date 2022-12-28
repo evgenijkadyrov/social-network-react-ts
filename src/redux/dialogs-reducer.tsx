@@ -1,14 +1,5 @@
 import React from "react";
 
-export type DialogType = {
-    id: number,
-    name: string
-}
-export type MessageType = {
-    id: number,
-    message: string
-}
-
 let initialState = {
     messages: [
         {id: 1, message: 'How are you?'},
@@ -24,24 +15,34 @@ let initialState = {
         {id: 5, name: 'Maks'},
     ] as Array<DialogType>
 }
-type ActionsType=AddAnswerType
-export type InitialStateType = typeof initialState
 
-export const dialogsReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
-
+export const dialogsReducer = (state = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case 'dialogs/ADD_ANSWER':
-
-            return {...state, messages: [...state.messages, {id: 4, message: action.newMessageBody}]}
-
+            return {
+                ...state,
+                messages: [...state.messages, {id: 4, message: action.newMessageBody}]
+            }
         default:
             return state
     }
-
 }
-//actions
-export const addAnswer = (newMessageBody:any) => ({type: 'dialogs/ADD_ANSWER', newMessageBody} as const)
 
+//actions
+export const addAnswer = (newMessageBody: string) => ({
+    type: 'dialogs/ADD_ANSWER',
+    newMessageBody
+} as const)
 
 //types
-export type AddAnswerType = ReturnType<typeof addAnswer >
+export type AddAnswerType = ReturnType<typeof addAnswer>
+type DialogType = {
+    id: number,
+    name: string
+}
+type MessageType = {
+    id: number,
+    message: string
+}
+type ActionsType = AddAnswerType
+export type InitialStateType = typeof initialState
