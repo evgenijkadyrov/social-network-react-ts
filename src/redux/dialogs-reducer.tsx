@@ -1,4 +1,5 @@
 import React from "react";
+import {ActionsTypes} from "./redux-store";
 
 let initialState = {
     messages: [
@@ -29,13 +30,16 @@ export const dialogsReducer = (state = initialState, action: ActionsType): Initi
 }
 
 //actions
-export const addAnswer = (newMessageBody: string) => ({
-    type: 'dialogs/ADD_ANSWER',
-    newMessageBody
-} as const)
+export const actions = {
+    addAnswer: (newMessageBody: string) => ({
+        type: 'dialogs/ADD_ANSWER',
+        newMessageBody
+    } as const)
+
+}
 
 //types
-export type AddAnswerType = ReturnType<typeof addAnswer>
+
 type DialogType = {
     id: number,
     name: string
@@ -44,5 +48,5 @@ type MessageType = {
     id: number,
     message: string
 }
-type ActionsType = AddAnswerType
+export type ActionsType = ActionsTypes<typeof actions>
 export type InitialStateType = typeof initialState

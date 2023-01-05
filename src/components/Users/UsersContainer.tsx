@@ -2,10 +2,8 @@ import {connect} from "react-redux";
 import {
     follow,
     InitialStateType,
-    requistUsers,
-    setCurrentPage,
-    toogleFollowProgress,
-    unfollow
+    requestUsers,
+        unfollow
 } from "../../redux/users-reducer";
 import {AppStateType} from "../../redux/redux-store";
 import React from "react";
@@ -68,9 +66,7 @@ export class UsersAPI extends React.Component<UsersPropsType, AppStateType> {
 const UsersContainer = compose(connect<MapStateToProps,MapDispatchToPropsType,null,AppStateType>(mapStateToProps, {
         follow,
         unfollow,
-        setCurrentPage,
-        toogleFollowProgress,
-        getUsers: requistUsers
+        getUsers: requestUsers
 
     }),
 )(UsersAPI)
@@ -86,8 +82,7 @@ type MapStateToProps = {
 type MapDispatchToPropsType = {
     follow: (userId: number) => void
     unfollow: (userId: number) => void
-    setCurrentPage: (currentPage: number) => void
-    toogleFollowProgress: (followInProgress: boolean, userId: number)=>void
+
     getUsers: (page: number, pageSize: number)=>void
 }
 export type UsersPropsType = MapStateToProps & MapDispatchToPropsType

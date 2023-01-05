@@ -1,5 +1,5 @@
 
-import {addAnswer} from "../../redux/dialogs-reducer";
+import {actions} from "../../redux/dialogs-reducer";
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
 import {compose, Dispatch} from "redux";
@@ -15,7 +15,7 @@ const mapStateToProps=(state:AppStateType)=>{
 const mapDispatchToProps=(dispatch:Dispatch) =>{
     return {
 
-        addAnswer:(newMessageBody:any)=>{dispatch(addAnswer(newMessageBody))}
+        addAnswer:(newMessageBody:string)=>{dispatch(actions.addAnswer(newMessageBody))}
     }
 }
 

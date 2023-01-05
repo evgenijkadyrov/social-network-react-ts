@@ -14,10 +14,10 @@ import {initializedApp} from "./redux/app-reducer";
 import Login from "./components/Login/Login";
 
 
-const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'))
+const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
 
 // @ts-ignore
-const UsersContainer = React.lazy(() => import('./components/Users/UsersContainer'))
+const UsersContainer = React.lazy(() => import('./components/Users/UsersContainer'));
 
 class App extends React.Component<any> {
     componentDidMount() {

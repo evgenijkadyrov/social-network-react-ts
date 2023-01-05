@@ -6,6 +6,11 @@ import {autherReducer} from "./auther-reducer";
 import thunk,{ThunkAction,ThunkDispatch} from 'redux-thunk'
 import { reducer as formReducer } from 'redux-form'
 import {appReducer} from "./app-reducer";
+import {ActionsType as AppActionsType} from "./app-reducer";
+import {ActionsType as AutherActionsType} from "./auther-reducer";
+import {ActionsType as DialogsActionsType} from "./dialogs-reducer";
+import {ActionsType as ProfileActionsType} from "./profilePage-reducer";
+import {ActionsType as UsersActionsType} from "./users-reducer";
 
 let rootReducer=combineReducers({
 
@@ -18,16 +23,23 @@ let rootReducer=combineReducers({
 })
 
 export type AppStateType=ReturnType<typeof rootReducer>
+
 const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 export const store = createStore(rootReducer,  composeEnhancers(
     applyMiddleware(thunk)
 ));
 
 //export let store =createStore(rootReducer, applyMiddleware(thunk))
-
+type ActionsType=AppActionsType|AutherActionsType|DialogsActionsType|ProfileActionsType|UsersActionsType
 export type RootState=ReturnType<typeof store.getState>
-export type AppDispatch=ThunkDispatch<RootState,unknown,AnyAction>
-export type AppThunk<ReturnType=void>=ThunkAction<ReturnType, RootState,unknown,AnyAction>
+
+export type AppDispatch=ThunkDispatch<AppStateType,unknown,ActionsType>
+export type AppThunk<ReturnType=void>=ThunkAction<ReturnType, AppStateType,unknown,ActionsType>
+
+type PropertiesTypes <T> =T extends {[key:string]:infer U}?U:never
+export type ActionsTypes<T extends {[key:string]:(...args:any[])=>any}>=ReturnType<PropertiesTypes<T>>
+
+    
 //@ts-ignore
 window.store=store
 

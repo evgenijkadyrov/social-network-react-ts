@@ -1,5 +1,5 @@
 import React from "react";
-import {deletePost, PostType, profilePageReducer} from "./profilePage-reducer";
+import {actions, PostType, profilePageReducer} from "./profilePage-reducer";
 let initialState = {
     posts: [
         {id: 1, message: 'Hey, i\'m new post', likesCount: 9},
@@ -10,7 +10,7 @@ let initialState = {
     status: ''
 }
 test('post should be delete',()=>{
-    let action=deletePost(1)
+    let action=actions.deletePost(1)
     let newState=profilePageReducer(initialState,action)
 
     expect(newState.posts.length).toBe(2)
