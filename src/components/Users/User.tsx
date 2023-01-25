@@ -1,4 +1,4 @@
-import React from "react";
+import React, {FC} from "react";
 import styles from './Users.module.css'
 import avatarIcon from '../../common/avatars/user.png'
 
@@ -13,7 +13,7 @@ type UserTypeProps = {
 }
 
 
-export const User = (props: UserTypeProps) => {
+export const User:FC<UserTypeProps> = (props) => {
     const {user, follow, followInProgress, unfollow} = props
     return (
         <div key={user.id}>

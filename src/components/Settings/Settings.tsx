@@ -1,7 +1,7 @@
 import React from "react";
 
-type SettingsPropsType={}
-export const Settings =(props:SettingsPropsType)=>{
+
+export const Settings =()=>{
     return (
         <div> Setting</div>
     )

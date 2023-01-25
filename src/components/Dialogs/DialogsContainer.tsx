@@ -1,4 +1,3 @@
-
 import {actions} from "../../redux/dialogs-reducer";
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
@@ -12,15 +11,8 @@ const mapStateToProps=(state:AppStateType)=>{
 
     }
 }
-const mapDispatchToProps=(dispatch:Dispatch) =>{
-    return {
 
-        addAnswer:(newMessageBody:string)=>{dispatch(actions.addAnswer(newMessageBody))}
-    }
-}
-
-
- const DialogsContainer=compose<React.ComponentType>(connect(mapStateToProps, mapDispatchToProps),
+ const DialogsContainer=compose<React.ComponentType>(connect(mapStateToProps, {...actions}),
     withAuthRedirect
 )(Dialogs)
 

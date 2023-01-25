@@ -1,27 +1,25 @@
-import React from 'react'
+import React, {FC} from 'react'
 
 import {useFormik} from "formik";
 import s from "./ProfileInfo.module.css";
 import {ProfilePropsType} from "../Profile";
 import {EditUserProfileType, UserProfileType} from "../ProfileContainer";
 
-type ProfileDataForm = {
-    saveProfile: (profile: EditUserProfileType) => void
-    profile: UserProfileType
-    changeEditMode: (value: boolean) => void
-}
-export const ProfileDataForm = (props: ProfileDataForm) => {
+export const ProfileDataForm:FC<ProfileDataForm> = (props) => {
     const {saveProfile, profile, changeEditMode} = props
 
     const formik = useFormik({
 
         validate: (values) => {
-            // if(!values.email) {
-            //     return { email: 'Email required' }
-            // }
-            // if(!values.password){
-            //     return{password:'Password required'}
-            // }
+            if(!values.fullName) {
+                return { fullName: 'FullName required' }
+            }
+            if(!values.lookingForAJobDescription) {
+                return { lookingForAJobDescription: 'LookingForAJobDescription required' }
+            }
+            if(!values.contacts) {
+                return { contacts: 'Contacts required' }
+            }
         },
         initialValues: {
 
@@ -72,6 +70,10 @@ export const ProfileDataForm = (props: ProfileDataForm) => {
             <button type={'submit'}>Save</button>
         </form>
     </div>
+}
 
-
+type ProfileDataForm = {
+    saveProfile: (profile: EditUserProfileType) => void
+    profile: UserProfileType
+    changeEditMode: (value: boolean) => void
 }

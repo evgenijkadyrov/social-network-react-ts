@@ -1,8 +1,6 @@
 import React from "react";
-type NewsPropsTypes={
 
-}
-export const News=(props:NewsPropsTypes)=>{
+export const News=()=>{
     return (
         <div>
 

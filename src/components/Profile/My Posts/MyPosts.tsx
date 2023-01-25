@@ -1,24 +1,29 @@
-import React, {memo} from 'react';
+import React, {FC, memo} from 'react';
 import s from './MyPosts.module.css'
 import Post from "./Post/Post";
 import {PostType} from "../../../redux/profilePage-reducer";
 import {AddNewPostReduxForm} from "./AddNewPost";
 
 
-type MyPostsPropsType = {
+
+export type MapPropsType={
     posts: PostType[]
-    addPost: (newPostBody: string) => void
-
 }
-
-const MyPosts = memo((props: MyPostsPropsType) => {
-
-
-    let addNewPost = (values: any) => {
-        props.addPost(values.newPostBody)
+export type DispatchPropsType={
+    addPost: (newPostBody: string) => void
+}
+export type AddNewPostPropsType ={
+    newPostBody:string
+}
+const MyPosts: FC<MapPropsType&DispatchPropsType> = memo((props) => {
+   const {addPost,posts}=props
+    let addNewPost = (values: AddNewPostPropsType) => {
+        addPost(values.newPostBody)
     }
-    let postElement = props.posts.map(el => <Post message={el.message}
-                                                  likesCount={el.likesCount}/>)
+    let postElement = posts.map(el => <Post
+        key={el.id}
+        message={el.message}
+        likesCount={el.likesCount}/>)
 
     return <div className={s.myPosts}><h3>My posts</h3>
 
@@ -31,6 +36,4 @@ const MyPosts = memo((props: MyPostsPropsType) => {
     </div>
 
 })
-
-
 export default MyPosts;

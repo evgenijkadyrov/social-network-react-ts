@@ -6,7 +6,7 @@ import {
         unfollow
 } from "../../redux/users-reducer";
 import {AppStateType} from "../../redux/redux-store";
-import React from "react";
+import React, {ComponentType} from "react";
 import {Users} from "./Users";
 import {Preloader} from "../../common/preloader/Preloader";
 import {compose} from "redux";
@@ -63,7 +63,7 @@ export class UsersAPI extends React.Component<UsersPropsType, AppStateType> {
     }
 }
 
-const UsersContainer = compose(connect<MapStateToProps,MapDispatchToPropsType,null,AppStateType>(mapStateToProps, {
+const UsersContainer = compose<ComponentType>(connect<MapStateToProps,MapDispatchToPropsType,null,AppStateType>(mapStateToProps, {
         follow,
         unfollow,
         getUsers: requestUsers

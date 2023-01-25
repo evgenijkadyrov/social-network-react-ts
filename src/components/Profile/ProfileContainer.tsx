@@ -1,11 +1,13 @@
 import React, {JSXElementConstructor} from 'react';
-import {useLocation, useNavigate, useParams} from 'react-router-dom'
+import {Link, useLocation, useNavigate, useParams} from 'react-router-dom'
 import Profile from "./Profile";
 import {connect} from "react-redux";
 import {
     getProfile,
     getStatus,
-    initialStateType, savePhoto, saveProfile,
+    initialStateType,
+    savePhoto,
+    saveProfile,
     updateStatus
 } from "../../redux/profilePage-reducer";
 import {AppStateType} from "../../redux/redux-store";
@@ -24,17 +26,17 @@ export type UserProfileContactType = {
     "mainLink": string
 }
 export type UserProfilePhotos = {
-    small: string|null
-    large: string|null
+    small: string | null
+    large: string | null
 }
-export type UserProfileType = EditUserProfileType&{
+export type UserProfileType = EditUserProfileType & {
 
     userId: number
     photos: UserProfilePhotos
 }
 export type EditUserProfileType = {
     aboutMe: string
-    contacts: {[key:string]:string}
+    contacts: { [key: string]: string }
     lookingForAJob: boolean
     lookingForAJobDescription: string
     fullName: string
@@ -50,35 +52,42 @@ type mapStateToPropsType = {
 }
 type mapDispatchToPropsType = {
 
-    getProfile: (userId: number) => void
-    getStatus: (userId: number) => void
+    getProfile: (userId: number|null) => void
+    getStatus: (userId: number|null) => void
     updateStatus: (status: string | null) => void
-    savePhoto:(file:File)=>void
-    saveProfile:(profile:any)=>void
+    savePhoto: (file: File) => void
+    saveProfile: (profile: EditUserProfileType) => void
 }
 
+type PropsType = mapStateToPropsType & mapDispatchToPropsType & PathParamsType
 
-type PropsType = mapStateToPropsType & mapDispatchToPropsType
-
+type PathParamsType = {
+    params: {
+        userID: string
+    }
+}
 
 export class ProfileContainer extends React.Component<PropsType, initialStateType> {
     reloadUser() {
-        //@ts-ignore
-        let userID = this.props.params.userID;
+
+        let userID: number | null = +this.props.params.userID;
         if (!userID) {
 
             userID = this.props.authorizedUserId
+            if (!userID) {
+                <Link to={'/login'}/>
+            }
         }
         this.props.getProfile(userID)
         this.props.getStatus(userID)
     }
 
     componentDidMount() {
-       this.reloadUser()
+        this.reloadUser()
     }
 
-    componentDidUpdate(prevProps: Readonly<PropsType>, prevState: Readonly<initialStateType>, snapshot?: any) {
-        //@ts-ignore
+    componentDidUpdate(prevProps: PropsType, prevState: initialStateType) {
+
         if (this.props.params.userID !== prevProps.params.userID) {
 
             this.reloadUser()
@@ -91,8 +100,9 @@ export class ProfileContainer extends React.Component<PropsType, initialStateTyp
             <Profile {...this.props} profile={this.props.profile}
                      status={this.props.status} updateStatus={this.props.updateStatus}
                      savePhoto={this.props.savePhoto}
-                // @ts-ignore
-            isOwner={this.props.params.userID} saveProfile={this.props.saveProfile}/>
+
+                     isOwner={+this.props.params.userID}
+                     saveProfile={this.props.saveProfile}/>
 
         </div>
     }
@@ -115,14 +125,12 @@ export const withRouter = (Component: JSXElementConstructor<any>): JSXElementCon
 }
 
 
-
 let mapStateToProps = (state: AppStateType): mapStateToPropsType => ({
-    // @ts-ignore
+
     profile: state.profilePage.profile,
     status: state.profilePage.status,
     authorizedUserId: state.auther.id,
     isAuth: state.auther.isAuth
-
 
 
 })
@@ -130,8 +138,8 @@ export default compose<React.ComponentType>(connect(mapStateToProps, {
         getProfile,
         getStatus,
         updateStatus,
-    savePhoto,
-    saveProfile
+        savePhoto,
+        saveProfile
     }),
     withRouter,
     withAuthRedirect

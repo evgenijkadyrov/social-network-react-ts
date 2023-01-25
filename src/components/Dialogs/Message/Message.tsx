@@ -7,7 +7,7 @@ export type FormDataType = {
     message:string
 }
 const maxLength100=maxlengthCreator(100)
-export const AddMessageForm: React.FC<InjectedFormProps<FormDataType>> = (props: any) => {
+export const AddMessageForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
 
     return (
 

@@ -18,10 +18,8 @@ export const Pagination:FC<PaginationPropsType> = (props) => {
     for (let i = 1; i <= numberPages; i++) {
         pages.push(i)
     }
-    //numeration pages
-    //const pagesToDisplay = 10;
+
     const [page, setPage] = useState(currentPage)
-    //let startPage = 1
 
     let visiablePages =page<5? pages.slice(0 , page + pagesToDisplay):pages.slice(page -stepPagination, page + pagesToDisplay/2)
     const nextPage = (p: number) => {
@@ -37,7 +35,6 @@ export const Pagination:FC<PaginationPropsType> = (props) => {
                 }}>previos
                 </button>}
                 {visiablePages.map(p => {
-                    // return <span onClick={() => { onPageChanged(p)}}
                     return <span onClick={() => nextPage(p)}
                                  className={currentPage === p ? styles.selected : ''}>{p}</span>
                 })}

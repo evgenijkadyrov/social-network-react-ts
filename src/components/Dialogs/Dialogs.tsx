@@ -1,4 +1,4 @@
-import React, {ChangeEvent, createRef} from "react";
+import React, {ChangeEvent, createRef, FC} from "react";
 import s from "../Dialogs/Dialogs.module.css";
 import {Link} from "react-router-dom";
 import {InitialStateType} from "../../redux/dialogs-reducer";
@@ -7,9 +7,9 @@ import {AddMessageReduxForm, FormDataType} from "./Message/Message";
 
 type DialogsPropsType = {
     dialogsPage: InitialStateType
-    addAnswer: (newMessageBody:any) => void
+    addAnswer: (newMessageBody:string) => void
     updateNewMessageText: (newText: string) => void
-    isAuth:boolean
+
 }
 type DialogItemPropsType = {
     name: string,
@@ -26,7 +26,7 @@ const DialogItem = (props: DialogItemPropsType) => {
 type MessagePropsType = {
     message: string
 }
-const Message = (props: MessagePropsType) => {
+const Message:FC<MessagePropsType> = (props) => {
     return (
         <div>
             <div className={s.message}>
@@ -37,14 +37,14 @@ const Message = (props: MessagePropsType) => {
     )
 }
 
-export const Dialogs = (props: DialogsPropsType) => {
+export const Dialogs:FC<DialogsPropsType> = (props) => {
 
-    let dialogsElements = props.dialogsPage.dialogs.map(el => <DialogItem name={el.name} id={el.id}/>);
-    let messagesElements = props.dialogsPage.messages.map(el => <Message message={el.message}/>);
+    let dialogsElements = props.dialogsPage.dialogs.map(el => <DialogItem name={el.name} id={el.id} key={el.id}/>);
+    let messagesElements = props.dialogsPage.messages.map(el => <Message message={el.message} key={el.id}/>);
 
 
 
-let addNewMessage=(values:any)=>{
+let addNewMessage=(values: any)=>{
        props.addAnswer(values.newMessageBody)
 }
     return (

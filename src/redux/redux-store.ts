@@ -36,8 +36,8 @@ export type RootState=ReturnType<typeof store.getState>
 export type AppDispatch=ThunkDispatch<AppStateType,unknown,ActionsType>
 export type AppThunk<ReturnType=void>=ThunkAction<ReturnType, AppStateType,unknown,ActionsType>
 
-type PropertiesTypes <T> =T extends {[key:string]:infer U}?U:never
-export type ActionsTypes<T extends {[key:string]:(...args:any[])=>any}>=ReturnType<PropertiesTypes<T>>
+
+export type ActionsTypes<T> = T extends {[key:string]:(...args:any[])=>infer U}?U :never
 
     
 //@ts-ignore

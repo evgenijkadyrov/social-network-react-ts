@@ -15,11 +15,14 @@ import Login from "./components/Login/Login";
 
 
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
-
-// @ts-ignore
 const UsersContainer = React.lazy(() => import('./components/Users/UsersContainer'));
 
-class App extends React.Component<any> {
+type MapPropsType=ReturnType<typeof mapStateToProps>
+type MapDispatchPropsType={
+    initializedApp:()=>void
+}
+
+class App extends React.Component<MapPropsType&MapDispatchPropsType> {
     componentDidMount() {
         this.props.initializedApp()
     }
@@ -64,10 +67,8 @@ class App extends React.Component<any> {
     }
 }
 
-type mapStateToPropsType = {
-    initialized: boolean
-}
-const mapStateToProps = (state: AppStateType): mapStateToPropsType => ({
+
+const mapStateToProps = (state: AppStateType) => ({
     initialized: state.app.initialized
 })
 

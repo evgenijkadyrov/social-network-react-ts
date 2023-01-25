@@ -1,17 +1,19 @@
-import React from 'react';
+import React, {FC} from 'react';
 import s from './Post.module.css'
+import post_avatar from '../../../../common/image/post_avatar.jpg'
 
 export type PostPropsType = {
     message: string,
     likesCount: number
 }
-const Post = (props: PostPropsType) => {
+const Post:FC<PostPropsType> = (props) => {
+    const {message,likesCount}=props
     return (
         <div className={s.item}><img
-            src={'https://thumbs.dreamstime.com/z/businessman-avatar-image-beard-hairstyle-male-profile-vector-illustration-178545831.jpg'}/>
-            {props.message}
+            src={post_avatar}/>
+            {message}
             <div className={s.likes}>
-                <span> Likes- {props.likesCount}</span>
+                <span> Likes- {likesCount}</span>
             </div>
         </div>
     )
