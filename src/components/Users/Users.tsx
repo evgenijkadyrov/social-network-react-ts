@@ -28,7 +28,7 @@ export const Users: FC = (props) => {
     const followInProgress = useSelector(getFollowInProgress)
 
     useEffect(() => {
-        debugger
+
         let urlTerm = new URLSearchParams(search).get('term')
         let urlFriend = new URLSearchParams(search).get('friend')
         let urlCurrentPageSelect = Number(new URLSearchParams(search).get('page'))
@@ -43,10 +43,10 @@ export const Users: FC = (props) => {
     }, [])
 
     useEffect(() => {
-        debugger
+
         navigate({
             pathname: '/users',
-            search: `?term=${filter.term}` + filter.friend === 'null' ? '' : `&friend=${filter.friend}&page=${currentPage}`
+            search: `?term=${filter.term}&friend=${filter.friend}&page=${currentPage}`
         })
 
     }, [filter, currentPage])
