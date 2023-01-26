@@ -11,11 +11,11 @@ import {connect} from "react-redux";
 import {AppStateType} from "./redux/redux-store";
 import {Preloader} from "./common/preloader/Preloader";
 import {initializedApp} from "./redux/app-reducer";
-import Login from "./components/Login/Login";
+import {Login} from "./components/Login/Login";
 
 
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
-const UsersContainer = React.lazy(() => import('./components/Users/UsersContainer'));
+const UsersPage = React.lazy(() => import('./components/Users/UsersPage'));
 
 type MapPropsType=ReturnType<typeof mapStateToProps>
 type MapDispatchPropsType={
@@ -45,7 +45,7 @@ class App extends React.Component<MapPropsType&MapDispatchPropsType> {
                         <Route path='/users'
                                                         element={
                                    <Suspense fallback={<Preloader/>}>
-                                       <UsersContainer/>
+                                       <UsersPage/>
                                    </Suspense>
                                }/>
                         <Route path={'/dialogs/*'}

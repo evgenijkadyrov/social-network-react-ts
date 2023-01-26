@@ -6,7 +6,7 @@ import {createSelector} from "reselect";
 // export const getUsers=createSelector(getUsersSelector,
 //     (users)=>users.filter(u=>true))
 export const getUsers=(state:AppStateType)=>{
-return state.usersPage
+return state.usersPage.users
 }
 export const getPageSize=(state:AppStateType)=>{
     return state.usersPage.pageSize}
@@ -20,7 +20,7 @@ export const getCurrentPage=(state:AppStateType)=>{
 export const getIsFetching=(state:AppStateType)=>{
     return state.usersPage.isFetching
 }
-export const followInProgress=(state:AppStateType)=>{
+export const getFollowInProgress=(state:AppStateType)=>{
     return state.usersPage.followInProgress
 }
 export const getFilters=(state:AppStateType)=>{
