@@ -22,7 +22,11 @@ const initialState = {
     totalUsersCount: 50,
     currentPage: 1,
     isFetching: true,
-    followInProgress: [] as Array<number>
+    followInProgress: [] as Array<number>,
+    filter:{
+        term:'',
+        friend:null as null|boolean
+    }
 }
 
 
@@ -53,6 +57,8 @@ export const usersReducer = (state = initialState, action: ActionsType): Initial
                     ? [...state.followInProgress, action.userId]
                     : state.followInProgress.filter(id => id !== action.userId)
             }
+        case "users/SET-FILTER":
+            return {...state, filter:action.payload}
         default:
             return state
     }
@@ -88,6 +94,10 @@ export const actions = {
         followInProgress,
         userId
     } as const),
+    setFilter:(filter:FilterType) => ({
+        type:'users/SET-FILTER',
+        payload:filter
+    }as const)
 }
 
 const followUnfollowFlow = async (dispatch: Dispatch<ActionsType>, userId: number, apiMethod: (userId: number) => Promise<ResponseType>, actionCreator: (userId: number) => ActionsType) => {
@@ -100,11 +110,13 @@ const followUnfollowFlow = async (dispatch: Dispatch<ActionsType>, userId: numbe
 }
 
 //thunks
-export const requestUsers = (page: number, pageSize: number): AppThunk => {
+export const requestUsers = (page: number, pageSize: number,filter:FilterType): AppThunk => {
     return async (dispatch) => {
         dispatch(actions.setToogleIsFetching(true))
         dispatch(actions.setCurrentPage(page))
-        let data = await usersAPI.getUsers(page, pageSize)
+        dispatch(actions.setFilter(filter))
+
+        let data = await usersAPI.getUsers(page, pageSize,filter)
         dispatch(actions.setToogleIsFetching(false))
         dispatch(actions.setUsers(data.items))
         dispatch(actions.setTotalUsersCount(data.totalCount))
@@ -126,5 +138,6 @@ export const unfollow = (userId: number,): AppThunk => {
 }
 //types
 export type InitialStateType = typeof initialState
+export type FilterType = typeof initialState.filter
 export type ActionsType = ActionsTypes<typeof actions>
 

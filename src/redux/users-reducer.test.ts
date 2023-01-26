@@ -11,7 +11,8 @@ beforeEach(()=>{
         totalUsersCount: 50,
         currentPage: 1,
         isFetching: true,
-        followInProgress: []
+        followInProgress: [],
+        filter:{term:'', friend:null}
     }
 })
 test(" Follow sucsess", () => {
