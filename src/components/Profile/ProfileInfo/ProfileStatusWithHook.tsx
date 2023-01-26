@@ -2,7 +2,7 @@ import React, {ChangeEvent, FC, useEffect, useState} from 'react';
 
 type ProfileStatusPropsType = {
     status: string
-    updateStatus: (status: string | null) => void
+    updateStatus: (status: string ) => void
 }
 
 export const ProfileStatusWithHook: FC<ProfileStatusPropsType> = (props) => {

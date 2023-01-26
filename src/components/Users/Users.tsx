@@ -12,10 +12,14 @@ import {
     getTotalUsersCount,
     getUsers
 } from "../../redux/users-selector";
+import {useLocation, useNavigate} from "react-router-dom";
 
 export const Users: FC = (props) => {
 
     const dispatch = useDispatch()
+    const search = useLocation().search
+    const navigate = useNavigate()
+
     const filter = useSelector(getFilters)
     const currentPage = useSelector(getCurrentPage)
     const totalUsersCount = useSelector(getTotalUsersCount)
@@ -24,12 +28,34 @@ export const Users: FC = (props) => {
     const followInProgress = useSelector(getFollowInProgress)
 
     useEffect(() => {
-        dispatch(requestUsers(currentPage, pageSize, {term: '', friend: null}))
+        debugger
+        let urlTerm = new URLSearchParams(search).get('term')
+        let urlFriend = new URLSearchParams(search).get('friend')
+        let urlCurrentPageSelect = Number(new URLSearchParams(search).get('page'))
+        let urlFriendConvert = urlFriend === 'null' ? null : urlFriend === 'true'
+        let actualPage = currentPage
+        if (urlCurrentPageSelect) actualPage = urlCurrentPageSelect
+        let actualFilter = filter
+        if (!!urlTerm) actualFilter = {...actualFilter, term: urlTerm}
+        if (!!urlFriend) actualFilter = {...actualFilter, friend: urlFriendConvert}
+
+        dispatch(requestUsers(actualPage, pageSize, actualFilter))
     }, [])
+
+    useEffect(() => {
+        debugger
+        navigate({
+            pathname: '/users',
+            search: `?term=${filter.term}` + filter.friend === 'null' ? '' : `&friend=${filter.friend}&page=${currentPage}`
+        })
+
+    }, [filter, currentPage])
+
     const onPageChanged = (pageNum: number) => {
         dispatch(requestUsers(pageNum, pageSize, filter))
     }
     const onFilterChanged = (filter: FilterType) => {
+        debugger
         dispatch(requestUsers(currentPage, pageSize, filter))
     }
     const followUser = (userId: number) => {

@@ -18,7 +18,7 @@ type LocationType = {
 }
 const initialState = {
     users: [] as Array<UserType>,
-    pageSize: 5,
+    pageSize: 10,
     totalUsersCount: 50,
     currentPage: 1,
     isFetching: true,

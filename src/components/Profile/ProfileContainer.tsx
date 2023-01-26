@@ -44,8 +44,8 @@ export type EditUserProfileType = {
 }
 
 type mapStateToPropsType = {
-    profile: UserProfileType | null
-    status: string
+
+
     authorizedUserId: number | null,
     isAuth: boolean
 
@@ -66,7 +66,9 @@ type PathParamsType = {
         userID: string
     }
 }
+export const ProfilePage=()=>{
 
+}
 export class ProfileContainer extends React.Component<PropsType, initialStateType> {
     reloadUser() {
 
@@ -97,9 +99,9 @@ export class ProfileContainer extends React.Component<PropsType, initialStateTyp
 
     render() {
         return <div>
-            <Profile {...this.props} profile={this.props.profile}
-                     status={this.props.status} updateStatus={this.props.updateStatus}
-                     savePhoto={this.props.savePhoto}
+            <Profile {...this.props}
+
+                      savePhoto={this.props.savePhoto}
 
                      isOwner={+this.props.params.userID}
                      saveProfile={this.props.saveProfile}/>
@@ -127,8 +129,6 @@ export const withRouter = (Component: JSXElementConstructor<any>): JSXElementCon
 
 let mapStateToProps = (state: AppStateType): mapStateToPropsType => ({
 
-    profile: state.profilePage.profile,
-    status: state.profilePage.status,
     authorizedUserId: state.auther.id,
     isAuth: state.auther.isAuth
 
