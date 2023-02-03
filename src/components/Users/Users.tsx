@@ -1,7 +1,7 @@
 import React, {FC, useEffect} from "react";
 import {FilterType, follow, requestUsers, unfollow} from "../../redux/users-reducer";
-import {Pagination} from "../../common/Pagination/Pagination";
 import {User} from "./User";
+import { Pagination } from 'antd';
 import {UsersSearchForm} from "./SearchForm";
 import {useDispatch, useSelector} from "react-redux";
 import {
@@ -13,6 +13,7 @@ import {
     getUsers
 } from "../../redux/users-selector";
 import {useLocation, useNavigate} from "react-router-dom";
+import s from './Users.module.css'
 
 export const Users: FC = (props) => {
 
@@ -55,7 +56,7 @@ export const Users: FC = (props) => {
         dispatch(requestUsers(pageNum, pageSize, filter))
     }
     const onFilterChanged = (filter: FilterType) => {
-        debugger
+
         dispatch(requestUsers(currentPage, pageSize, filter))
     }
     const followUser = (userId: number) => {
@@ -65,19 +66,26 @@ export const Users: FC = (props) => {
         dispatch(unfollow(userId))
     }
     return (
-        <div>
-            <Pagination onPageChanged={onPageChanged} currentPage={currentPage}
-                        totalUsersCount={totalUsersCount} pageSize={pageSize}
-                        pagesToDisplay={10}/>
-            <UsersSearchForm onFilterChanged={onFilterChanged}/>
-            <div>
-                {
-                    users.map(ul => <User key={ul.id} user={ul} follow={followUser}
-                                          unfollow={unfollowUser}
-                                          followInProgress={followInProgress}/>
-                    )
-                }
+        <div className={s.wrapperContainer}>
+            <div className={s.container}>
+
+                <div className={s.pagination}>
+                    <Pagination defaultCurrent={1} total={totalUsersCount} onChange={onPageChanged} />
+                </div>
+                <div className={s.users}>
+                    <UsersSearchForm onFilterChanged={onFilterChanged}/>
+                </div>
+                <h2>Samurai</h2>
+                <div className={s.user}>
+                    {
+                        users.map(ul => <User key={ul.id} user={ul} follow={followUser}
+                                              unfollow={unfollowUser}
+                                              followInProgress={followInProgress}/>
+                        )
+                    }
+                </div>
             </div>
+
         </div>
     );
 };

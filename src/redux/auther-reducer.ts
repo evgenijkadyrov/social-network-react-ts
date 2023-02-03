@@ -9,7 +9,8 @@ const initialState = {
     login: null as string | null,
     email: null as string | null,
     isAuth: false,
-    captchaUrl: null as string | null
+    captchaUrl: null as string | null,
+    name:null as string | null
 }
 
 export const autherReducer = (state = initialState, action: ActionsType): InitialStateType => {
@@ -23,9 +24,9 @@ export const autherReducer = (state = initialState, action: ActionsType): Initia
     }
 }
 export const actions = {
-    setUserData: (id: number | null, login: string | null, email: string | null, isAuth: boolean) => ({
+    setUserData: (id: number | null, login: string | null, email: string | null, isAuth: boolean,captchaUrl:null|string) => ({
         type: 'auth/SET_USER_DATA',
-        data: {id, login, email, isAuth}
+        data: {id, login, email, isAuth,captchaUrl}
     } as const),
 
     getCaptchaUrl: (captchaUrl: string) => ({
@@ -40,7 +41,7 @@ export const getAuthUserData = (): AppThunk => async (dispatch) => {
     let res = await authAPI.authMe()
     if (res.resultCode === ResultCode.Success) {
         let {id, login, email} = res.data
-        dispatch(actions.setUserData(id, login, email, true))
+        dispatch(actions.setUserData(id, login, email, true,null))
     }
 }
 
@@ -68,7 +69,7 @@ export const login = (email: string, password: string, rememberMe: boolean, capt
 export const logout = (): AppThunk => async (dispatch) => {
     let response = await authAPI.logout()
     if (response.resultCode === ResultCode.Success) {
-        dispatch(actions.setUserData(null, null, null, false))
+        dispatch(actions.setUserData(null, null, null, false,null))
     }
 }
 

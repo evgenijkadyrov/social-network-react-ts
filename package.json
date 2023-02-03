@@ -16,6 +16,7 @@
     "@types/react-select": "^5.0.1",
     "@types/redux-form": "^8.3.5",
     "@types/redux-thunk": "^2.1.0",
+    "antd": "^5.1.6",
     "axios": "^0.26.1",
     "formik": "^2.2.9",
     "rc-pagination": "^3.1.15",

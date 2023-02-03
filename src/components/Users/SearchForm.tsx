@@ -3,6 +3,8 @@ import {useFormik} from "formik";
 import {FilterType} from "../../redux/users-reducer";
 import {useSelector} from "react-redux";
 import {getFilters} from "../../redux/users-selector";
+import {Button, Input, Select} from "antd";
+import {SearchOutlined } from '@ant-design/icons';
 
 type PropsType = {
     onFilterChanged: (filter: FilterType) => void
@@ -34,16 +36,16 @@ export const UsersSearchForm: FC<PropsType> = React.memo(({onFilterChanged}) => 
 
         <form onSubmit={formik.handleSubmit}>
 
-            <input   {...formik.getFieldProps('term')}/>
-            <select  {...formik.getFieldProps('friend')}>
+            <Input style={{ width: 250, marginRight:'5px' }} placeholder={'enter user name'} {...formik.getFieldProps('term')}/>
+            <Select style={{ width: 150,marginRight:'5px' }} {...formik.getFieldProps('friend')}>
                 <option value="null">All</option>
                 <option value="true">Followed</option>
                 <option value="false">Unfollowed</option>
-            </select>
+            </Select>
 
-            <button type={'submit'} color={'primary'}>
+            <Button htmlType={'submit'} type={'primary'} icon={<SearchOutlined />} color={'primary'}>
                 Find
-            </button>
+            </Button>
         </form>
     );
 });

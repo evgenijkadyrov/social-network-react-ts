@@ -1,0 +1,24 @@
+.loginForm{
+    margin:0 auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 500px;
+    height: auto;
+    background-color: white;
+    border-radius: 10px;
+}
+.title{
+display: flex;
+    justify-content: center;
+}
+.container{
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+.container span{
+
+}

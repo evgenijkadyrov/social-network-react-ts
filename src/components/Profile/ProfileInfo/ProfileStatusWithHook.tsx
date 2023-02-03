@@ -1,4 +1,7 @@
 import React, {ChangeEvent, FC, useEffect, useState} from 'react';
+import {updateStatus} from "../../../redux/profilePage-reducer";
+import {useDispatch} from "react-redux";
+import {EditOutlined, InfoCircleOutlined} from "@ant-design/icons";
 
 type ProfileStatusPropsType = {
     status: string
@@ -6,10 +9,10 @@ type ProfileStatusPropsType = {
 }
 
 export const ProfileStatusWithHook: FC<ProfileStatusPropsType> = (props) => {
-const{status,updateStatus}=props
+const{status}=props
     const [editMode, setEditMode] = useState(false)
     const [statusNew, setStatus] = useState(status)
-
+const dispatch=useDispatch()
     useEffect(() => {
         setStatus(status)
     }, [status])
@@ -19,7 +22,7 @@ const{status,updateStatus}=props
     }
     const deactivateEditMode = () => {
         setEditMode(false)
-        updateStatus(statusNew)
+        dispatch(updateStatus(statusNew))
     }
     const onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
 
@@ -29,8 +32,11 @@ const{status,updateStatus}=props
         <div>
             {!editMode &&
                 <div>
-                    <span
-                        onDoubleClick={activateEditMode}>{status || 'no status'}</span>
+                    <span onDoubleClick={activateEditMode}>
+                        {status || 'no status'}
+                        <span style={{cursor:'pointer'}} onClick={activateEditMode}>{<EditOutlined/>} </span>
+                    </span>
+
                 </div>}
             {editMode &&
                 <div>

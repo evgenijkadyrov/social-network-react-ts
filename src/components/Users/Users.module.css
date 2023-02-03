@@ -1,5 +1,19 @@
-.userPhoto{
-    width:50px;
-    height:50px;
-    border-radius: 50%;
+.wrapperContainer{
+    max-width: 550px;
+    margin: 0 auto;
 }
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+}
+.container h2{
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+.pagination{
+    margin:15px 0;
+}
+

@@ -1,15 +1,32 @@
 
 .header {
-    grid-area: h;
-    background-color: #f6d570;background: rgb(63,118,251);
-    background: linear-gradient(173deg, rgba(63,118,251,0.8361669242658424) 0%, rgba(215,130,28,0.839258114374034) 98%);
-    border-radius: 10px;
+    display: flex;
+    justify-content: flex-end;
+
+    /*background-color: #f6d570;background: rgb(63,118,251);*/
+    /*background: linear-gradient(173deg, rgba(63,118,251,0.8361669242658424) 0%, rgba(215,130,28,0.839258114374034) 98%);*/
 }
 
-.header img {
-    padding-left: 20px;
-    width: 70px;
+.loginBlock {
+    width: 300px;
+    height: 64px;
 }
-.loginBlock{
-    float: right;
+
+.block {
+height: 100%;
+    display: flex;
+    justify-content: space-around;
+
 }
+.btn{
+    align-self: center;
+}
+.avatar {
+    size: 32px
+}
+
+.name {
+    color: white;
+    margin-left: 10px;
+}
+

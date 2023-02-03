@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import App from './App';
+import {App} from './App';
 
 let posts = [
   {id: 1, message: 'Hey, i\'m new post', likesCount: 9},

@@ -12,6 +12,7 @@ let initialState = {
     ] as Array<PostType>,
 
     profile: null as UserProfileType | null,
+    authProfile:null as UserProfileType | null,
     status: ''
 }
 
@@ -30,6 +31,8 @@ export const profilePageReducer = (state = initialState, action: ActionsType): i
 
         case "profilePage/SET_USER_PROFILE":
             return {...state, profile: action.profile}
+        case "profilePage/SET_AUTH-USER_PROFILE":
+            return {...state, authProfile: action.authProfile}
         case "profilePage/SET_STATUS":
             return {...state, status: action.status}
         case "profilePage/DELETE_POST":
@@ -72,6 +75,10 @@ export const actions = {
         type: 'profilePage/SAVE_PHOTO',
         file
     } as const),
+    setAuthUserProfile: (authProfile: UserProfileType) => ({
+        type: 'profilePage/SET_AUTH-USER_PROFILE',
+        authProfile
+    } as const),
 }
 
 
@@ -79,9 +86,13 @@ export const actions = {
 export const getProfile = (userId: number | null): AppThunk => {
     return async (dispatch) => {
         let data = await profileAPI.getProfile(userId)
+        if(userId===13216){
+            dispatch(actions.setAuthUserProfile(data))
+        }
         dispatch(actions.setUserProfile(data))
     }
 }
+
 export const getStatus = (userId: number | null): AppThunk => {
     return async (dispatch) => {
         let data = await profileAPI.getStatus(userId)

@@ -7,12 +7,12 @@ import {getIsFetching} from "../../redux/users-selector";
 
 const UsersPage = () => {
     const isFetching = useSelector(getIsFetching)
-    return <>
-        <h2>Samurai</h2>
+    return <div>
+
         {isFetching ? <Preloader/> : null}
 
         <Users/>
-    </>
+    </div>
 
 }
 export default UsersPage

@@ -1,49 +1,97 @@
 import React, {FC} from 'react';
-import {useFormik} from "formik";
 import {useDispatch} from "react-redux";
 import {login} from "../../redux/auther-reducer";
+import {Button, Checkbox, Col, Form, Input, Row, Typography} from 'antd';
+import {LockOutlined, UserOutlined} from '@ant-design/icons'
+import s from './Login.module.css'
 
 type LoginFormType = {
     captchaUrl: string | null
 }
+type valuesType = {
+    email: string,
+    password: string,
+    rememberMe: boolean,
+    captcha: string | null
+
+}
+const {Title} = Typography;
 export const LoginForm: FC<LoginFormType> = ({captchaUrl}) => {
 
     const dispatch = useDispatch()
 
-    const formik = useFormik({
-        validate: (values) => {
-            if (!values.email) {
-                return {email: 'Email required'}
-            }
-            if (!values.password) {
-                return {password: 'Password required'}
-            }
-        },
-        initialValues: {
-            email: '',
-            password: '',
-            rememberMe: false,
-            captcha: null
-        },
-        onSubmit: values => {
-            dispatch(login(values.email, values.password, values.rememberMe, values.captcha))
-        }
-    })
+    const onFinish = (values: valuesType) => {
+        dispatch(login(values.email, values.password, values.rememberMe, values.captcha))
+    }
 
-    return <>
-        <form onSubmit={formik.handleSubmit}>
+    return <div className={s.loginForm}>
+        <Title level={3} className={s.title}>Welcome to Social network</Title>
+        <Form
+            className={s.container}
+            name="basic"
+            labelCol={{span: 8}}
+            wrapperCol={{span: 16}}
+            style={{maxWidth: 600}}
+            initialValues={{
+                email: '',
+                password: '',
+                rememberMe: false,
+                captcha: null
+            }}
+            onFinish={onFinish}
+            onFinishFailed={() => alert('Some error')}
+            autoComplete="on"
+        >
+            <Form.Item
+                label="Username"
+                name="email"
+                rules={[{required: true, message: 'Please input your email!'}]}
+            >
+                <Input prefix={<UserOutlined className="site-form-item-icon"/>}/>
+            </Form.Item>
 
-            <input   {...formik.getFieldProps('email')}/>
-            {formik.errors.email ? <div>{formik.errors.email}</div> : null}
-            <input type="password" {...formik.getFieldProps('password')}/>
-            {formik.errors.password ? <div>{formik.errors.password}</div> : null}
-            <input type={'checkbox'} {...formik.getFieldProps('rememberMe')}/>
-            <button type={'submit'} color={'primary'}>
-                Login
-            </button>
-            {captchaUrl && <img src={captchaUrl}/>}
-            {captchaUrl && <input {...formik.getFieldProps('captcha')} type={'text'}/>}
+            <Form.Item
+                label="Password"
+                name="password"
 
-        </form>
-    </>
+                rules={[{required: true, message: 'Please input your password!'}]}
+            >
+                <Input.Password prefix={<LockOutlined className="site-form-item-icon"/>}/>
+            </Form.Item>
+
+            <Form.Item name="rememberMe" valuePropName="checked"
+                       wrapperCol={{offset: 8, span: 16}}>
+                <Checkbox>Remember me</Checkbox>
+            </Form.Item>
+
+            <Form.Item wrapperCol={{offset: 8, span: 16}}>
+
+                {captchaUrl && <Form.Item label="Captcha"
+                                          extra="We must make sure that your are a human.">
+                    <Row gutter={8}>
+                        <Col span={12}>
+                            <img src={captchaUrl}/>
+                            <Form.Item
+                                name="captcha"
+                                noStyle
+                                rules={[{
+                                    required: true,
+                                    message: 'Please input the captcha you got!'
+                                }]}
+                            >
+                                <Input/>
+                            </Form.Item>
+                        </Col>
+
+                    </Row>
+                </Form.Item>}
+
+                <Button type="primary" htmlType="submit">
+                    Submit
+                </Button>
+            </Form.Item>
+
+
+        </Form>
+    </div>
 }
