@@ -1,14 +1,21 @@
 import React, {ChangeEvent, createRef, FC} from "react";
 import s from "../Dialogs/Dialogs.module.css";
 import {Link} from "react-router-dom";
-import {InitialStateType} from "../../redux/dialogs-reducer";
-import {AddMessageReduxForm, FormDataType} from "./Message/Message";
+import {
+    actions,
+    DialogType,
+    InitialStateType,
+    MessageType
+} from "../../redux/dialogs-reducer";
+import {AddMessageForm,  FormDataType} from "./Message/AddMessageForm";
+import {useSelector} from "react-redux";
+import {AppStateType} from "../../redux/redux-store";
 
 
 type DialogsPropsType = {
-    dialogsPage: InitialStateType
-    addAnswer: (newMessageBody:string) => void
-    updateNewMessageText: (newText: string) => void
+    // dialogsPage: InitialStateType
+    // addAnswer: (newMessageBody:string) => void
+    // updateNewMessageText: (newText: string) => void
 
 }
 type DialogItemPropsType = {
@@ -16,37 +23,39 @@ type DialogItemPropsType = {
     id: number
 }
 
-const DialogItem = (props: DialogItemPropsType) => {
+const DialogItem:FC<DialogItemPropsType> = ({id, name}) => {
     return (
         <div className={s.dialog}>
-            <Link to={`dialogs/${props.id}`}>{props.name}</Link>
+            <Link to={`dialogs/${id}`}>{name}</Link>
         </div>
     )
 }
 type MessagePropsType = {
     message: string
 }
-const Message:FC<MessagePropsType> = (props) => {
+const Message:FC<MessagePropsType> = ({message}) => {
     return (
         <div>
             <div className={s.message}>
-                {props.message}
+                {message}
             </div>
 
         </div>
     )
 }
 
-export const Dialogs:FC<DialogsPropsType> = (props) => {
+ const Dialogs:FC<DialogsPropsType> = () => {
+const dialogs=useSelector<AppStateType,DialogType[]>(state=>state.dialogsPage.dialogs)
+const messages=useSelector<AppStateType,MessageType[]>(state=>state.dialogsPage.messages)
 
-    let dialogsElements = props.dialogsPage.dialogs.map(el => <DialogItem name={el.name} id={el.id} key={el.id}/>);
-    let messagesElements = props.dialogsPage.messages.map(el => <Message message={el.message} key={el.id}/>);
+    let dialogsElements = dialogs.map(el => <DialogItem name={el.name} id={el.id} key={el.id}/>);
+    let messagesElements = messages.map(el => <Message message={el.message} key={el.id}/>);
 
 
-
-let addNewMessage=(values: any)=>{
-       props.addAnswer(values.newMessageBody)
-}
+//
+// let addNewMessage=(values: any)=>{
+//        actions.addAnswer(values.newMessageBody)
+// }
     return (
         <div className={s.dialogs}>
             <div className={s.dialogs_items}>
@@ -54,10 +63,11 @@ let addNewMessage=(values: any)=>{
             </div>
             <div className={s.messages}>
                 {messagesElements}
-                <AddMessageReduxForm onSubmit={addNewMessage}/>
+                <AddMessageForm />
 
             </div>
 
         </div>
     )
 }
+export default Dialogs

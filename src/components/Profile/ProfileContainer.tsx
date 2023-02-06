@@ -10,6 +10,8 @@ import {
 } from "../../redux/profilePage-reducer";
 import {AppStateType} from "../../redux/redux-store";
 import s from './ProfileContainer.module.css'
+import {Tag} from "antd";
+import {TwitterOutlined} from '@ant-design/icons';
 
 export type UserProfileContactType = {
     "facebook": string
@@ -56,7 +58,7 @@ export const ProfileContainer: FC = () => {
     useEffect(() => {
         dispatch(getProfile(userId))
         dispatch(getStatus(userId))
-    }, [userId])
+    }, [userId,dispatch])
     const saveUserPhoto = (file: File) => {
         dispatch(savePhoto(file))
     }

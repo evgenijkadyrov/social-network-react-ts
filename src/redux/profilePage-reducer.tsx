@@ -3,12 +3,13 @@ import {ResultCode} from "../api/api";
 import {UserProfilePhotos, UserProfileType} from "../components/Profile/ProfileContainer";
 import {ActionsTypes, AppThunk} from "./redux-store";
 import {profileAPI} from "../api/profile-api";
+import {v1} from "uuid";
 
 let initialState = {
     posts: [
-        {id: 1, message: 'Hey, i\'m new post', likesCount: 9},
-        {id: 2, message: 'How are you?', likesCount: 15},
-        {id: 3, message: 'You win lottery', likesCount: 55}
+        {id: '1', message: 'Hey, i\'m new post', likesCount: 9},
+        {id: '2', message: 'How are you?', likesCount: 15},
+        {id: '3', message: 'You win lottery', likesCount: 55}
     ] as Array<PostType>,
 
     profile: null as UserProfileType | null,
@@ -19,14 +20,15 @@ let initialState = {
 export const profilePageReducer = (state = initialState, action: ActionsType): initialStateType => {
 
     switch (action.type) {
+
         case 'profilePage/ADD_POST':
             return {
                 ...state,
-                posts: [...state.posts, {
-                    id: 5,
+                posts: [ {
+                    id: v1(),
                     message: action.newPostBody,
-                    likesCount: 5
-                }],
+                    likesCount: 0
+                },...state.posts,],
             }
 
         case "profilePage/SET_USER_PROFILE":
@@ -67,7 +69,7 @@ export const actions = {
         type: 'profilePage/SET_STATUS',
         status
     } as const),
-    deletePost: (postId: number) => ({
+    deletePost: (postId: string|null) => ({
         type: 'profilePage/DELETE_POST',
         postId
     } as const),
@@ -130,7 +132,7 @@ export const saveProfile = (profile: UserProfileType): AppThunk => {
 }
 
 //types
-export type PostType = { id: number | null, message: string, likesCount: number }
+export type PostType = { id: string | null, message: string, likesCount: number }
 export type ActionsType = ActionsTypes<typeof actions>
 
 export type initialStateType = typeof initialState

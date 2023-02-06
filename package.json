@@ -59,6 +59,10 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^4.0.0"
+    "@faker-js/faker": "^7.6.0",
+    "@types/uuid": "^9.0.0",
+    "fakerator": "^0.3.6",
+    "gh-pages": "^4.0.0",
+    "random-fixture-data": "^2.0.19"
   }
 }

@@ -1,24 +1,23 @@
 import React, {FC} from 'react'
-
 import {useFormik} from "formik";
 import s from "./ProfileInfo.module.css";
-import {ProfilePropsType} from "../Profile";
 import {EditUserProfileType, UserProfileType} from "../ProfileContainer";
+import {Button} from "antd";
 
-export const ProfileDataForm:FC<ProfileDataForm> = (props) => {
+export const ProfileDataForm: FC<ProfileDataForm> = (props) => {
     const {saveProfile, profile, changeEditMode} = props
 
     const formik = useFormik({
 
         validate: (values) => {
-            if(!values.fullName) {
-                return { fullName: 'FullName required' }
+            if (!values.fullName) {
+                return {fullName: 'FullName required'}
             }
-            if(!values.lookingForAJobDescription) {
-                return { lookingForAJobDescription: 'LookingForAJobDescription required' }
+            if (!values.lookingForAJobDescription) {
+                return {lookingForAJobDescription: 'LookingForAJobDescription required'}
             }
-            if(!values.contacts) {
-                return { contacts: 'Contacts required' }
+            if (!values.contacts) {
+                return {contacts: 'Contacts required'}
             }
         },
         initialValues: {
@@ -33,6 +32,7 @@ export const ProfileDataForm:FC<ProfileDataForm> = (props) => {
         onSubmit: values => {
             saveProfile(values)
             changeEditMode(false)
+
             //  dispatch(LoginA(values))
         }
     })
@@ -51,23 +51,24 @@ export const ProfileDataForm:FC<ProfileDataForm> = (props) => {
 
             <div className={s.text_title}>Looking
                 job:
-                <input  type={'checkbox'} {...formik.getFieldProps('lookingForAJob')}/>
+                <input type={'checkbox'} {...formik.getFieldProps('lookingForAJob')}/>
                 <div>My professional
                     skills: <input {...formik.getFieldProps('lookingForAJobDescription')}/>
                 </div>
             </div>
             <div className={s.text_title}>Contacts:
                 {Object.keys(profile.contacts).map((key) => {
+
                     return <div key={key}><b>{key}:</b>
                         <input
-                               placeholder={key} {...formik.getFieldProps('contacts.' + key)}
+                            placeholder={key} {...formik.getFieldProps('contacts.' + key)}
                         />
                     </div>
                 })}
 
             </div>
 
-            <button type={'submit'}>Save</button>
+            <Button htmlType={'submit'} type={'primary'}>Save</Button>
         </form>
     </div>
 }

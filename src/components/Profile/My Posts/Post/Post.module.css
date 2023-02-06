@@ -1,16 +1,55 @@
 
+.postContainer {
 
-.item {
-    display: grid;
-    grid-template-columns: 120px auto;
-    color:white;
-    align-items: center;
+    background-color: aliceblue;
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 15px;
 }
-.item img {
+.postBodyContent{
+display: flex;
+    flex-direction: column;
+}
+.postBodyContentHeader{
+    display: grid;
+    grid-template-columns: 2fr 10fr 2fr;
+        padding: 10px;
+}
+.postAvatar img {
     width: 50px;
     height: 50px;
     border-radius: 50%;
+    margin-right: 25px;
 }
-.likes{
-    padding-bottom: 10px;
+.newPost {
+    display: flex;
+    justify-content: flex-end;
+}
+.userInfo{
+    display: flex;
+    flex-direction: column;
+}
+.userInfo_name{
+    font-weight: bold;
+    font-size: 16px;
+}
+.userInfo_date{
+    font-size: 12px;
+    color: #4c4c50;
+    font-style: italic;
+    margin-bottom: 5px;
+}
+.postMessage{
+margin-left:25px;
+    margin-bottom: 15px;
+    font-size:16px;
+
+}
+.reactionItem{
+    margin-left: 10px;
+}
+.reactionItem span{
+   margin-right: 10px;
+    font-size: 16px;
+
 }

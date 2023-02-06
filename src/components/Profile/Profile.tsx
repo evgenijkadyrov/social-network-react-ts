@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import MyPostsContainer from "./My Posts/Post/MyPostsContainer";
+import {MyPostsContainer} from "./My Posts/MyPostsContainer";
 import {UserProfileType} from "./ProfileContainer";
 import {useSelector} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
@@ -18,9 +18,11 @@ const Profile: FC<ProfilePagePropsType> = (props) => {
         updateStatus(status)
     }
     return <div className={s.container}>
-        <div className={s.profileInfo}><ProfileInfo  profile={profile} status={status}
+        <div className={s.profileInfo}>
+            <ProfileInfo  profile={profile} status={status}
                            updateStatus={updateProfileStatus} isOwner={isOwner}
-                           savePhoto={savePhoto} saveProfile={saveProfile}/></div>
+                           savePhoto={savePhoto} saveProfile={saveProfile}/>
+        </div>
         <div className={s.myPostsContainer}> <MyPostsContainer/></div>
 
 

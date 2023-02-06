@@ -3,31 +3,34 @@ import { Button, Modal } from 'antd';
 import {InfoCircleOutlined} from "@ant-design/icons";
 import {ProfileDataForm} from "./ProfileDataForm";
 import {ProfileData} from "./ProfileData";
+import {EditUserProfileType, UserProfileType} from "../ProfileContainer";
 
 type ModalProfileInfoType={
+    showModalWindow:boolean
+    callbackOk:()=>void
+    profile:UserProfileType
+    saveProfile:(profile:EditUserProfileType)=>void
+    changeEditMode:(value:boolean)=>void
+    editMode:boolean
 
 }
 export const ModalProfileInfo: React.FC<ModalProfileInfoType> = (props) => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const {showModalWindow,callbackOk,profile,saveProfile,changeEditMode,editMode}=props
 
-    const showModal = () => {
-        setIsModalOpen(true);
-    };
+       const closeEditMode = () => {
 
-    const handleOk = () => {
-        setIsModalOpen(false);
-    };
-
-    const handleCancel = () => {
-        setIsModalOpen(false);
+        changeEditMode(false);
     };
 
     return (
         <>
-            <p style={{cursor:'pointer'}} onClick={showModal}>{<InfoCircleOutlined />} More information</p>
-            <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-
+            <Modal title="Basic Modal" open={showModalWindow} onOk={callbackOk} onCancel={callbackOk} >
+                <ProfileData profile={profile}/>
             </Modal>
+            {editMode && <Modal footer={null} title="Basic Modal" open={editMode} onCancel={closeEditMode}>
+                <ProfileDataForm changeEditMode={changeEditMode} profile={profile}
+                                 saveProfile={saveProfile} />
+            </Modal>}
         </>
     );
 };

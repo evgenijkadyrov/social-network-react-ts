@@ -1,3 +1,30 @@
+.wrapperContainer{
+    width: 600px;
+}
+.container{
+display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+
+}
+.postsHeader{
+    display: grid;
+    grid-template-columns:  10fr 2fr;
+    padding: 10px;
+    margin-top: 15px;
+
+display: flex;
+    justify-content: space-between;
+}
+.postsBody{
+
+}
+.postBodyContentHeader{
+
+}
+.userInfo{
+
+}
 .myPosts{
     padding:10px;
 }

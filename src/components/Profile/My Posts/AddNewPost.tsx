@@ -1,27 +1,44 @@
-import React from 'react';
-import s from "./MyPosts.module.css";
-import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {maxlengthCreator, requiredField} from "../../../utiles/validation/validators";
-import {TextArea} from "../../../common/FormsControls/FormsControls";
-import {AddNewPostPropsType} from "./MyPosts";
+import React, {useState} from 'react';
+import {Button, Modal} from 'antd';
+import {NewPostForm} from "./NewPostForm";
+import {actions} from "../../../redux/profilePage-reducer";
+import {useDispatch} from "react-redux";
+import {PlusOutlined} from '@ant-design/icons';
 
-let maxLength10=maxlengthCreator(10)
-export const AddNewPost:React.FC<InjectedFormProps<AddNewPostPropsType>> = (props) => {
+export const AddNewPost: React.FC = () => {
+    const [open, setOpen] = useState(false);
+    const [confirmLoading, setConfirmLoading] = useState(false);
+
+    const dispatch = useDispatch()
+    const showModal = () => {
+        setOpen(true);
+    };
+       const createPost = (values: { newPostBody: string }) => {
+        dispatch(actions.addPost(values.newPostBody))
+        setOpen(false)
+    }
+
+    const handleCancel = () => {
+
+        setOpen(false);
+    };
+
     return (
-        <form onSubmit={props.handleSubmit}>
-            <div>
-            <Field name={'newPostBody'} component={TextArea} placeholder={'Type here'} validate={[requiredField,maxLength10]}></Field>
-            </div>
-            <div className={s.post}>
-                <button  type={"submit"} className={s.addPost}>Add post</button>
-            </div>
-        </form>
+        <>
+
+            <Button type="text" onClick={showModal}>
+              Add post <PlusOutlined/>
+            </Button>
+            <Modal
+                title="Add new post"
+                open={open}
+               confirmLoading={confirmLoading}
+                onCancel={handleCancel}
+                footer={null}
+            >
+                <NewPostForm callback={createPost} textAreaTitle={'Enter your post'} buttonName={'Add post'}/>
+            </Modal>
+        </>
     );
 };
-
-export const AddNewPostReduxForm=reduxForm<AddNewPostPropsType>({
-    form: 'profileAddPost'
-})(AddNewPost)
-
-
 

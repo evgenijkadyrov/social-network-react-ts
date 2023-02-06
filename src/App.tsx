@@ -27,7 +27,7 @@ import {HeaderCustom} from "./components/Header/Header";
 const {  Content, Footer, Sider } = Layout;
 
 
-const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
+const Dialogs = React.lazy(() => import('./components/Dialogs/Dialogs'));
 const UsersPage = React.lazy(() => import('./components/Users/UsersPage'));
 
 type MenuItem = Required<MenuProps>['items'][number];
@@ -107,7 +107,7 @@ export const App = () => {
                                          <Route path={'/dialogs/*'}
                                                 element={
                                                     <Suspense fallback={<Preloader/>}>
-                                                        <DialogsContainer/>
+                                                        <Dialogs/>
                                                     </Suspense>
                                                 }/>
                                          <Route path={'/news/*'} element={<News/>}/>
