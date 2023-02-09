@@ -1,4 +1,5 @@
 .dialogs {
+    min-height: 100vh;
     display: grid;
     grid-template-columns: 2fr 10fr;
     padding: 10px;

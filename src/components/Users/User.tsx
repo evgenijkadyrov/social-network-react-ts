@@ -1,9 +1,11 @@
-import React, {FC} from "react";
+import React, {FC, useCallback, useEffect} from "react";
 import {UserType} from "../../redux/users-reducer";
 import {UserFoto} from "./UserFoto";
 import {Button} from "antd";
 import s from './User.module.css'
-import {Link} from "react-router-dom";
+import {Link, redirect, useNavigate} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {startDialog} from "../../redux/dialogs-reducer";
 type UserTypeProps = {
     user: UserType
     follow: (userId: number) => void
@@ -14,6 +16,15 @@ type UserTypeProps = {
 
 export const User: FC<UserTypeProps> = (props) => {
     const {user, follow, followInProgress, unfollow} = props
+    const dispatch=useDispatch()
+const navigate=useNavigate()
+        const handleStartDialog=(userId:number)=>{
+            dispatch(startDialog(userId))
+            navigate(`../dialogs/${userId}`,{replace:true})
+        }
+
+
+
     return (
         <div key={user.id} className={s.wrapperContainer}>
             <div className={s.container}>
@@ -31,7 +42,7 @@ export const User: FC<UserTypeProps> = (props) => {
                     <span>{user.location?.city}</span>
                 </div>
                 <div className={s.followBtn}>
-                    {user.followed
+                    <div>{user.followed
                         ? <Button
                             disabled={followInProgress.some(id => id === user.id)}
                             onClick={() => {
@@ -44,9 +55,11 @@ export const User: FC<UserTypeProps> = (props) => {
                             onClick={() => {
                                 follow(user.id)
 
-                            }}>Follow</Button>}
+                            }}>Follow</Button>}</div>
 
-
+                    <div><Button onClick={()=>handleStartDialog(user.id)}>
+                        Sent message
+                    </Button></div>
                 </div>
             </div>
 

@@ -1,0 +1,23 @@
+.wrapperContainer{
+    min-height: 100vh;
+    width:800px;
+    display: flex;
+    margin: 0 auto;
+    justify-content: center;
+    position: relative;
+}
+.messageItem{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+.container{
+    display: flex;
+    flex-direction: column;
+
+}
+.btnBack{
+    position: absolute;
+    left:0;
+    top:0;
+}

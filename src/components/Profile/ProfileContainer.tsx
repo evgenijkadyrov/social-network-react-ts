@@ -1,5 +1,5 @@
 import React, {FC, useEffect} from 'react';
-import {Link, useParams} from 'react-router-dom'
+import {Link, useNavigate, useParams} from 'react-router-dom'
 import Profile from "./Profile";
 import {useDispatch, useSelector} from "react-redux";
 import {
@@ -12,6 +12,7 @@ import {AppStateType} from "../../redux/redux-store";
 import s from './ProfileContainer.module.css'
 import {Tag} from "antd";
 import {TwitterOutlined} from '@ant-design/icons';
+
 
 export type UserProfileContactType = {
     "facebook": string
@@ -43,18 +44,19 @@ export type EditUserProfileType = {
 
 export const ProfileContainer: FC = () => {
     let {userId}: any = useParams()
-
+const navigate=useNavigate()
     const dispatch = useDispatch()
     const authorizedUserId = useSelector<AppStateType>(state => state.auther.id)
     useEffect(() => {
         if (!userId) {
             userId = authorizedUserId
             if (!userId) {
-                <Link to={'/login'}/>
+                navigate('../login',{replace:true})
             }
         }
 
     }, [userId])
+
     useEffect(() => {
         dispatch(getProfile(userId))
         dispatch(getStatus(userId))

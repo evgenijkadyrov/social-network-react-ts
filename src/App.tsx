@@ -24,10 +24,12 @@ import {Breadcrumb, Layout, Menu, theme} from 'antd';
 import {Header} from "antd/es/layout/layout";
 import {HeaderCustom} from "./components/Header/Header";
 
+import {Messages} from "./components/Dialogs/Message/Messages";
+
 const {  Content, Footer, Sider } = Layout;
 
 
-const Dialogs = React.lazy(() => import('./components/Dialogs/Dialogs'));
+const DialogsList = React.lazy(() => import('./components/Dialogs/DialogsList'));
 const UsersPage = React.lazy(() => import('./components/Users/UsersPage'));
 
 type MenuItem = Required<MenuProps>['items'][number];
@@ -58,6 +60,16 @@ const items: MenuItem[] = [
     getItem(<Link  to={'music'}>Music</Link>, '8', <CustomerServiceOutlined /> ),
     getItem(<Link  to={'settings'}>Settings</Link>, '9', <EditOutlined />),
 ];
+
+const routes=[
+
+    {path:'/profile',
+        breadcrumbName:'profile'
+    },
+    {path:'/dialogs',
+        breadcrumbName:'dialogs'
+    },
+]
 export const App = () => {
     const [collapsed, setCollapsed] = useState(false);
     const {
@@ -87,9 +99,11 @@ export const App = () => {
                     {/*<Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}  />*/}
                 </Header>
                 <Content style={{ margin: '0 16px' }}>
-                    <Breadcrumb style={{ margin: '16px 0' }}>
-                        <Breadcrumb.Item>Home</Breadcrumb.Item>
-                        <Breadcrumb.Item><Link to= {'profile'} >Profile</Link></Breadcrumb.Item>
+                    <Breadcrumb style={{ margin: '16px 0' }} >
+
+                        <Breadcrumb.Item><Link to={'profile'}>Profile</Link></Breadcrumb.Item>
+                        <Breadcrumb.Item><Link to={'users'}>Users</Link></Breadcrumb.Item>
+                        <Breadcrumb.Item><Link to={'dialogs'}>Messages</Link></Breadcrumb.Item>
                     </Breadcrumb>
                     <div style={{ padding: 24, minHeight: 360, background: colorBgContainer }}>
                         <div className={'app-wrapper-content'}>
@@ -107,7 +121,13 @@ export const App = () => {
                                          <Route path={'/dialogs/*'}
                                                 element={
                                                     <Suspense fallback={<Preloader/>}>
-                                                        <Dialogs/>
+                                                        <DialogsList/>
+                                                    </Suspense>
+                                                }/>
+                                         <Route path={'/dialogs/:userId'}
+                                                element={
+                                                    <Suspense fallback={<Preloader/>}>
+                                                        <Messages/>
                                                     </Suspense>
                                                 }/>
                                          <Route path={'/news/*'} element={<News/>}/>

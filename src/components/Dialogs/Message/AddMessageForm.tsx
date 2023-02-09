@@ -1,29 +1,29 @@
 import React from 'react';
-import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {TextArea} from "../../../common/FormsControls/FormsControls";
-import {maxlengthCreator, requiredField} from "../../../utiles/validation/validators";
-import {NewPostForm} from "../../Profile/My Posts/NewPostForm";
-import {Button} from "antd";
+
+import {maxlengthCreator} from "../../../utiles/validation/validators";
 import s from './AddMessageForm.module.css'
 import {useDispatch} from "react-redux";
-import {actions} from "../../../redux/dialogs-reducer";
+import {requestMessage} from "../../../redux/dialogs-reducer";
+import {useParams} from "react-router-dom";
+import {NewMessageForm} from "./NewMessageForm";
 
-export type FormDataType = {
-
-}
-const maxLength100=maxlengthCreator(100)
+export type FormDataType = {}
+const maxLength100 = maxlengthCreator(100)
 export const AddMessageForm: React.FC = (props) => {
-    const dispatch=useDispatch()
-    const sentMessage = (values: { newPostBody: string }) => {
-        dispatch(actions.addAnswer(values.newPostBody))
+    const {userId} = useParams()
+    const dispatch = useDispatch()
 
+    const sentMessage = (newPostBody: string ) => {
+
+        if(userId)
+        dispatch(requestMessage(userId, newPostBody))
     }
     return (<div className={s.container}>
-            <NewPostForm callback={sentMessage} textAreaTitle={''} buttonName={'Sent message'} />
+            <NewMessageForm callback={sentMessage} textAreaTitle={''}
+                            buttonName={'Sent messagesss'}/>
 
-    </div>
+        </div>
 
 
     );
 };
-

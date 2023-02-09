@@ -48,8 +48,8 @@ const Message:FC<MessagePropsType> = ({message}) => {
 const dialogs=useSelector<AppStateType,DialogType[]>(state=>state.dialogsPage.dialogs)
 const messages=useSelector<AppStateType,MessageType[]>(state=>state.dialogsPage.messages)
 
-    let dialogsElements = dialogs.map(el => <DialogItem name={el.name} id={el.id} key={el.id}/>);
-    let messagesElements = messages.map(el => <Message message={el.message} key={el.id}/>);
+    let dialogsElements = dialogs.map(el => <DialogItem name={el.userName} id={el.id} key={el.id}/>);
+    let messagesElements = messages.map(el => <Message message={el.body} key={el.id}/>);
 
 
 //

@@ -1,6 +1,6 @@
-import React, {FC} from 'react';
+import React, {FC, useEffect} from 'react';
 import s from './Header.module.css'
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
 import {logout} from "../../redux/auther-reducer";
@@ -10,14 +10,19 @@ import {Avatar, Button} from "antd";
 
 export const HeaderCustom: FC = (props) => {
 
-    const name = useSelector<AppStateType>(state => state.profilePage.authProfile?.fullName)
-    const isAuth = useSelector<AppStateType>(state => state.auther.isAuth)
+    const name = useSelector<AppStateType,string|undefined>(state => state.profilePage.authProfile?.fullName)
+    const isAuth = useSelector<AppStateType,boolean>(state => state.auther.isAuth)
     const avatarUrl = useSelector<AppStateType, string | null | undefined>(state => state.profilePage.authProfile?.photos.small)
-
+const navigate=useNavigate()
     const dispatch = useDispatch()
+    useEffect(()=>{
+        if(!isAuth){
+            navigate('login')
+        }
+    },[isAuth])
     const handleLogout = () => {
-        dispatch(logout())
-    }
+               dispatch(logout())
+            }
 
     return <div className={s.header}>
 
@@ -37,8 +42,8 @@ export const HeaderCustom: FC = (props) => {
                     <span className={s.name}> {name}</span>
 
                 </div>
-                : <Button type="primary"><Link to={'/login'}><LoginOutlined
-                    style={{fontSize: '24x'}}/></Link></Button>
+                : <Button type="primary"><LoginOutlined
+                    style={{fontSize: '24x'}}/></Button>
             }
 
         </div>
