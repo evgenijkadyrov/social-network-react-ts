@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Navigate, useNavigate} from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
 import {LoginForm} from "./LoginForm";
@@ -17,5 +17,7 @@ const navigate=useNavigate()
 
     return <>
         <LoginForm captchaUrl={captchaUrl}/>
+
+
     </>
 }

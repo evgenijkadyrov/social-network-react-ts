@@ -70,7 +70,7 @@ export const LoginForm: FC<LoginFormType> = ({captchaUrl}) => {
                                           extra="We must make sure that your are a human.">
                     <Row gutter={8}>
                         <Col span={12}>
-                            <img src={captchaUrl}/>
+                            <img src={captchaUrl} alt={'captcha'}/>
                             <Form.Item
                                 name="captcha"
                                 noStyle
@@ -93,5 +93,9 @@ export const LoginForm: FC<LoginFormType> = ({captchaUrl}) => {
 
 
         </Form>
+        <h3>You  can use test account</h3>
+        <p>Email: free@samuraijs.com</p>
+
+            <p>Password: free</p>
     </div>
 }
