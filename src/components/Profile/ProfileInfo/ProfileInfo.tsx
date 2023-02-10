@@ -3,7 +3,7 @@ import s from './ProfileInfo.module.css'
 import {Preloader} from "../../../common/preloader/Preloader";
 import noimages from '../../../common/avatars/user.png'
 import {ProfilePropsType} from "../Profile";
-import ProfileStatusWithHook from "./ProfileStatusWithHook";
+import ProfileStatus from "./ProfileStatus";
 import {EditOutlined, InfoCircleOutlined} from '@ant-design/icons';
 import addNewImageIcon from '../../../common/avatars/add-photo-icon.svg'
 import {ModalProfileInfo} from "./ModalProfileInfo";
@@ -45,8 +45,8 @@ const ProfileInfo: FC<ProfilePropsType> = (props) => {
 
             <div className={s.editableAvatarWrapper}>
                 <div className={s.avatar}>
-                    {profile.photos.large ? <img src={profile.photos.large}/> :
-                        <img src={noimages}/>}
+                    {profile.photos.large ? <img src={profile.photos.large} alt={'avatar'}/> :
+                        <img src={noimages} alt={'avatar'}/>}
                 </div>
                 {!isOwner && <div className={s.changePhoto}>
                     <label className={s.changePhoto_label}>
@@ -61,7 +61,7 @@ const ProfileInfo: FC<ProfilePropsType> = (props) => {
             <div className={s.mainInfoContainer}>
                 <div className={s.fullName}><h2>{profile.fullName}</h2></div>
                 <div className={s.status}>
-                    <ProfileStatusWithHook status={status} updateStatus={updateStatus}/>
+                    <ProfileStatus status={status} updateStatus={updateStatus} isOwner={isOwner}/>
                 </div>
                 <div
                     className={s.lookingJob}> {profile.lookingForAJob ? 'Looking for a job' : ''}</div>

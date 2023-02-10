@@ -8,7 +8,7 @@ export const instance = axios.create({
     }
 })
 
-export type getItemsType<T> = {
+export type GetItemsType<T> = {
     items: T,
     totalCount: number,
     error: string

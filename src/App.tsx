@@ -50,26 +50,13 @@ function getItem(
 
 const items: MenuItem[] = [
     getItem(<Link to= {'profile'} >Profile</Link>, '1', <ProfileOutlined />),
-    getItem(<Link to={'users'}>Users</Link>, '2', <UserOutlined />, [
-        getItem('All', '3'),
-        getItem('My friend', '4'),
-        getItem('Unfollowed', '5'),
-    ]),
+    getItem(<Link to={'users'}>Users</Link>, '2', <UserOutlined />, ),
     getItem(<Link to={'dialogs'}>Message</Link>, '6', <MessageOutlined />),
     getItem(<Link  to={'news'}>News</Link>, '7', <FileTextOutlined />),
     getItem(<Link  to={'music'}>Music</Link>, '8', <CustomerServiceOutlined /> ),
     getItem(<Link  to={'settings'}>Settings</Link>, '9', <EditOutlined />),
 ];
 
-const routes=[
-
-    {path:'/profile',
-        breadcrumbName:'profile'
-    },
-    {path:'/dialogs',
-        breadcrumbName:'dialogs'
-    },
-]
 export const App = () => {
     const [collapsed, setCollapsed] = useState(false);
     const {
@@ -141,36 +128,7 @@ export const App = () => {
                 <Footer style={{ textAlign: 'center' }}>Ant Design ©2023 Created by Ant UED</Footer>
             </Layout>
         </Layout>
-        // <div className='app-wrapper'>
-        //     <Header/>
-        //     <Navbar/>
-        //     <div className={'app-wrapper-content'}>
-        //         <Routes>
-        //             <Route path='/profile'
-        //                    element={<ProfileContainer/>}/>
-        //             <Route path='/profile/:userID'
-        //                    element={<ProfileContainer/>}/>
-        //             <Route path='/users'
-        //                    element={
-        //                        <Suspense fallback={<Preloader/>}>
-        //                            <UsersPage/>
-        //                        </Suspense>
-        //                    }/>
-        //             <Route path={'/dialogs/*'}
-        //                    element={
-        //                        <Suspense fallback={<Preloader/>}>
-        //                            <DialogsContainer/>
-        //                        </Suspense>
-        //                    }/>
-        //             <Route path={'/news/*'} element={<News/>}/>
-        //             <Route path={'/music/*'} element={<Music/>}/>
-        //             <Route path={'/settings/*'} element={<Settings/>}/>
-        //             <Route path={'/login'} element={<Login/>}/>
-        //         </Routes>
-        //
-        //     </div>
-        // </div>
-    )
+           )
 
 
 }

@@ -1,18 +1,15 @@
 import React from 'react';
 import {useSelector} from "react-redux";
 import {AppStateType} from "../../../redux/redux-store";
-import {DialogType, MessageType} from "../../../redux/dialogs-reducer";
 import s from "./Messages.module.css";
 import {Message} from "./Message";
 import {AddMessageForm} from "./AddMessageForm";
-import {Button} from "antd";
-import {useNavigate} from "react-router-dom";
-import {ArrowLeftOutlined} from "@ant-design/icons"
 import ButtonBack from "../../../common/ButtonBack/ButtonBack";
+import {ResponseDialogType, ResponseMessageType} from "../../../api/dialogs-api";
 
 export const Messages = () => {
-    const messages = useSelector<AppStateType, MessageType[]>(state => state.dialogsPage.messages)
-    const dialogs = useSelector<AppStateType, DialogType[]>(state => state.dialogsPage.dialogs)
+    const messages = useSelector<AppStateType, ResponseMessageType[]>(state => state.dialogsPage.messages)
+    const dialogs = useSelector<AppStateType, ResponseDialogType[]>(state => state.dialogsPage.dialogs)
 
     return (
         <div className={s.wrapperContainer}>

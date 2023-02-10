@@ -1,11 +1,10 @@
 import React from "react";
 import {ActionsTypes, AppThunk} from "./redux-store";
-import {dialogsAPI} from "../api/dialogs-api";
+import {dialogsAPI, ResponseDialogType, ResponseMessageType} from "../api/dialogs-api";
 
 let initialState = {
-    messages: [] as Array<MessageType>,
-
-    dialogs: [] as Array<DialogType>
+    messages: [] as ResponseMessageType[],
+    dialogs: [] as ResponseDialogType[]
 }
 
 export const dialogsReducer = (state = initialState, action: ActionsType): InitialStateType => {
@@ -29,7 +28,8 @@ export const dialogsReducer = (state = initialState, action: ActionsType): Initi
         case "dialogs/START_DIALOG":
             return {
                 ...state,
-                dialogs:[action.data,...state.dialogs]
+                dialogs:[action.data.data,...state.dialogs],
+                messages: action.data.messages
             }
         case "dialogs/DELETE_MESSAGE":
             return {
@@ -48,11 +48,11 @@ export const actions = {
         type: 'dialogs/ADD_MESSAGE',
         newMessage
     } as const),
-    getMessages: (messages:MessageType[]) => ({
+    getMessages: (messages:ResponseMessageType[]) => ({
         type: 'dialogs/GET_MESSAGES',
         messages
     } as const),
-    getDialogs: (dialogs: DialogType[]) => ({
+    getDialogs: (dialogs: ResponseDialogType[]) => ({
         type: 'dialogs/GET_DIALOGS',
         dialogs
     } as const),
@@ -75,21 +75,21 @@ export const requestDialogs = (): AppThunk => {
 }
 export const startDialog = (userId:number): AppThunk => {
     return async (dispatch) => {
+
         let data = await dialogsAPI.startDialog(userId)
         dispatch(actions.startDialog(data))
+
 
     }
 }
 export const deleteUserMessage = (messageId:string,userId:number): AppThunk => {
     return async (dispatch) => {
         let data = await dialogsAPI.deleteMessage(messageId)
-        dispatch(actions.deleteMessage(data))
+
         if(data.resultCode===0){
+            dispatch(actions.deleteMessage(messageId))
             dispatch(requestMessages(userId))
         }
-
-
-
     }
 }
 export const requestMessages = (userId:number): AppThunk => {
@@ -109,27 +109,5 @@ export const requestMessage = (userId:string,newMessageBody:string): AppThunk =>
 
 //types
 
-export type DialogType = {
-    id: number,
-    userName: string,
-    hasNewMessages: boolean,
-    lastDialogActivityDate: string,
-    lastUserActivityDate: string,
-    newMessagesCount: number,
-    photos: {
-        small: string | null,
-        large: string | null
-    }
-}
-export type MessageType = {
-    id: string,
-    body: string,
-    translatedBody: null,
-    addedAt: string,
-    senderId: number,
-    senderName: string,
-    recipientId: number,
-    viewed: boolean
-}
 export type ActionsType = ActionsTypes<typeof actions>
 export type InitialStateType = typeof initialState

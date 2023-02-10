@@ -3,12 +3,13 @@ import s from './Dialog.module.css'
 import noImageAvatar from "../../common/avatars/user.png";
 import {PlusOutlined, MailOutlined} from '@ant-design/icons';
 
-import {DialogType, requestMessages} from "../../redux/dialogs-reducer";
+import { requestMessages} from "../../redux/dialogs-reducer";
 import {Link} from "react-router-dom";
 import {useDispatch} from "react-redux";
+import {ResponseDialogType} from "../../api/dialogs-api";
 
 export type DialogPropsType = {
-dialog:DialogType
+dialog:ResponseDialogType
 }
 export const Dialog: FC<DialogPropsType> = ({dialog}) => {
     const dispatch=useDispatch()
@@ -22,8 +23,8 @@ const handleUserMessages=(userId:number)=>{
             <div className={s.dialogBodyContent}>
                 <div className={s.dialogBodyContentHeader}>
                     <div className={s.dialogAvatar}>
-                        {dialog.photos.small ? <img src={dialog.photos.small}/> :
-                        <img src={noImageAvatar}/>}
+                        {dialog.photos.small ? <img src={dialog.photos.small} alt={'avatar'}/> :
+                        <img src={noImageAvatar} alt={'avatar'}/>}
                     </div>
 
                     <div className={s.userInfo}>
