@@ -86,9 +86,11 @@ export const actions = {
 
 //thunks
 export const getProfile = (userId: number | null): AppThunk => {
-    return async (dispatch) => {
+    return async (dispatch,getState) => {
+        const state=getState()
+        const authUserId=state.auther.id
         let data = await profileAPI.getProfile(userId)
-        if(userId===13216){
+        if(userId===authUserId){
             dispatch(actions.setAuthUserProfile(data))
         }
         dispatch(actions.setUserProfile(data))

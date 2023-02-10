@@ -27,7 +27,7 @@ export const UsersSearchForm: FC<PropsType> = React.memo(({onFilterChanged}) => 
             friend: String(filter.friend)
         },
         onSubmit: values => {
-debugger
+
             const filter: FilterType = {
                 term: values.term,
                 friend: values.friend === 'null' ? null : values.friend === 'true'

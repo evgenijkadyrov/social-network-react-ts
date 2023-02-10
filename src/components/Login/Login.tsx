@@ -9,11 +9,14 @@ export const Login = () => {
     const captchaUrl = useSelector<AppStateType, string | null>(state => state.auther.captchaUrl)
 const navigate=useNavigate()
     useEffect(()=>{
+        debugger
         if (isAuth) {
-            navigate('/profile')
+            navigate('../profile')
         }
     },[isAuth])
+    useEffect(()=>{
 
+    })
 
     return <>
         <LoginForm captchaUrl={captchaUrl}/>

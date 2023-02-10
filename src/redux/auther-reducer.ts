@@ -3,6 +3,7 @@ import {ActionsTypes, AppThunk} from "./redux-store";
 import {stopSubmit} from "redux-form";
 import {authAPI} from "../api/auth-api";
 import {securityAPI} from "../api/security-api";
+import {getProfile} from "./profilePage-reducer";
 
 const initialState = {
     id: null as number | null,
@@ -42,6 +43,7 @@ export const getAuthUserData = (): AppThunk => async (dispatch) => {
     if (res.resultCode === ResultCode.Success) {
         let {id, login, email} = res.data
         dispatch(actions.setUserData(id, login, email, true,null))
+       dispatch(getProfile(id))
     }
 }
 

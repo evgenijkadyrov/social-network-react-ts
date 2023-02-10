@@ -1,4 +1,4 @@
-import React, {FC, useEffect} from "react";
+import React, {FC, useEffect, useState} from "react";
 import {FilterType, follow, requestUsers, unfollow} from "../../redux/users-reducer";
 import {User} from "./User";
 import { Pagination } from 'antd';
@@ -20,9 +20,8 @@ export const Users: FC = (props) => {
     const dispatch = useDispatch()
     const search = useLocation().search
     const navigate = useNavigate()
-
     const filter = useSelector(getFilters)
-    const currentPage = useSelector(getCurrentPage)
+    let currentPage = useSelector(getCurrentPage)
     const totalUsersCount = useSelector(getTotalUsersCount)
     const pageSize = useSelector(getPageSize)
     const users = useSelector(getUsers)
@@ -54,10 +53,11 @@ export const Users: FC = (props) => {
 
     const onPageChanged = (pageNum: number) => {
         dispatch(requestUsers(pageNum, pageSize, filter))
+
     }
     const onFilterChanged = (filter: FilterType) => {
 
-        dispatch(requestUsers(currentPage, pageSize, filter))
+        dispatch(requestUsers(currentPage=1, pageSize, filter))
     }
     const followUser = (userId: number) => {
         dispatch(follow(userId))
@@ -70,7 +70,7 @@ export const Users: FC = (props) => {
             <div className={s.container}>
 
                 <div className={s.pagination}>
-                    <Pagination defaultCurrent={1} total={totalUsersCount} onChange={onPageChanged} />
+                    <Pagination defaultCurrent={1} total={totalUsersCount} onChange={onPageChanged }/>
                 </div>
                 <div className={s.users}>
                     <UsersSearchForm onFilterChanged={onFilterChanged}/>
