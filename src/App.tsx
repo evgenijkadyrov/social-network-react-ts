@@ -95,6 +95,7 @@ export const App = () => {
                     <div style={{ padding: 24, minHeight: 360, background: colorBgContainer }}>
                         <div className={'app-wrapper-content'}>
                                      <Routes>
+                                         <Route path='/' element={<ProfileContainer/>}/>
                                          <Route path='/profile'
                                                 element={<ProfileContainer/>}/>
                                          <Route path='/profile/:userId'
