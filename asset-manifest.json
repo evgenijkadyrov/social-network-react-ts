@@ -1,25 +1,25 @@
 {
   "files": {
     "main.css": "/social-network-react-ts/static/css/main.78dba7b0.css",
-    "main.js": "/social-network-react-ts/static/js/main.3168cc7c.js",
+    "main.js": "/social-network-react-ts/static/js/main.e4734fdc.js",
     "static/css/971.22ffade1.chunk.css": "/social-network-react-ts/static/css/971.22ffade1.chunk.css",
     "static/js/971.32bed08d.chunk.js": "/social-network-react-ts/static/js/971.32bed08d.chunk.js",
     "static/css/10.ba4d7148.chunk.css": "/social-network-react-ts/static/css/10.ba4d7148.chunk.css",
-    "static/js/10.f236287f.chunk.js": "/social-network-react-ts/static/js/10.f236287f.chunk.js",
+    "static/js/10.1a237328.chunk.js": "/social-network-react-ts/static/js/10.1a237328.chunk.js",
     "static/js/652.b02e0873.chunk.js": "/social-network-react-ts/static/js/652.b02e0873.chunk.js",
     "static/media/preloader.gif": "/social-network-react-ts/static/media/preloader.691e2204d65b5308cfa7.gif",
     "index.html": "/social-network-react-ts/index.html",
     "static/media/add-photo-icon.svg": "/social-network-react-ts/static/media/add-photo-icon.45c01ac057d85fceb6c69513a0fe47bb.svg",
     "main.78dba7b0.css.map": "/social-network-react-ts/static/css/main.78dba7b0.css.map",
-    "main.3168cc7c.js.map": "/social-network-react-ts/static/js/main.3168cc7c.js.map",
+    "main.e4734fdc.js.map": "/social-network-react-ts/static/js/main.e4734fdc.js.map",
     "971.22ffade1.chunk.css.map": "/social-network-react-ts/static/css/971.22ffade1.chunk.css.map",
     "971.32bed08d.chunk.js.map": "/social-network-react-ts/static/js/971.32bed08d.chunk.js.map",
     "10.ba4d7148.chunk.css.map": "/social-network-react-ts/static/css/10.ba4d7148.chunk.css.map",
-    "10.f236287f.chunk.js.map": "/social-network-react-ts/static/js/10.f236287f.chunk.js.map",
+    "10.1a237328.chunk.js.map": "/social-network-react-ts/static/js/10.1a237328.chunk.js.map",
     "652.b02e0873.chunk.js.map": "/social-network-react-ts/static/js/652.b02e0873.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.78dba7b0.css",
-    "static/js/main.3168cc7c.js"
+    "static/js/main.e4734fdc.js"
   ]
 }
